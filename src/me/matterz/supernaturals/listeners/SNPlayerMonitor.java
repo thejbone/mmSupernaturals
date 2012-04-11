@@ -53,8 +53,20 @@ public class SNPlayerMonitor implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerPortal(PlayerPortalEvent event) {
+		if (event.isCancelled()) {
+			return;
+		}
+		if(event.getTo() == null) {
+			return;
+		}
+		if(event.getTo().getWorld() == null) {
+			return;
+		}
 		Player player = event.getPlayer();
-		if (!SupernaturalsPlugin.hasPermissions(event.getPlayer(), worldPermission)
+		if (player == null) {
+			return;
+		}
+		if (!SupernaturalsPlugin.hasPermissions(player, worldPermission)
 				&& SNConfigHandler.multiworld) {
 			return;
 		}
