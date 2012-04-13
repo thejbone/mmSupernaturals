@@ -72,7 +72,9 @@ public class HumanManager extends ClassManager {
 		LivingEntity lDamager = null;
 		EntityDamageEvent e = player.getLastDamageCause();
 
-		plugin.getDataHandler().removePlayerApp(snplayer);
+		if(plugin.getDataHandler().getApps().containsKey(snplayer)) {
+			plugin.getDataHandler().removePlayerApp(snplayer);
+		}
 
 		if (e == null) {
 			return;

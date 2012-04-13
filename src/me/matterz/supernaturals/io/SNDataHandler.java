@@ -143,9 +143,11 @@ public class SNDataHandler implements Serializable {
 	}
 
 	public void removePlayerApp(SuperNPlayer player) {
-		if (hunterApps.containsKey(player)) {
-			hunterApps.remove(player);
-		}
+		hunterApps.remove(player);
+	}
+
+	public HashMap<SuperNPlayer, ArrayList<String>> getApps() {
+		return hunterApps;
 	}
 
 }
