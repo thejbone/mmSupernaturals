@@ -391,6 +391,10 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		return player.hasPermission(permissions);
 	}
 
+	public static boolean hasPermissions(SuperNPlayer player, String permissions) {
+		return instance.getServer().getPlayer(player.getName()).hasPermission(permissions);
+	}
+
 	private WorldGuardPlugin getWorldGuard() {
 		Plugin plugin = getServer().getPluginManager().getPlugin("WorldGuard");
 

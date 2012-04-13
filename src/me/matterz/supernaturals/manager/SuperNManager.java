@@ -117,6 +117,10 @@ public class SuperNManager {
 			SuperNManager.sendMessage(snplayer, "You have not used the \"/sn join\" command!");
 			return;
 		}
+		if(!SupernaturalsPlugin.hasPermissions(snplayer, "supernatural.convert." + superType + ".prevent")) {
+			SuperNManager.sendMessage(snplayer, "You do not have permission to convert to a " + superType);
+			return;
+		}
 		String type = superType.toLowerCase();
 		snplayer.setOldType(snplayer.getType());
 		snplayer.setOldPower(snplayer.getPower());
