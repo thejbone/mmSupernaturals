@@ -181,6 +181,7 @@ public class PriestManager extends HumanManager {
 	// Church //
 	// -------------------------------------------- //
 
+	@SuppressWarnings("deprecation")
 	public void useAltar(Player player) {
 		Location location = player.getLocation();
 		World world = location.getWorld();

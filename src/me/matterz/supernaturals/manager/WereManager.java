@@ -126,6 +126,7 @@ public class WereManager extends ClassManager {
 	// Interact //
 	// -------------------------------------------- //
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean playerInteract(PlayerInteractEvent event) {
 

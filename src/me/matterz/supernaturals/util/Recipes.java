@@ -35,6 +35,7 @@ import org.bukkit.inventory.ItemStack;
 public class Recipes {
 	public Map<Material, Integer> materialQuantities = new HashMap<Material, Integer>();
 
+	@SuppressWarnings("deprecation")
 	public void removeFromPlayer(Player player) {
 		Inventory inventory = player.getInventory();
 		for (Material material : materialQuantities.keySet()) {
