@@ -96,7 +96,7 @@ permissions:
     supernatural.admin.partial.curse:
         default: op
     supernatural.world.enabled:
-        default: true
+        default: false
     supernatural.admin.command.adminhelp:
         default: op
     supernatural.admin.command.cure:
