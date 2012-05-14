@@ -40,6 +40,7 @@ public class SNConfigHandler {
 
 	// Config variables
 	public static Configuration config;
+	public static boolean convertNode;
 	public static boolean debugMode;
 	public static boolean vampireKillSpreadCurse;
 	public static boolean ghoulKillSpreadCurse;
@@ -289,10 +290,12 @@ public class SNConfigHandler {
 	public static void loadValues(Configuration config) {
 		File configFile = new File(plugin.getDataFolder(), "config.yml");
 		if (SNVersionHandler.readVersion() != plugin.getDescription().getVersion() && configFile.exists()) {
+			config.set("UseConvertPermissionNode", false);
 			saveConfig();
 			SNVersionHandler.writeVersion();
 		}
 		if (!configFile.exists()) {
+			config.set("UseConvertPermissionNode", false);
 			config.set("Spanish", false);
 			config.set("DebugMode", false);
 			config.set("MultiWorld", false);
@@ -835,6 +838,7 @@ public class SNConfigHandler {
 			saveConfig();
 		}
 
+		convertNode = config.getBoolean("UseConvertPermissionNode");
 		debugMode = config.getBoolean("DebugMode", false);
 		multiworld = config.getBoolean("MultiWorld", false);
 		enableColors = config.getBoolean("EnableChatColors", true);
