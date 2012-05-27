@@ -72,7 +72,7 @@ public class HumanManager extends ClassManager {
 		LivingEntity lDamager = null;
 		EntityDamageEvent e = player.getLastDamageCause();
 
-		if(plugin.getDataHandler().getApps().containsKey(snplayer)) {
+		if (plugin.getDataHandler().getApps().containsKey(snplayer)) {
 			plugin.getDataHandler().removePlayerApp(snplayer);
 		}
 
@@ -81,7 +81,7 @@ public class HumanManager extends ClassManager {
 		}
 
 		if (e.getCause().equals(DamageCause.FALL)) {
-			if(player.getItemInHand().getType().equals(Material.FEATHER)) {
+			if (player.getItemInHand().getType().equals(Material.FEATHER)) {
 				SuperNManager.sendMessage(snplayer, "Your spirit is lifted");
 				SuperNManager.convert(snplayer, "angel");
 			}
@@ -91,7 +91,8 @@ public class HumanManager extends ClassManager {
 				|| e.getCause().equals(DamageCause.FIRE)
 				|| e.getCause().equals(DamageCause.FIRE_TICK)) {
 			if (player.getWorld().getEnvironment().equals(Environment.NETHER)) {
-				if (plugin.getDemonManager().checkPlayerApp(player) || plugin.getDemonManager().checkInventory(player)) {
+				if (plugin.getDemonManager().checkPlayerApp(player)
+						|| plugin.getDemonManager().checkInventory(player)) {
 					SuperNManager.sendMessage(snplayer, "Hellfire races through your veins!");
 					SuperNManager.convert(snplayer, "demon", SNConfigHandler.demonPowerStart);
 				}

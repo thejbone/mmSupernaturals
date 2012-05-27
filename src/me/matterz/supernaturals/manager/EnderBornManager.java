@@ -137,7 +137,7 @@ public class EnderBornManager extends ClassManager {
 	}
 
 	public int getDeathTimes(SuperNPlayer snplayer) {
-		if(!deathTimesMap.containsKey(snplayer)) {
+		if (!deathTimesMap.containsKey(snplayer)) {
 			deathTimesMap.put(snplayer, 1);
 			return 1;
 		} else {

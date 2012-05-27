@@ -56,10 +56,10 @@ public class SNPlayerMonitor implements Listener {
 		if (event.isCancelled()) {
 			return;
 		}
-		if(event.getTo() == null) {
+		if (event.getTo() == null) {
 			return;
 		}
-		if(event.getTo().getWorld() == null) {
+		if (event.getTo().getWorld() == null) {
 			return;
 		}
 		Player player = event.getPlayer();

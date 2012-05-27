@@ -318,7 +318,7 @@ public class VampireManager extends ClassManager {
 		// Always examine first
 		SuperNManager.sendMessage(snplayer, "This altar looks really evil.");
 
-		if(!SupernaturalsPlugin.hasPermissions(player, "supernatural.player.shrineuse.vampire")) {
+		if (!SupernaturalsPlugin.hasPermissions(player, "supernatural.player.shrineuse.vampire")) {
 			SuperNManager.sendMessage(snplayer, "You cannot use vampire altars.");
 			return;
 		}
@@ -372,7 +372,7 @@ public class VampireManager extends ClassManager {
 		// Always examine first
 		SuperNManager.sendMessage(snplayer, "This altar looks pure and clean.");
 
-		if(!SupernaturalsPlugin.hasPermissions(player, "supernatural.player.shrineuse.vampire")) {
+		if (!SupernaturalsPlugin.hasPermissions(player, "supernatural.player.shrineuse.vampire")) {
 			SuperNManager.sendMessage(snplayer, "You cannot use vampire altars.");
 			return;
 		}
@@ -452,7 +452,7 @@ public class VampireManager extends ClassManager {
 
 	public boolean hasHelmet(Player player) {
 		if (player.getInventory().getHelmet() != null) {
-			if(player.getInventory().getHelmet().getType().toString().equalsIgnoreCase(SNConfigHandler.vampireHelmet)) {
+			if (player.getInventory().getHelmet().getType().toString().equalsIgnoreCase(SNConfigHandler.vampireHelmet)) {
 				return true;
 			}
 		}
@@ -461,9 +461,8 @@ public class VampireManager extends ClassManager {
 
 	public boolean isUnderRoof(Player player) {
 		/*
-		 * We start checking opacity 2 blocks up. As Max Y is 255 there CAN be a
-		 * roof over the player if he is standing in block 253: 255 Solid Block
-		 * 254 253 Player However if he is standing in 254 there is no chance.
+		 * We start checking opacity 2 blocks up. As Max Y is 255 there CAN be a roof over the player if he is standing in block 253: 255 Solid Block 254 253 Player However if he
+		 * is standing in 254 there is no chance.
 		 */
 		boolean retVal = false;
 		Block blockCurrent = player.getLocation().getBlock();

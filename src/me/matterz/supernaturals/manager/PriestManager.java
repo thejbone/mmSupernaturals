@@ -237,7 +237,7 @@ public class PriestManager extends HumanManager {
 								return;
 							}
 							if (SNConfigHandler.priestAltarRecipe.playerHasEnough(player)) {
-								if(!SupernaturalsPlugin.hasPermissions(player, "supernatural.player.shrineuse.priest")) {
+								if (!SupernaturalsPlugin.hasPermissions(player, "supernatural.player.shrineuse.priest")) {
 									SuperNManager.sendMessage(snplayer, "You cannot use priest altars.");
 									return;
 								}

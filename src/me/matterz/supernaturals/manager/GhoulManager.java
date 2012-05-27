@@ -434,9 +434,8 @@ public class GhoulManager extends ClassManager {
 
 	public boolean isUnderRoof(Player player) {
 		/*
-		 * We start checking opacity 2 blocks up. As Max Y is 127 there CAN be a
-		 * roof over the player if he is standing in block 125: 127 Solid Block
-		 * 126 125 Player However if he is standing in 126 there is no chance.
+		 * We start checking opacity 2 blocks up. As Max Y is 127 there CAN be a roof over the player if he is standing in block 125: 127 Solid Block 126 125 Player However if he
+		 * is standing in 126 there is no chance.
 		 */
 		boolean retVal = false;
 		Block blockCurrent = player.getLocation().getBlock();

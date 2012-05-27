@@ -6,9 +6,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class Armor {
 	/**
-	 * http://www.minecraftwiki.net/wiki/Item_Durability#Armor_durability We
-	 * rely on getArmorContents() to return 4 armor pieces in the order of:
-	 * boots, pants, chest, helmet
+	 * http://www.minecraftwiki.net/wiki/Item_Durability#Armor_durability We rely on getArmorContents() to return 4 armor pieces in the order of: boots, pants, chest, helmet
 	 */
 	private static final double armorPoints[] = { 1.5, 3.0, 4.0, 1.5 };
 	private static final double armorPointReduction = 0.04;

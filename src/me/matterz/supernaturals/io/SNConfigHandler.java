@@ -289,7 +289,8 @@ public class SNConfigHandler {
 
 	public static void loadValues(Configuration config) {
 		File configFile = new File(plugin.getDataFolder(), "config.yml");
-		if (SNVersionHandler.readVersion() != plugin.getDescription().getVersion() && configFile.exists()) {
+		if (SNVersionHandler.readVersion() != plugin.getDescription().getVersion()
+				&& configFile.exists()) {
 			config.set("UseConvertPermissionNode", false);
 			saveConfig();
 			SNVersionHandler.writeVersion();

@@ -274,8 +274,12 @@ public class DemonManager extends ClassManager {
 		ItemStack chestplate = inv.getChestplate();
 		ItemStack leggings = inv.getLeggings();
 		ItemStack boots = inv.getBoots();
-		if(helmet != null && chestplate != null && leggings != null && boots != null) {
-			if(helmet.getType().equals(Material.LEATHER_HELMET) && chestplate.getType().equals(Material.LEATHER_CHESTPLATE) && leggings.getType().equals(Material.LEATHER_LEGGINGS) && boots.getType().equals(Material.LEATHER_BOOTS)) {
+		if (helmet != null && chestplate != null && leggings != null
+				&& boots != null) {
+			if (helmet.getType().equals(Material.LEATHER_HELMET)
+					&& chestplate.getType().equals(Material.LEATHER_CHESTPLATE)
+					&& leggings.getType().equals(Material.LEATHER_LEGGINGS)
+					&& boots.getType().equals(Material.LEATHER_BOOTS)) {
 				demonApps.add(player);
 				return true;
 			}

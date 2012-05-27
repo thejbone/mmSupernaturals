@@ -118,8 +118,10 @@ public class SuperNManager {
 			return;
 		}
 		if (SNConfigHandler.convertNode) {
-			if (SupernaturalsPlugin.hasPermissions(snplayer, "supernatural.convert." + superType + ".allow")) {
-				SuperNManager.sendMessage(snplayer, "You do not have permission to convert to a " + superType);
+			if (SupernaturalsPlugin.hasPermissions(snplayer, "supernatural.convert."
+					+ superType + ".allow")) {
+				SuperNManager.sendMessage(snplayer, "You do not have permission to convert to a "
+						+ superType);
 				return;
 			}
 		}
