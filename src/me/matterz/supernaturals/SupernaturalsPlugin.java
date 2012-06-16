@@ -45,6 +45,7 @@ import me.matterz.supernaturals.commands.SNCommandRmTarget;
 import me.matterz.supernaturals.commands.SNCommandSave;
 import me.matterz.supernaturals.commands.SNCommandSetBanish;
 import me.matterz.supernaturals.commands.SNCommandSetChurch;
+import me.matterz.supernaturals.commands.SNCommandSetup;
 import me.matterz.supernaturals.io.SNConfigHandler;
 import me.matterz.supernaturals.io.SNDataHandler;
 import me.matterz.supernaturals.io.SNPlayerHandler;
@@ -233,6 +234,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		commands.add(new SNCommandRmTarget());
 		commands.add(new SNCommandRestartTask());
 		commands.add(new SNCommandJoin());
+		commands.add(new SNCommandSetup());
 
 		entityListener = new SNEntityListener(this);
 		playerListener = new SNPlayerListener(this);
