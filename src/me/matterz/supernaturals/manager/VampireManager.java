@@ -183,6 +183,11 @@ public class VampireManager extends ClassManager {
 		}
 
 		if (!(action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK))) {
+			if(itemMaterial.equals(Material.CAKE)) {
+				event.setCancelled(true);
+				SuperNManager.sendMessage(snplayer, "Vampires can't eat food. You must drink blood instead.");
+				return true;
+			}
 			return false;
 		}
 

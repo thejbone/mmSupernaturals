@@ -289,9 +289,21 @@ public class SNConfigHandler {
 
 	public static void loadValues(Configuration config) {
 		File configFile = new File(plugin.getDataFolder(), "config.yml");
-		if (SNVersionHandler.readVersion() != plugin.getDescription().getVersion()
-				&& configFile.exists()) {
-			config.set("UseConvertPermissionNode", false);
+		if (SNVersionHandler.readVersion() != plugin.getDescription().getVersion() && configFile.exists()) {
+			foodMaterialsString.add("APPLE");
+			foodMaterialsString.add("BREAD");
+			foodMaterialsString.add("COOKED_FISH");
+			foodMaterialsString.add("GRILLED_PORK");
+			foodMaterialsString.add("GOLDEN_APPLE");
+			foodMaterialsString.add("MUSHROOM_SOUP");
+			foodMaterialsString.add("RAW_FISH");
+			foodMaterialsString.add("CAKE");
+			foodMaterialsString.add("COOKIE");
+			foodMaterialsString.add("COOKED_STEAK");
+			foodMaterialsString.add("COOKED_CHICKEN");
+			foodMaterialsString.add("ROTTEN_FLESH");
+			foodMaterialsString.add("MELON");
+			config.set("Material.Food", foodMaterialsString);
 			saveConfig();
 			SNVersionHandler.writeVersion();
 		}
@@ -482,12 +494,12 @@ public class SNConfigHandler {
 				foodMaterialsString.add("GOLDEN_APPLE");
 				foodMaterialsString.add("MUSHROOM_SOUP");
 				foodMaterialsString.add("RAW_FISH");
-				foodMaterialsString.add("PORK");
 				foodMaterialsString.add("CAKE");
 				foodMaterialsString.add("COOKIE");
 				foodMaterialsString.add("COOKED_STEAK");
 				foodMaterialsString.add("COOKED_CHICKEN");
 				foodMaterialsString.add("ROTTEN_FLESH");
+				foodMaterialsString.add("MELON");
 				config.set("Material.Food", foodMaterialsString);
 			}
 
