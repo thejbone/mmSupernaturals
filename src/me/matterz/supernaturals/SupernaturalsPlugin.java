@@ -188,6 +188,8 @@ public class SupernaturalsPlugin extends JavaPlugin {
 			return wereManager;
 		} else if (snplayer.getType().equalsIgnoreCase("enderborn")) {
 			return enderManager;
+		} else if (snplayer.getType().equalsIgnoreCase("angel")) {
+			return angelManager;
 		} else {
 			return humanManager;
 		}
