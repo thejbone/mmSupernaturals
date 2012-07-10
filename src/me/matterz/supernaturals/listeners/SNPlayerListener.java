@@ -66,25 +66,6 @@ public class SNPlayerListener implements Listener {
 		Player player = event.getPlayer();
 		SuperNPlayer snplayer = SuperNManager.get(player);
 
-		ItemStack item = player.getItemInHand();
-		Material itemMaterial = item.getType();
-
-		if (action.equals(Action.RIGHT_CLICK_BLOCK)
-				&& player.getTargetBlock(null, 20).getType() == Material.CLAY) {
-			if (itemMaterial.equals(Material.ENDER_PEARL)) {
-				SuperNManager.sendMessage(snplayer, "The clay changes... it moves...");
-				SuperNManager.sendMessage(snplayer, "It wraps around you, takes over you.");
-				player.playEffect(EntityEffect.HURT);
-				player.playEffect(player.getLocation(), Effect.SMOKE, 5);
-				SuperNManager.convert(snplayer, "enderborn");
-				if (item.getAmount() == 1) {
-					player.setItemInHand(null);
-				} else {
-					item.setAmount(item.getAmount() - 1);
-				}
-				event.setCancelled(true);
-			}
-		}
 		if (!(action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.LEFT_CLICK_AIR))
 				&& event.isCancelled()) {
 			return;

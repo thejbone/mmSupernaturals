@@ -67,8 +67,6 @@ public class SNCommandList extends SNCommand {
 					hunters.add(snplayer.getName());
 				} else if (snplayer.isDemon()) {
 					demons.add(snplayer.getName());
-				} else if (snplayer.isEnderBorn()) {
-					enderborns.add(snplayer.getName());
 				} else if (snplayer.isAngel()) {
 					angels.add(snplayer.getName());
 				}
@@ -150,8 +148,6 @@ public class SNCommandList extends SNCommand {
 				hunters.add(snplayer.getName());
 			} else if (snplayer.isDemon()) {
 				demons.add(snplayer.getName());
-			} else if (snplayer.isEnderBorn()) {
-				enderborns.add(snplayer.getName());
 			} else if (snplayer.isAngel()) {
 				angels.add(snplayer.getName());
 			}

@@ -159,13 +159,6 @@ public class SuperNPlayer implements Serializable {
 		return false;
 	}
 
-	public boolean isEnderBorn() {
-		if (getType().equalsIgnoreCase("enderborn")) {
-			return true;
-		}
-		return false;
-	}
-
 	public boolean isGhoul() {
 		if (getType().equalsIgnoreCase("ghoul")) {
 			return true;

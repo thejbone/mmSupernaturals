@@ -491,8 +491,6 @@ public class SuperNManager {
 			color = ChatColor.GREEN;
 		} else if (snplayer.isDemon()) {
 			color = ChatColor.RED;
-		} else if (snplayer.isEnderBorn()) {
-			color = ChatColor.LIGHT_PURPLE;
 		} else if (snplayer.isAngel()) {
 			color = ChatColor.AQUA;
 		} else {
