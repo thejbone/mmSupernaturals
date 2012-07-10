@@ -236,7 +236,7 @@ public class DemonManager extends ClassManager {
 		ItemStack boots = inv.getBoots();
 
 		if (helmet != null) {
-			if (!SNConfigHandler.demonArmor.contains(helmet.getType())) {
+			if (!SNConfigHandler.demonArmor.contains(helmet.getType()) && !helmet.getType().equals(Material.WOOL)) {
 				inv.setHelmet(null);
 				dropItem(player, helmet);
 			}

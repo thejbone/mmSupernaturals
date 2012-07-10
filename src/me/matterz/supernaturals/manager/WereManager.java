@@ -248,7 +248,7 @@ public class WereManager extends ClassManager {
 		ItemStack boots = inv.getBoots();
 
 		if (helmet != null) {
-			if (!SNConfigHandler.wereArmor.contains(helmet.getType())) {
+			if (!SNConfigHandler.wereArmor.contains(helmet.getType()) && !helmet.getType().equals(Material.WOOL)) {
 				inv.setHelmet(null);
 				dropItem(player, helmet);
 			}

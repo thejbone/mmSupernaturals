@@ -172,7 +172,7 @@ public class GhoulManager extends ClassManager {
 		ItemStack boots = inv.getBoots();
 
 		if (helmet != null) {
-			if (!SNConfigHandler.ghoulArmor.contains(helmet.getType())) {
+			if (!SNConfigHandler.ghoulArmor.contains(helmet.getType()) && !helmet.getType().equals(Material.WOOL)) {
 				inv.setHelmet(null);
 				dropItem(player, helmet);
 			}
