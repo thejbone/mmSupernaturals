@@ -29,6 +29,15 @@ public class AngelManager extends ClassManager {
 	}
 
 	@Override
+	public void deathEvent(Player player) {
+		SuperNPlayer snplayer = SuperNManager.get(player);
+		if(player.getLastDamageCause().equals(DamageCause.LAVA)) {
+			SuperNManager.sendMessage(snplayer, "Unholy Lava has removed your holy powers!");
+			SuperNManager.cure(snplayer);
+		}
+	}
+
+	@Override
 	public double damagerEvent(EntityDamageByEntityEvent event, double damage) {
 		Player player = (Player) event.getEntity();
 		SuperNPlayer snplayer = SuperNManager.get(player);
