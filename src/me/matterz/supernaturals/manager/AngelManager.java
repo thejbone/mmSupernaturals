@@ -39,7 +39,7 @@ public class AngelManager extends ClassManager {
 
 	@Override
 	public double damagerEvent(EntityDamageByEntityEvent event, double damage) {
-		Player player = (Player) event.getEntity();
+		Player player = (Player) event.getDamager();
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		if (event.getEntity() instanceof Animals) {
 			if (player.getItemInHand().getType().equals(Material.DIAMOND_SWORD)) {
