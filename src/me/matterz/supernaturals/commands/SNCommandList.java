@@ -51,7 +51,6 @@ public class SNCommandList extends SNCommand {
 			List<String> priests = new ArrayList<String>();
 			List<String> hunters = new ArrayList<String>();
 			List<String> demons = new ArrayList<String>();
-			List<String> enderborns = new ArrayList<String>();
 			List<String> angels = new ArrayList<String>();
 
 			for (SuperNPlayer snplayer : SuperNManager.findAllOnline()) {
@@ -89,8 +88,6 @@ public class SNCommandList extends SNCommand {
 					+ TextUtil.implode(hunters, ", "));
 			messages.add("Demons: " + ChatColor.WHITE
 					+ TextUtil.implode(demons, ", "));
-			messages.add("EnderBorns: " + ChatColor.WHITE
-					+ TextUtil.implode(enderborns, ", "));
 			messagesSpanish.add("*** " + ChatColor.WHITE
 					+ "Seres Místicos conectados: " + ChatColor.RED + "***");
 			messagesSpanish.add("Vampiros: " + ChatColor.WHITE
@@ -105,8 +102,6 @@ public class SNCommandList extends SNCommand {
 					+ TextUtil.implode(hunters, ", "));
 			messagesSpanish.add("Demonios: " + ChatColor.WHITE
 					+ TextUtil.implode(demons, ", "));
-			messagesSpanish.add("EnderBorns: " + ChatColor.WHITE
-					+ TextUtil.implode(enderborns, ", "));
 
 			// Send them
 			if (!SNConfigHandler.spanish) {
@@ -132,7 +127,6 @@ public class SNCommandList extends SNCommand {
 		List<String> priests = new ArrayList<String>();
 		List<String> hunters = new ArrayList<String>();
 		List<String> demons = new ArrayList<String>();
-		List<String> enderborns = new ArrayList<String>();
 		List<String> angels = new ArrayList<String>();
 
 		for (SuperNPlayer snplayer : SuperNManager.findAllOnline()) {
@@ -170,8 +164,6 @@ public class SNCommandList extends SNCommand {
 				+ TextUtil.implode(hunters, ", "));
 		messages.add("Demons: " + ChatColor.WHITE
 				+ TextUtil.implode(demons, ", "));
-		messages.add("EnderBorns: " + ChatColor.WHITE
-				+ TextUtil.implode(enderborns, ", "));
 		messages.add("Angels: " + ChatColor.WHITE
 				+ TextUtil.implode(angels, ", "));
 		messagesSpanish.add("*** " + ChatColor.WHITE
@@ -188,8 +180,6 @@ public class SNCommandList extends SNCommand {
 				+ TextUtil.implode(hunters, ", "));
 		messagesSpanish.add("Demonios: " + ChatColor.WHITE
 				+ TextUtil.implode(demons, ", "));
-		messagesSpanish.add("EnderBorns: " + ChatColor.WHITE
-				+ TextUtil.implode(enderborns, ", "));
 
 		// Send them
 		if (!SNConfigHandler.spanish) {

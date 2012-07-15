@@ -58,8 +58,6 @@ public class SNCommandClasses extends SNCommand {
 				+ "- Expert at bows and stealth.");
 		classMessages.add("Demon: " + ChatColor.WHITE
 				+ "- Possesses an unholy union with fire.");
-		classMessages.add("EnderBorn: " + ChatColor.WHITE
-				+ "A possessed human with strange powers.");
 		classMessages.add("Angel: " + ChatColor.WHITE
 				+ "A Human with a free spirit.");
 		spanishClassMessages.add("*** " + ChatColor.WHITE
@@ -78,8 +76,6 @@ public class SNCommandClasses extends SNCommand {
 				+ "- Experto con arcos y sigiloso.");
 		spanishClassMessages.add("Demonio: " + ChatColor.WHITE
 				+ "- Tiene una extraña union con el infierno.");
-		spanishClassMessages.add("EnderBorn: " + ChatColor.WHITE
-				+ "- Un ser humano poseído por poderes extraños.");
 	}
 
 	@Override
