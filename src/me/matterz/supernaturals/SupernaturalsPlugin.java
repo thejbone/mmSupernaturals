@@ -49,7 +49,6 @@ import me.matterz.supernaturals.commands.SNCommandSetup;
 import me.matterz.supernaturals.io.SNConfigHandler;
 import me.matterz.supernaturals.io.SNDataHandler;
 import me.matterz.supernaturals.io.SNPlayerHandler;
-import me.matterz.supernaturals.io.SNVersionHandler;
 import me.matterz.supernaturals.io.SNWhitelistHandler;
 import me.matterz.supernaturals.listeners.SNBlockListener;
 import me.matterz.supernaturals.listeners.SNEntityListener;
@@ -244,10 +243,6 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		PluginDescriptionFile pdfFile = getDescription();
 		log(pdfFile.getName() + " version " + pdfFile.getVersion()
 				+ " enabled.");
-
-		if (!SNVersionHandler.versionFile.exists()) {
-			SNVersionHandler.writeVersion();
-		}
 
 		dataFolder = getDataFolder();
 		SNConfigHandler.getConfiguration();

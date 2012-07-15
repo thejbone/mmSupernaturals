@@ -281,34 +281,9 @@ public class SNConfigHandler {
 
 	public static void loadValues(Configuration config) {
 		File configFile = new File(plugin.getDataFolder(), "config.yml");
-		if (SNVersionHandler.readVersion() != plugin.getDescription().getVersion() && configFile.exists()) {
-			foodMaterialsString.add("APPLE");
-			foodMaterialsString.add("BREAD");
-			foodMaterialsString.add("COOKED_FISH");
-			foodMaterialsString.add("GRILLED_PORK");
-			foodMaterialsString.add("GOLDEN_APPLE");
-			foodMaterialsString.add("MUSHROOM_SOUP");
-			foodMaterialsString.add("RAW_FISH");
-			foodMaterialsString.add("CAKE");
-			foodMaterialsString.add("COOKIE");
-			foodMaterialsString.add("COOKED_STEAK");
-			foodMaterialsString.add("COOKED_CHICKEN");
-			foodMaterialsString.add("ROTTEN_FLESH");
-			foodMaterialsString.add("MELON");
-			config.set("Material.Food", foodMaterialsString);
+		if (configFile.exists() && config.getString("Version") != plugin.getDescription().getVersion()) {
+			config.set("Version", plugin.getDescription().getVersion());
 			saveConfig();
-			SNVersionHandler.writeVersion();
-			if (supernaturalTypes.size() == 0) {
-				supernaturalTypes.add("human");
-				supernaturalTypes.add("vampire");
-				supernaturalTypes.add("werewolf");
-				supernaturalTypes.add("ghoul");
-				supernaturalTypes.add("priest");
-				supernaturalTypes.add("demon");
-				supernaturalTypes.add("witchhunter");
-				supernaturalTypes.add("angel");
-				config.set("Supernatural.Types", supernaturalTypes);
-			}
 		}
 		if (!configFile.exists()) {
 			config.set("UseConvertPermissionNode", false);
