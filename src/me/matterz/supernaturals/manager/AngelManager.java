@@ -110,13 +110,13 @@ public class AngelManager extends ClassManager {
 					|| itemInHandMaterial.equals(Material.PORK)) {
 				if (snplayer.getPower() > SNConfigHandler.angelSummonPowerCost) {
 					if (itemInHandMaterial.equals(Material.RAW_BEEF)) {
-						player.getWorld().spawnCreature(targetBlockLocation, EntityType.COW);
+						player.getWorld().spawnEntity(targetBlockLocation, EntityType.COW);
 						event.setCancelled(true);
 						SuperNManager.alterPower(snplayer, -SNConfigHandler.angelSummonPowerCost, "Summoned cow.");
 						return true;
 					}
 					if (itemInHandMaterial.equals(Material.BONE)) {
-						Wolf spawnedWolf = (Wolf) player.getWorld().spawnCreature(targetBlockLocation, EntityType.WOLF);
+						Wolf spawnedWolf = (Wolf) player.getWorld().spawnEntity(targetBlockLocation, EntityType.WOLF);
 						spawnedWolf.setTamed(true);
 						spawnedWolf.setOwner(player);
 						spawnedWolf.setHealth(20);
@@ -125,7 +125,7 @@ public class AngelManager extends ClassManager {
 						return true;
 					}
 					if (itemInHandMaterial.equals(Material.PORK)) {
-						player.getWorld().spawnCreature(targetBlockLocation, EntityType.PIG);
+						player.getWorld().spawnEntity(targetBlockLocation, EntityType.PIG);
 						event.setCancelled(true);
 						SuperNManager.alterPower(snplayer, -SNConfigHandler.angelSummonPowerCost, "Summoned pig.");
 						return true;
