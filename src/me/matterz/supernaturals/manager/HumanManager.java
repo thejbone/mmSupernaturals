@@ -19,6 +19,8 @@
 
 package me.matterz.supernaturals.manager;
 
+import java.util.logging.Level;
+
 import me.matterz.supernaturals.SuperNPlayer;
 import me.matterz.supernaturals.SupernaturalsPlugin;
 import me.matterz.supernaturals.io.SNConfigHandler;
@@ -68,9 +70,17 @@ public class HumanManager extends ClassManager {
 			SupernaturalsPlugin.log("Player died.");
 		}
 
+		if(player == null) {
+			return;
+		}
+
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		LivingEntity lDamager = null;
 		EntityDamageEvent e = player.getLastDamageCause();
+
+		if(snplayer == null) {
+			return;
+		}
 
 		if (plugin.getDataHandler().getApps().containsKey(snplayer)) {
 			plugin.getDataHandler().removePlayerApp(snplayer);
