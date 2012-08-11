@@ -109,7 +109,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	private PriestManager priestManager = new PriestManager();
 	private WereManager wereManager = new WereManager();
 	private GhoulManager ghoulManager = new GhoulManager();
-	private HunterManager hunterManager = new HunterManager();
+	private HunterManager hunterManager = new HunterManager(this);
 	private DemonManager demonManager = new DemonManager();
 	private AngelManager angelManager = new AngelManager();
 

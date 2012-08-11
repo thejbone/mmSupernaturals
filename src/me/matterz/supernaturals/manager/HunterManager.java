@@ -51,8 +51,8 @@ import org.bukkit.util.Vector;
 
 public class HunterManager extends HumanManager {
 
-	public HunterManager() {
-		super();
+	public HunterManager(SupernaturalsPlugin instance) {
+		super(instance);
 	}
 
 	private HashMap<Arrow, String> arrowMap = new HashMap<Arrow, String>();
@@ -137,6 +137,9 @@ public class HunterManager extends HumanManager {
 
 	@Override
 	public void deathEvent(Player player) {
+		if(player == null) {
+			return;
+		}
 		super.deathEvent(player);
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		SuperNManager.alterPower(snplayer, -SNConfigHandler.hunterDeathPowerPenalty, "You died!");
