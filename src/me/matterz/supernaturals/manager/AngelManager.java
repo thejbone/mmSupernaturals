@@ -100,9 +100,6 @@ public class AngelManager extends ClassManager {
 					SuperNManager.sendMessage(snplayer, "Not enough power to jump!");
 				}
 			}
-			return false;
-		}
-		if (action.equals(Action.LEFT_CLICK_BLOCK)) {
 			Block targetBlock = player.getTargetBlock(null, 20);
 			Location targetBlockLocation = targetBlock.getLocation();
 			if (itemInHandMaterial.equals(Material.RAW_BEEF)
@@ -132,6 +129,7 @@ public class AngelManager extends ClassManager {
 					}
 				}
 			}
+			return false;
 		}
 		return false;
 	}
