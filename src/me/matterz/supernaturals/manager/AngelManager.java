@@ -102,18 +102,19 @@ public class AngelManager extends ClassManager {
 			}
 			Block targetBlock = player.getTargetBlock(null, 20);
 			Location targetBlockLocation = targetBlock.getLocation();
+			Location plusOne = new Location(targetBlockLocation.getWorld(), targetBlockLocation.getBlockX(), targetBlockLocation.getBlockY() +1, targetBlockLocation.getBlockZ());
 			if (itemInHandMaterial.equals(Material.RAW_BEEF)
 					|| itemInHandMaterial.equals(Material.BONE)
 					|| itemInHandMaterial.equals(Material.PORK)) {
 				if (snplayer.getPower() > SNConfigHandler.angelSummonPowerCost) {
 					if (itemInHandMaterial.equals(Material.RAW_BEEF)) {
-						player.getWorld().spawnEntity(targetBlockLocation, EntityType.COW);
+						player.getWorld().spawnEntity(plusOne, EntityType.COW);
 						event.setCancelled(true);
 						SuperNManager.alterPower(snplayer, -SNConfigHandler.angelSummonPowerCost, "Summoned cow.");
 						return true;
 					}
 					if (itemInHandMaterial.equals(Material.BONE)) {
-						Wolf spawnedWolf = (Wolf) player.getWorld().spawnEntity(targetBlockLocation, EntityType.WOLF);
+						Wolf spawnedWolf = (Wolf) player.getWorld().spawnEntity(plusOne, EntityType.WOLF);
 						spawnedWolf.setTamed(true);
 						spawnedWolf.setOwner(player);
 						spawnedWolf.setHealth(20);
@@ -122,7 +123,7 @@ public class AngelManager extends ClassManager {
 						return true;
 					}
 					if (itemInHandMaterial.equals(Material.PORK)) {
-						player.getWorld().spawnEntity(targetBlockLocation, EntityType.PIG);
+						player.getWorld().spawnEntity(plusOne, EntityType.PIG);
 						event.setCancelled(true);
 						SuperNManager.alterPower(snplayer, -SNConfigHandler.angelSummonPowerCost, "Summoned pig.");
 						return true;
