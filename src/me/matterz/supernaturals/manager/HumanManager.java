@@ -19,8 +19,6 @@
 
 package me.matterz.supernaturals.manager;
 
-import java.util.logging.Level;
-
 import me.matterz.supernaturals.SuperNPlayer;
 import me.matterz.supernaturals.SupernaturalsPlugin;
 import me.matterz.supernaturals.io.SNConfigHandler;
