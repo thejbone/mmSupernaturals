@@ -98,7 +98,23 @@ public class SNPlayerMonitor implements Listener {
 		if (!SNConfigHandler.enableLoginMessage) {
 			return;
 		}
+		boolean vanished = false;
+		boolean blahblah = false;
+		while(!blahblah) {
+			for(Player onePlayer : plugin.getServer().getOnlinePlayers()) {
+				if(onePlayer != player) {
+					if(!onePlayer.canSee(onePlayer)) {
+						vanished = true;
+						blahblah = true;
+					}
+				}
+			}
+			blahblah = true;
+		}
 		SuperNManager.updateName(snplayer);
+		if(vanished) {
+			return;
+		}
 
 		if (SNConfigHandler.enableColors) {
 			if (SNConfigHandler.spanish) {
