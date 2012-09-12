@@ -46,13 +46,15 @@ import org.bukkit.inventory.PlayerInventory;
 
 public class DemonManager extends ClassManager {
 
-	public DemonManager() {
+	public DemonManager(SupernaturalsPlugin plugin) {
 		super();
+		this.plugin = plugin;
 	}
 
 	private HashMap<Block, Location> webMap = new HashMap<Block, Location>();
 	private ArrayList<Player> demonApps = new ArrayList<Player>();
 	private List<Player> demons = new ArrayList<Player>();
+	private SupernaturalsPlugin plugin;
 
 	// -------------------------------------------- //
 	// Damage Events //
@@ -112,10 +114,12 @@ public class DemonManager extends ClassManager {
 				damage = 0;
 			}
 		if (victim instanceof Player) {
-			Player pVictim = (Player) victim;
-			double random = Math.random();
-			if (random < 0.35) {
-				pVictim.setFireTicks(SNConfigHandler.demonFireTicks);
+			if(plugin.getPvP(pDamager)) {
+				Player pVictim = (Player) victim;
+				double random = Math.random();
+				if (random < 0.35) {
+					pVictim.setFireTicks(SNConfigHandler.demonFireTicks);
+				}
 			}
 			return damage;
 		}

@@ -110,7 +110,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	private WereManager wereManager = new WereManager();
 	private GhoulManager ghoulManager = new GhoulManager();
 	private HunterManager hunterManager = new HunterManager(this);
-	private DemonManager demonManager = new DemonManager();
+	private DemonManager demonManager = new DemonManager(this);
 	private AngelManager angelManager = new AngelManager();
 
 	public List<SNCommand> commands = new ArrayList<SNCommand>();
