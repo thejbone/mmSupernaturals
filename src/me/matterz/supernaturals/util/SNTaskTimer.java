@@ -19,7 +19,6 @@
 
 package me.matterz.supernaturals.util;
 
-import me.matterz.supernaturals.SuperNPlayer;
 import me.matterz.supernaturals.SupernaturalsPlugin;
 import me.matterz.supernaturals.manager.SuperNManager;
 
@@ -32,14 +31,12 @@ public class SNTaskTimer implements Runnable {
 
 	@Override
 	public void run() {
-		// Tick each online player
-		for (final SuperNPlayer snplayer : SuperNManager.findAllOnline()) {
-			plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-				@Override
-				public void run() {
-					plugin.getSuperManager().advanceTime(snplayer);
-				}
-			});
-		}
+		//Do you REALLY need to make a new scheduler for EVERY player? Why not one for ALL players?
+		plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+			@Override
+			public void run() {
+				plugin.getSuperManager().advanceTime(SuperNManager.findAllOnline());
+			}
+		});
 	}
 }
