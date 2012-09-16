@@ -101,6 +101,7 @@ public class SNConfigHandler {
 	public static int angelCurePowerCost;
 	public static int angelJumpPowerCost;
 	public static int angelSwimPowerGain;
+	public static int angelPowerStart;
 	public static int angelKillMonsterPowerGain;
 	public static int vampireCombustFireTicks;
 	public static int vampireDrowningCost;
@@ -283,6 +284,7 @@ public class SNConfigHandler {
 		File configFile = new File(plugin.getDataFolder(), "config.yml");
 		if (configFile.exists() && config.getString("Version") != plugin.getDescription().getVersion()) {
 			config.set("Version", plugin.getDescription().getVersion());
+			config.set("Angel.Power.Start", 10000);
 			saveConfig();
 		}
 		if (!configFile.exists()) {
@@ -432,6 +434,7 @@ public class SNConfigHandler {
 			config.set("Angel.JumpDelta", 1.2);
 			config.set("Angel.Power.Kill.MonsterGain", 30);
 			config.set("Angel.Power.Swim.PowerGain", 50);
+			config.set("Angel.Power.Start", 10000);
 
 			if (supernaturalTypes.size() == 0) {
 				supernaturalTypes.add("human");
@@ -989,6 +992,7 @@ public class SNConfigHandler {
 		angelSwimPowerGain = config.getInt("Angel.Power.Swim.PowerGain", 50);
 		angelJumpDeltaSpeed = config.getDouble("Angel.JumpDelta", 1.2);
 		angelKillMonsterPowerGain = config.getInt("Angel.Power.Kill.MonsterGain", 30);
+		angelPowerStart = config.getInt("Angel.Power.Start", 10000);
 
 		for (String wood : woodMaterialsString) {
 			woodMaterials.add(Material.getMaterial(wood));
