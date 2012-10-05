@@ -166,6 +166,8 @@ public class SNConfigHandler {
 	public static String demonMaterial;
 	public static String demonSnareMaterial;
 	public static String hunterHallMessage;
+	public static String demonHallMessage;
+	public static String vampireHallMessage;
 	public static Location priestChurchLocation;
 	public static Location priestBanishLocation;
 	public static List<String> supernaturalTypes = new ArrayList<String>();
@@ -285,6 +287,8 @@ public class SNConfigHandler {
 		if (configFile.exists() && config.getString("Version") != plugin.getDescription().getVersion()) {
 			config.set("Version", plugin.getDescription().getVersion());
 			config.set("Angel.Power.Start", 10000);
+			config.set("Demon.Hall.Message", "Demons");
+			config.set("Vampire.Hall.Message", "Vampires");
 			saveConfig();
 		}
 		if (!configFile.exists()) {
@@ -873,6 +877,8 @@ public class SNConfigHandler {
 		vampireAltarCureMaterialsString = config.getStringList("Vampire.Altar.Cure.Recipe.Materials");
 		vampireAltarCureQuantities = config.getIntegerList("Vampire.Altar.Cure.Recipe.Quantities");
 
+		vampireHallMessage = config.getString("Vampire.Hall.Message", "Vampires");
+
 		priestChurchWorld = config.getString("Priest.Church.World", "world");
 		priestChurchLocationX = config.getInt("Priest.Church.Location.X", 0);
 		priestChurchLocationY = config.getInt("Priest.Church.Location.Y", 80);
@@ -964,6 +970,7 @@ public class SNConfigHandler {
 		demonWeaponsString = config.getStringList("Demon.Weapon.Restrictions");
 		demonFireTicks = config.getInt("Demon.DamageFactor.FireTicks", 50);
 		demonConvertPower = config.getInt("Demon.Power.Convert", 2000);
+		demonHallMessage = config.getString("Demon.Hall.Message", "Demons");
 
 		hunterPowerStart = config.getInt("WitchHunter.Power.StartingPower", 10000);
 		hunterDeathPowerPenalty = config.getInt("WitchHunter.Power.DeathPenalty", 500);

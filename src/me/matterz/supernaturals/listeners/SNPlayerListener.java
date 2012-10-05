@@ -121,6 +121,32 @@ public class SNPlayerListener implements Listener {
 										event.setCancelled(open);
 										return;
 									}
+									if (text[i].contains(SNConfigHandler.demonHallMessage)) {
+										if (plugin.getHunterManager().doorIsOpening(blockLoc)) {
+											if (SNConfigHandler.debugMode) {
+												SupernaturalsPlugin.log("Cancelled door event.");
+											}
+											event.setCancelled(true);
+											return;
+										}
+										Door door = (Door) block.getState().getData();
+										boolean open = plugin.getDemonManager().doorEvent(player, block, door);
+										event.setCancelled(open);
+										return;
+									}
+									if (text[i].contains(SNConfigHandler.vampireHallMessage)) {
+										if (plugin.getHunterManager().doorIsOpening(blockLoc)) {
+											if (SNConfigHandler.debugMode) {
+												SupernaturalsPlugin.log("Cancelled door event.");
+											}
+											event.setCancelled(true);
+											return;
+										}
+										Door door = (Door) block.getState().getData();
+										boolean open = plugin.getVampireManager().doorEvent(player, block, door);
+										event.setCancelled(open);
+										return;
+									}
 								}
 							}
 						}

@@ -43,6 +43,7 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.material.Door;
 
 public class DemonManager extends ClassManager {
 
@@ -51,6 +52,7 @@ public class DemonManager extends ClassManager {
 		this.plugin = plugin;
 	}
 
+	private ArrayList<Location> hallDoors = new ArrayList<Location>();
 	private HashMap<Block, Location> webMap = new HashMap<Block, Location>();
 	private ArrayList<Player> demonApps = new ArrayList<Player>();
 	private List<Player> demons = new ArrayList<Player>();
@@ -473,6 +475,96 @@ public class DemonManager extends ClassManager {
 
 		SuperNManager.alterPower(SuperNManager.get(player), -SNConfigHandler.demonPowerSnare, "Snare!");
 		return true;
+	}
+
+	private void addDoorLocation(Location location) {
+		if (!hallDoors.contains(location)) {
+			hallDoors.add(location);
+		}
+	}
+
+	private void removeDoorLocation(Location location) {
+		hallDoors.remove(location);
+	}
+
+	public boolean doorIsOpening(Location location) {
+		if (hallDoors.contains(location)) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean doorEvent(Player player, Block block, Door door) {
+		if (door.isOpen()) {
+			return true;
+		}
+
+		if (SNConfigHandler.debugMode) {
+			SupernaturalsPlugin.log(player.getName()
+					+ " activated a Demons' Hall.");
+		}
+
+		SuperNPlayer snplayer = SuperNManager.get(player);
+
+		final Location loc = block.getLocation();
+		Location newLoc;
+		Block newBlock;
+
+		if (snplayer.isDemon()) {
+			if (door.isTopHalf()) {
+				newLoc = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY() - 1, loc.getBlockZ());
+				newBlock = newLoc.getBlock();
+				block.setTypeIdAndData(71, (byte) (block.getData() + 4), false);
+				newBlock.setTypeIdAndData(71, (byte) (newBlock.getData() + 4), false);
+			} else {
+				newLoc = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY() + 1, loc.getBlockZ());
+				newBlock = newLoc.getBlock();
+				block.setTypeIdAndData(71, (byte) (block.getData() + 4), false);
+				newBlock.setTypeIdAndData(71, (byte) (newBlock.getData() + 4), false);
+			}
+
+			addDoorLocation(loc);
+			addDoorLocation(newLoc);
+
+			SupernaturalsPlugin.instance.getServer().getScheduler().scheduleSyncDelayedTask(SupernaturalsPlugin.instance, new Runnable() {
+				@Override
+				public void run() {
+					closeDoor(loc);
+				}
+			}, 20);
+			if (SNConfigHandler.debugMode) {
+				SupernaturalsPlugin.log("Demon door is set open.");
+			}
+			return true;
+		}
+		SuperNManager.sendMessage(snplayer, "Demons Only!");
+		return true;
+	}
+
+	private void closeDoor(Location loc) {
+		Block block = loc.getBlock();
+		Door door = (Door) block.getState().getData();
+		if (!door.isOpen()) {
+			return;
+		}
+
+		Location newLoc;
+		Block newBlock;
+
+		if (door.isTopHalf()) {
+			newLoc = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY() - 1, loc.getBlockZ());
+			newBlock = newLoc.getBlock();
+			block.setTypeIdAndData(71, (byte) (block.getData() - 4), false);
+			newBlock.setTypeIdAndData(71, (byte) (newBlock.getData() - 4), false);
+		} else {
+			newLoc = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY() + 1, loc.getBlockZ());
+			newBlock = newLoc.getBlock();
+			block.setTypeIdAndData(71, (byte) (block.getData() - 4), false);
+			newBlock.setTypeIdAndData(71, (byte) (newBlock.getData() - 4), false);
+		}
+
+		removeDoorLocation(loc);
+		removeDoorLocation(newLoc);
 	}
 
 }
