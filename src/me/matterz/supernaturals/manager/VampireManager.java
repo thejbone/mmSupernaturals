@@ -176,7 +176,7 @@ public class VampireManager extends ClassManager {
 				return false;
 			}
 
-			if (itemMaterial.toString().equalsIgnoreCase(SNConfigHandler.jumpMaterial)) {
+			if (itemMaterial.toString().equalsIgnoreCase(SNConfigHandler.vampireJumpMaterial)) {
 				SuperNManager.jump(player, SNConfigHandler.jumpDeltaSpeed, true);
 				event.setCancelled(true);
 				return true;

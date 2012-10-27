@@ -464,6 +464,14 @@ Angel:
       PowerGain: 50
     Start: 10000
   JumpDelta: 1.2
+  Materials:
+    Jump: YELLOW_FLOWER
+    Cure: PAPER
+    Summon:
+      Cow: RAW_BEEF
+      Pig: PORK
+      Wolf: BONE
+    Heal: FEATHER
 Material:
   Wooden:
   - STICK

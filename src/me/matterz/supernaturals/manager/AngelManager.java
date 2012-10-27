@@ -56,7 +56,7 @@ public class AngelManager extends ClassManager {
 		Player player = (Player) event.getDamager();
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		SuperNPlayer sntarget = SuperNManager.get(target);
-		if (player.getItemInHand().getType().equals(Material.FEATHER)) {
+		if (player.getItemInHand().getType().toString().equals(SNConfigHandler.angelHealMaterial)) {
 			if (snplayer.getPower() > SNConfigHandler.angelHealPowerCost) {
 				target.setHealth(target.getHealth()
 						+ SNConfigHandler.angelHealHealthGain);
@@ -68,7 +68,7 @@ public class AngelManager extends ClassManager {
 				SuperNManager.sendMessage(snplayer, "Not enough power to heal!");
 			}
 		}
-		if (player.getItemInHand().getType().equals(Material.PAPER)) {
+		if (player.getItemInHand().getType().toString().equals(SNConfigHandler.angelCureMaterial)) {
 			if (snplayer.getPower() > SNConfigHandler.angelCurePowerCost) {
 				if (sntarget.isSuper()) {
 					SuperNManager.cure(sntarget);
@@ -93,7 +93,7 @@ public class AngelManager extends ClassManager {
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		if (action.equals(Action.LEFT_CLICK_AIR)
 				|| action.equals(Action.LEFT_CLICK_BLOCK)) {
-			if (itemInHandMaterial.equals(Material.YELLOW_FLOWER)) {
+			if (itemInHandMaterial.toString().equals(SNConfigHandler.angelJumpMaterial)) {
 				if (snplayer.getPower() > SNConfigHandler.angelJumpPowerCost) {
 					jump(player, SNConfigHandler.angelJumpDeltaSpeed);
 				} else {
@@ -107,13 +107,13 @@ public class AngelManager extends ClassManager {
 					|| itemInHandMaterial.equals(Material.BONE)
 					|| itemInHandMaterial.equals(Material.PORK)) {
 				if (snplayer.getPower() > SNConfigHandler.angelSummonPowerCost) {
-					if (itemInHandMaterial.equals(Material.RAW_BEEF)) {
+					if (itemInHandMaterial.toString().equals(SNConfigHandler.angelSummonCowMaterial)) {
 						player.getWorld().spawnEntity(plusOne, EntityType.COW);
 						event.setCancelled(true);
 						SuperNManager.alterPower(snplayer, -SNConfigHandler.angelSummonPowerCost, "Summoned cow.");
 						return true;
 					}
-					if (itemInHandMaterial.equals(Material.BONE)) {
+					if (itemInHandMaterial.toString().equals(SNConfigHandler.angelSummonWolfMaterial)) {
 						Wolf spawnedWolf = (Wolf) player.getWorld().spawnEntity(plusOne, EntityType.WOLF);
 						spawnedWolf.setTamed(true);
 						spawnedWolf.setOwner(player);
@@ -122,7 +122,7 @@ public class AngelManager extends ClassManager {
 						SuperNManager.alterPower(snplayer, -SNConfigHandler.angelSummonPowerCost, "Summoned wolf.");
 						return true;
 					}
-					if (itemInHandMaterial.equals(Material.PORK)) {
+					if (itemInHandMaterial.toString().equals(SNConfigHandler.angelSummonPigMaterial)) {
 						player.getWorld().spawnEntity(plusOne, EntityType.PIG);
 						event.setCancelled(true);
 						SuperNManager.alterPower(snplayer, -SNConfigHandler.angelSummonPowerCost, "Summoned pig.");

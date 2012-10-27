@@ -161,13 +161,19 @@ public class SNConfigHandler {
 	public static String ghoulBondMaterial;
 	public static String vampireMaterial;
 	public static String vampireTeleportMaterial;
-	public static String jumpMaterial;
+	public static String vampireJumpMaterial;
 	public static String dashMaterial;
 	public static String demonMaterial;
 	public static String demonSnareMaterial;
 	public static String hunterHallMessage;
 	public static String demonHallMessage;
 	public static String vampireHallMessage;
+	public static String angelJumpMaterial;
+	public static String angelSummonCowMaterial;
+	public static String angelCureMaterial;
+	public static String angelSummonPigMaterial;
+	public static String angelSummonWolfMaterial;
+	public static String angelHealMaterial;
 	public static Location priestChurchLocation;
 	public static Location priestBanishLocation;
 	public static List<String> supernaturalTypes = new ArrayList<String>();
@@ -286,6 +292,12 @@ public class SNConfigHandler {
 		File configFile = new File(plugin.getDataFolder(), "config.yml");
 		if (configFile.exists() && config.getString("Version") != plugin.getDescription().getVersion()) {
 			config.set("Version", plugin.getDescription().getVersion());
+			angelJumpMaterial = config.getString("Angel.Materials.Jump", "YELLOW_FLOWER");
+			angelCureMaterial = config.getString("Angel.Materials.Cure", "PAPER");
+			angelSummonCowMaterial = config.getString("Angel.Materials.Summon.Cow", "RAW_BEEF");
+			angelSummonPigMaterial = config.getString("Angel.Materials.Summon.Pig", "PORK");
+			angelSummonWolfMaterial = config.getString("Angel.Materials.Summon.Wolf", "BONE");
+			angelHealMaterial = config.getString("Angel.Materials.Heal", "FEATHER");
 			saveConfig();
 		}
 		if (!configFile.exists()) { // Dang, that really shortened this!
@@ -307,7 +319,7 @@ public class SNConfigHandler {
 		woodMaterialsString = config.getStringList("Material.Wooden");
 		foodMaterialsString = config.getStringList("Material.Food");
 
-		jumpMaterial = config.getString("Vampire.Materials.Jump", "RED_ROSE");
+		vampireJumpMaterial = config.getString("Vampire.Materials.Jump", "RED_ROSE");
 
 		vampirePowerStart = config.getInt("Vampire.Power.Start", 10000);
 		vampireKillSpreadCurse = config.getBoolean("Vampire.Kill.SpreadCurse", true);
@@ -474,6 +486,12 @@ public class SNConfigHandler {
 		angelJumpDeltaSpeed = config.getDouble("Angel.JumpDelta", 1.2);
 		angelKillMonsterPowerGain = config.getInt("Angel.Power.Kill.MonsterGain", 30);
 		angelPowerStart = config.getInt("Angel.Power.Start", 10000);
+		angelJumpMaterial = config.getString("Angel.Materials.Jump", "YELLOW_FLOWER");
+		angelCureMaterial = config.getString("Angel.Materials.Cure", "PAPER");
+		angelSummonCowMaterial = config.getString("Angel.Materials.Summon.Cow", "RAW_BEEF");
+		angelSummonPigMaterial = config.getString("Angel.Materials.Summon.Pig", "PORK");
+		angelSummonWolfMaterial = config.getString("Angel.Materials.Summon.Wolf", "BONE");
+		angelHealMaterial = config.getString("Angel.Materials.Heal", "FEATHER");
 
 		for (String wood : woodMaterialsString) {
 			woodMaterials.add(Material.getMaterial(wood));
