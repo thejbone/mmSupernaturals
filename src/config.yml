@@ -1,0 +1,497 @@
+UseConvertPermissionNode: false
+Spanish: false
+DebugMode: false
+MultiWorld: false
+EnableChatColors: true
+EnableLoginMessage: true
+EnableJoinCommand: false
+Supernatural:
+  Truce:
+    BreakTime: 120000
+  SpreadChance: 0.35
+  Types:
+  - human
+  - vampire
+  - werewolf
+  - ghoul
+  - priest
+  - demon
+  - witchhunter
+  - angel
+Vampire:
+  Materials:
+    Jump: RED_ROSE
+  Power:
+    Start: 10000
+    Kill:
+      CreatureGain: 100
+      PlayerGain: 500
+    DeathPenalty: 10000
+    JumpCost: 1000
+    HealingCost: 60
+    DrowningCost: 90
+    TeleportCost: 9000
+  Kill:
+    SpreadCurse: true
+  Time:
+    PowerGained: 15
+    HealthGained: 0.5
+  DamageFactor:
+    AttackBonus: 0.3
+    DefenseBonus: 0.8
+    Wood: 1.5
+  Burn:
+    InSunlight: true
+    MessageEnabled: true
+    FireTicks: 3
+    HelmetProtection: GOLD_HELMET
+  JumpDelta: 1.2
+  TeleportMarker:
+    Material: RED_ROSE
+  Spell:
+    Material: BOOK
+  GainHunger:
+    Player: 3
+    Mob: 2
+  Altar:
+    Infect:
+      Material: GOLD_BLOCK
+      Surrounding:
+        Material: OBSIDIAN
+        Radius: 7.0
+        Count: 20
+      Recipe:
+        Materials:
+        - MUSHROOM_SOUP
+        - BONE
+        - SULPHUR
+        - REDSTONE
+        Quantities:
+        - 1
+        - 10
+        - 10
+        - 10
+    Cure:
+      Material: LAPIS_BLOCK
+      Surrounding:
+        Material: GLOWSTONE
+        Radius: 7.0
+        Count: 20
+      Recipe:
+        Materials:
+        - WATER_BUCKET
+        - MILK_BUCKET
+        - SUGAR
+        - WHEAT
+        Quantities:
+        - 1
+        - 1
+        - 20
+        - 20
+  Truce:
+    Creatures:
+    - CREEPER
+    - SKELETON
+    - ZOMBIE
+    - ENDERMAN
+    - SPIDER
+    - BLAZE
+  Weapon:
+    Restrictions:
+    - none
+  Armor:
+  - AIR
+  - LEATHER_HELMET
+  - LEATHER_CHESTPLATE
+  - LEATHER_LEGGINGS
+  - LEATHER_BOOTS
+  - IRON_HELMET
+  - IRON_CHESTPLATE
+  - IRON_LEGGINGS
+  - IRON_BOOTS
+  - GOLD_HELMET
+  - GOLD_CHESTPLATE
+  - GOLD_LEGGINGS
+  - GOLD_BOOTS
+  - DIAMOND_HELMET
+  - DIAMOND_CHESTPLATE
+  - DIAMOND_LEGGINGS
+  - DIAMOND_BOOTS
+  - CHAINMAIL_HELMET
+  - CHAINMAIL_CHESTPLATE
+  - CHAINMAIL_LEGGINGS
+  - CHAINMAIL_BOOTS
+  Hall:
+    Message: Vampires
+Priest:
+  Church:
+    World: world
+    Location:
+      X: 0
+      Y: 80
+      Z: 0
+    AltarMaterial: DIAMOND_BLOCK
+    Recipe:
+      Materials:
+      - GOLD_INGOT
+      - GLOWSTONE_DUST
+      - REDSTONE
+      - BREAD
+      Quantities:
+      - 4
+      - 4
+      - 8
+      - 30
+    Donation:
+      Materials:
+      - APPLE
+      - RAW_FISH
+      - COOKED_FISH
+      - GRILLED_PORK
+      - BREAD
+      Rewards:
+      - 9000
+      - 510
+      - 500
+      - 210
+      - 80
+  Banish:
+    World: world
+    Location:
+      X: 0
+      Y: 80
+      Z: 0
+  Power:
+    StartingAmount: 10000
+    DeathPenalty: 2000
+    Banish: 4000
+    HealOther: 1000
+    Exorcise: 9000
+    Cure: 1000
+    Drain: 1000
+    GuardianAngel: 5000
+  DamageFactor:
+    AttackBonusSuper: 1.0
+    AttackBonusHuman: 0
+    FireTicks: 50
+  Spell:
+    HealAmount: 10
+    DrainFactor: 0.15
+    Material:
+    - FEATHER
+    - SUGAR
+    - FLINT
+    - PAPER
+    - BOOK
+  Weapon:
+    Restrictions:
+    - none
+  Armor:
+  - AIR
+Ghoul:
+  Power:
+    Start: 5000
+    Kill:
+      CreatureGain: 200
+      PlayerGain: 1000
+    DeathPenalty: 2000
+    Summon: 1000
+    UnholyBond: 50
+  Kill:
+    SpreadCurse: true
+  DamageFactor:
+    DefenseBonus: 0.65
+    AttackBonus: 2
+  WaterDamage: 4
+  Time:
+    HealthGained: 0.1
+  Summon:
+    Material: PORK
+  UnholyBond:
+    Material: BONE
+  RightClickSummon: false
+  Weapon:
+    Restrictions:
+    - BOW
+    - STICK
+    - WOOD_SWORD
+    - WOOD_PICKAXE
+    - WOOD_SPADE
+    - WOOD_AXE
+    - WOOD_HOE
+    - STONE_SWORD
+    - STONE_PICKAXE
+    - STONE_SPADE
+    - STONE_AXE
+    - STONE_HOE
+    - IRON_SWORD
+    - IRON_PICKAXE
+    - IRON_SPADE
+    - IRON_AXE
+    - IRON_HOE
+    - GOLD_SWORD
+    - GOLD_PICKAXE
+    - GOLD_SPADE
+    - GOLD_AXE
+    - GOLD_HOE
+    - DIAMOND_SWORD
+    - DIAMOND_PICKAXE
+    - DIAMOND_SPADE
+    - DIAMOND_AXE
+    - DIAMOND_HOE
+  Immunity:
+  - DIAMOND_SWORD
+  Truce:
+    Creatures:
+    - CREEPER
+    - SKELETON
+    - ZOMBIE
+    - PIG_ZOMBIE
+    - GIANT
+    - ENDERMAN
+  Armor:
+  - AIR
+  - LEATHER_HELMET
+  - LEATHER_CHESTPLATE
+  - LEATHER_LEGGINGS
+  - LEATHER_BOOTS
+  - IRON_HELMET
+  - IRON_CHESTPLATE
+  - IRON_LEGGINGS
+  - IRON_BOOTS
+  - GOLD_HELMET
+  - GOLD_CHESTPLATE
+  - GOLD_LEGGINGS
+  - GOLD_BOOTS
+  - DIAMOND_HELMET
+  - DIAMOND_CHESTPLATE
+  - DIAMOND_LEGGINGS
+  - DIAMOND_BOOTS
+  - CHAINMAIL_HELMET
+  - CHAINMAIL_CHESTPLATE
+  - CHAINMAIL_LEGGINGS
+  - CHAINMAIL_BOOTS
+Were:
+  DashDelta: 4
+  Power:
+    Dash: 400
+    Start: 5000
+    Kill:
+      CreatureGain: 20
+      PlayerGain: 100
+    Food: 100
+    DeathPenalty: 2000
+    Summon: 2000
+  Kill:
+    SpreadCurse: true
+  DamageFactor:
+    Fall: 0.5
+    AttackBonus: 5
+  Time:
+    HealthGained: 0.2
+  Material:
+    Summon: PORK
+    Dash: FEATHER
+  WolfTruce: true
+  Wolfbane:
+    Trigger: BOWL
+    Materials:
+    - YELLOW_FLOWER
+    - RED_ROSE
+    - RED_MUSHROOM
+    - BROWN_MUSHROOM
+    - BOWL
+    Quantities:
+    - 10
+    - 10
+    - 10
+    - 10
+    - 1
+  Weapon:
+    Restrictions:
+    - BOW
+    - STICK
+    - WOOD_SWORD
+    - WOOD_PICKAXE
+    - WOOD_SPADE
+    - WOOD_AXE
+    - WOOD_HOE
+    - STONE_SWORD
+    - STONE_PICKAXE
+    - STONE_SPADE
+    - STONE_AXE
+    - STONE_HOE
+    - IRON_SWORD
+    - IRON_PICKAXE
+    - IRON_SPADE
+    - IRON_AXE
+    - IRON_HOE
+    - GOLD_SWORD
+    - GOLD_PICKAXE
+    - GOLD_SPADE
+    - GOLD_AXE
+    - GOLD_HOE
+    - DIAMOND_SWORD
+    - DIAMOND_PICKAXE
+    - DIAMOND_SPADE
+    - DIAMOND_AXE
+    - DIAMOND_HOE
+  Armor:
+  - AIR
+  - LEATHER_HELMET
+  - LEATHER_CHESTPLATE
+  - LEATHER_LEGGINGS
+  - LEATHER_BOOTS
+  - IRON_HELMET
+  - IRON_CHESTPLATE
+  - IRON_LEGGINGS
+  - IRON_BOOTS
+  - GOLD_HELMET
+  - GOLD_CHESTPLATE
+  - GOLD_LEGGINGS
+  - GOLD_BOOTS
+  - DIAMOND_HELMET
+  - DIAMOND_CHESTPLATE
+  - DIAMOND_LEGGINGS
+  - DIAMOND_BOOTS
+  - CHAINMAIL_HELMET
+  - CHAINMAIL_CHESTPLATE
+  - CHAINMAIL_LEGGINGS
+  - CHAINMAIL_BOOTS
+Demon:
+  Power:
+    Start: 10000
+    DeathPenalty: 10000
+    CreatureKill: 20
+    PlayerKill: 100
+    Gain: 40
+    Loss: 4
+    Fireball: 2000
+    Convert: 2000
+    Snare: 1000
+  Healing: 1
+  Fireball:
+    Material: REDSTONE
+    Damage: 10
+  Snare:
+    Duration: 10000
+    Material: INK_SACK
+  SnowballAmount: 30
+  DamageFactor:
+    FireTicks: 50
+  Weapon:
+    Restrictions:
+    - none
+  Armor:
+  - AIR
+  Hall:
+    Message: Demons
+WitchHunter:
+  Power:
+    StartingPower: 10000
+    DeathPenalty: 500
+    PlayerKill: 2000
+    CreatureKill: 0
+    ArrowFire: 100
+    ArrowTriple: 100
+    ArrowGrapple: 500
+    ArrowPower: 1000
+  Bounty:
+    CompletionBonus: 8000
+    MaxNumber: 5
+  ArrowPower:
+    DamageFactor: 2.0
+  PowerArrow:
+    Cooldown: 15000
+  FallReduction: 3
+  FireArrow:
+    FireTicks: 100
+  Hall:
+    Message: WitchHunter
+  Weapon:
+    Restrictions:
+    - WOOD_SWORD
+    - WOOD_PICKAXE
+    - WOOD_SPADE
+    - WOOD_AXE
+    - WOOD_HOE
+    - STONE_SWORD
+    - STONE_PICKAXE
+    - STONE_SPADE
+    - STONE_AXE
+    - STONE_HOE
+    - IRON_SWORD
+    - IRON_PICKAXE
+    - IRON_SPADE
+    - IRON_AXE
+    - IRON_HOE
+    - GOLD_SWORD
+    - GOLD_PICKAXE
+    - GOLD_SPADE
+    - GOLD_AXE
+    - GOLD_HOE
+    - DIAMOND_SWORD
+    - DIAMOND_PICKAXE
+    - DIAMOND_SPADE
+    - DIAMOND_AXE
+    - DIAMOND_HOE
+  Armor:
+  - AIR
+  - LEATHER_HELMET
+  - LEATHER_CHESTPLATE
+  - LEATHER_LEGGINGS
+  - LEATHER_BOOTS
+  ArrowTypes:
+  - fire
+  - triple
+  - power
+  - grapple
+  - normal
+Angel:
+  Power:
+    Heal:
+      HealthGain: 5
+      PowerCost: 3000
+    Summon:
+      PowerCost: 5000
+    Cure:
+      PowerCost: 6000
+    Jump:
+      PowerCost: 1000
+    Kill:
+      MonsterGain: 30
+    Swim:
+      PowerGain: 50
+    Start: 10000
+  JumpDelta: 1.2
+Material:
+  Wooden:
+  - STICK
+  - WOOD_AXE
+  - WOOD_HOE
+  - WOOD_PICKAXE
+  - WOOD_SPADE
+  - WOOD_SWORD
+  - BOW
+  Food:
+  - APPLE
+  - BREAD
+  - COOKED_FISH
+  - GRILLED_PORK
+  - GOLDEN_APPLE
+  - MUSHROOM_SOUP
+  - RAW_FISH
+  - CAKE
+  - COOKIE
+  - COOKED_STEAK
+  - COOKED_CHICKEN
+  - ROTTEN_FLESH
+  - MELON
+BurnableBlocks:
+- GRASS
+- LEAVES
+- AIR
+- SEEDS
+- WOOD
+- BOOKSHELF
+Version: 1.4.9
