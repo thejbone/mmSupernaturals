@@ -472,6 +472,23 @@ Angel:
       Pig: PORK
       Wolf: BONE
     Heal: FEATHER
+  Weapons:
+    Restrictions:
+    - none
+  Armor:
+  - AIR
+  - LEATHER_HELMET
+  - LEATHER_CHESTPLATE
+  - LEATHER_LEGGINGS
+  - LEATHER_BOOTS
+  - IRON_HELMET
+  - IRON_CHESTPLATE
+  - IRON_LEGGINGS
+  - IRON_BOOTS
+  - CHAINMAIL_HELMET
+  - CHAINMAIL_CHESTPLATE
+  - CHAINMAIL_LEGGINGS
+  - CHAINMAIL_BOOTS
 Material:
   Wooden:
   - STICK

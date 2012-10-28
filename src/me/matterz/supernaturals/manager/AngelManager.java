@@ -48,6 +48,11 @@ public class AngelManager extends ClassManager {
 				return 0;
 			}
 		}
+		if(SNConfigHandler.angelWeapons.contains(player.getItemInHand())) {
+			SuperNManager.sendMessage(snplayer, "Angels cannot use this weapon!");
+			event.setCancelled(true);
+			return 0;
+		}
 		return damage;
 	}
 
@@ -174,29 +179,25 @@ public class AngelManager extends ClassManager {
 		ItemStack boots = inv.getBoots();
 
 		if (helmet != null) {
-			if (helmet.getType().equals(Material.DIAMOND_HELMET)
-					|| helmet.getType().equals(Material.GOLD_HELMET)) {
+			if (!SNConfigHandler.angelArmor.contains(helmet)) {
 				inv.setHelmet(null);
 				dropItem(player, helmet);
 			}
 		}
 		if (chest != null) {
-			if (chest.getType().equals(Material.DIAMOND_CHESTPLATE)
-					|| chest.getType().equals(Material.GOLD_CHESTPLATE)) {
+			if (!SNConfigHandler.angelArmor.contains(chest)) {
 				inv.setChestplate(null);
 				dropItem(player, chest);
 			}
 		}
 		if (leggings != null) {
-			if (leggings.getType().equals(Material.DIAMOND_LEGGINGS)
-					|| leggings.getType().equals(Material.GOLD_LEGGINGS)) {
+			if (!SNConfigHandler.angelArmor.contains(leggings)) {
 				inv.setLeggings(null);
 				dropItem(player, leggings);
 			}
 		}
 		if (boots != null) {
-			if (boots.getType().equals(Material.DIAMOND_BOOTS)
-					|| boots.getType().equals(Material.GOLD_BOOTS)) {
+			if (!SNConfigHandler.angelArmor.contains(boots)) {
 				inv.setBoots(null);
 				dropItem(player, boots);
 			}

@@ -188,6 +188,7 @@ public class SNConfigHandler {
 	public static List<Material> vampireWeapons = new ArrayList<Material>();
 	public static List<Material> hunterWeapons = new ArrayList<Material>();
 	public static List<Material> wereWeapons = new ArrayList<Material>();
+	public static List<Material> angelWeapons = new ArrayList<Material>();
 	public static List<Material> ghoulWeaponImmunity = new ArrayList<Material>();
 	public static List<EntityType> ghoulTruce = new ArrayList<EntityType>();
 	public static List<Material> priestSpellMaterials = new ArrayList<Material>();
@@ -199,6 +200,7 @@ public class SNConfigHandler {
 	public static List<Material> priestArmor = new ArrayList<Material>();
 	public static List<Material> vampireArmor = new ArrayList<Material>();
 	public static List<Material> wereArmor = new ArrayList<Material>();
+	public static List<Material> angelArmor = new ArrayList<Material>();
 
 	public static String priestChurchWorld;
 	public static int priestChurchLocationX;
@@ -215,6 +217,7 @@ public class SNConfigHandler {
 	private static List<String> hunterWeaponsString = new ArrayList<String>();
 	private static List<String> vampireWeaponsString = new ArrayList<String>();
 	private static List<String> wereWeaponsString = new ArrayList<String>();
+	private static List<String> angelWeaponsString = new ArrayList<String>();
 	private static List<String> ghoulWeaponImmunityString = new ArrayList<String>();
 	private static List<String> woodMaterialsString = new ArrayList<String>();
 	private static List<String> vampireTruceString = new ArrayList<String>();
@@ -238,6 +241,7 @@ public class SNConfigHandler {
 	private static List<String> priestArmorString = new ArrayList<String>();
 	private static List<String> vampireArmorString = new ArrayList<String>();
 	private static List<String> wereArmorString = new ArrayList<String>();
+	private static List<String> angelArmorString = new ArrayList<String>();
 
 	public static Map<Material, Double> materialOpacity = new HashMap<Material, Double>();
 	public static HashSet<Byte> transparent = new HashSet<Byte>();
@@ -292,12 +296,28 @@ public class SNConfigHandler {
 		File configFile = new File(plugin.getDataFolder(), "config.yml");
 		if (configFile.exists() && config.getString("Version") != plugin.getDescription().getVersion()) {
 			config.set("Version", plugin.getDescription().getVersion());
-			angelJumpMaterial = config.getString("Angel.Materials.Jump", "YELLOW_FLOWER");
-			angelCureMaterial = config.getString("Angel.Materials.Cure", "PAPER");
-			angelSummonCowMaterial = config.getString("Angel.Materials.Summon.Cow", "RAW_BEEF");
-			angelSummonPigMaterial = config.getString("Angel.Materials.Summon.Pig", "PORK");
-			angelSummonWolfMaterial = config.getString("Angel.Materials.Summon.Wolf", "BONE");
-			angelHealMaterial = config.getString("Angel.Materials.Heal", "FEATHER");
+			config.set("Angel.Materials.Jump", "YELLOW_FLOWER"); // Woops... I got the values instead of setting them...
+			config.set("Angel.Materials.Cure", "PAPER");
+			config.set("Angel.Materials.Summon.Cow", "RAW_BEEF");
+			config.set("Angel.Materials.Summon.Pig", "PORK");
+			config.set("Angel.Materials.Summon.Wolf", "BONE");
+			config.set("Angel.Materials.Heal", "FEATHER");
+			angelWeaponsString.add("none");
+			angelArmorString.add("AIR");
+			angelArmorString.add("LEATHER_HELMET");
+			angelArmorString.add("LEATHER_CHESTPLATE");
+			angelArmorString.add("LEATHER_LEGGINGS");
+			angelArmorString.add("LEATHER_BOOTS");
+			angelArmorString.add("IRON_HELMET");
+			angelArmorString.add("IRON_CHESTPLATE");
+			angelArmorString.add("IRON_LEGGINGS");
+			angelArmorString.add("IRON_BOOTS");
+			angelArmorString.add("CHAINMAIL_HELMET");
+			angelArmorString.add("CHAINMAIL_CHESTPLATE");
+			angelArmorString.add("CHAINMAIL_LEGGINGS");
+			angelArmorString.add("CHAINMAIL_BOOTS");
+			config.set("Angel.Weapons.Restrictions", angelWeaponsString);
+			config.set("Angel.Armor", angelArmorString);
 			saveConfig();
 		}
 		if (!configFile.exists()) { // Dang, that really shortened this!
@@ -492,6 +512,16 @@ public class SNConfigHandler {
 		angelSummonPigMaterial = config.getString("Angel.Materials.Summon.Pig", "PORK");
 		angelSummonWolfMaterial = config.getString("Angel.Materials.Summon.Wolf", "BONE");
 		angelHealMaterial = config.getString("Angel.Materials.Heal", "FEATHER");
+		angelArmorString = config.getStringList("Angel.Armor");
+		angelWeaponsString = config.getStringList("Angel.Weapons.Restrictions");
+
+		for (String weapon : angelWeaponsString) {
+			angelWeapons.add(Material.getMaterial(weapon));
+		}
+
+		for (String armor : angelArmorString) {
+			angelArmor.add(Material.getMaterial(armor));
+		}
 
 		for (String wood : woodMaterialsString) {
 			woodMaterials.add(Material.getMaterial(wood));
