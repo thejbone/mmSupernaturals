@@ -106,7 +106,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	private SuperNManager superManager = new SuperNManager(this);
 	private HumanManager humanManager = new HumanManager(this);
 	private VampireManager vampManager = new VampireManager();
-	private PriestManager priestManager = new PriestManager();
+	private PriestManager priestManager = new PriestManager(this);
 	private WereManager wereManager = new WereManager();
 	private GhoulManager ghoulManager = new GhoulManager();
 	private HunterManager hunterManager = new HunterManager(this);
