@@ -179,25 +179,25 @@ public class AngelManager extends ClassManager {
 		ItemStack boots = inv.getBoots();
 
 		if (helmet != null) {
-			if (!SNConfigHandler.angelArmor.contains(helmet)) {
+			if (!SNConfigHandler.angelArmor.contains(helmet.getType())) {
 				inv.setHelmet(null);
 				dropItem(player, helmet);
 			}
 		}
 		if (chest != null) {
-			if (!SNConfigHandler.angelArmor.contains(chest)) {
+			if (!SNConfigHandler.angelArmor.contains(chest.getType())) {
 				inv.setChestplate(null);
 				dropItem(player, chest);
 			}
 		}
 		if (leggings != null) {
-			if (!SNConfigHandler.angelArmor.contains(leggings)) {
+			if (!SNConfigHandler.angelArmor.contains(leggings.getType())) {
 				inv.setLeggings(null);
 				dropItem(player, leggings);
 			}
 		}
 		if (boots != null) {
-			if (!SNConfigHandler.angelArmor.contains(boots)) {
+			if (!SNConfigHandler.angelArmor.contains(boots.getType())) {
 				inv.setBoots(null);
 				dropItem(player, boots);
 			}

@@ -296,28 +296,6 @@ public class SNConfigHandler {
 		File configFile = new File(plugin.getDataFolder(), "config.yml");
 		if (configFile.exists() && config.getString("Version") != plugin.getDescription().getVersion()) {
 			config.set("Version", plugin.getDescription().getVersion());
-			config.set("Angel.Materials.Jump", "YELLOW_FLOWER"); // Woops... I got the values instead of setting them...
-			config.set("Angel.Materials.Cure", "PAPER");
-			config.set("Angel.Materials.Summon.Cow", "RAW_BEEF");
-			config.set("Angel.Materials.Summon.Pig", "PORK");
-			config.set("Angel.Materials.Summon.Wolf", "BONE");
-			config.set("Angel.Materials.Heal", "FEATHER");
-			angelWeaponsString.add("none");
-			angelArmorString.add("AIR");
-			angelArmorString.add("LEATHER_HELMET");
-			angelArmorString.add("LEATHER_CHESTPLATE");
-			angelArmorString.add("LEATHER_LEGGINGS");
-			angelArmorString.add("LEATHER_BOOTS");
-			angelArmorString.add("IRON_HELMET");
-			angelArmorString.add("IRON_CHESTPLATE");
-			angelArmorString.add("IRON_LEGGINGS");
-			angelArmorString.add("IRON_BOOTS");
-			angelArmorString.add("CHAINMAIL_HELMET");
-			angelArmorString.add("CHAINMAIL_CHESTPLATE");
-			angelArmorString.add("CHAINMAIL_LEGGINGS");
-			angelArmorString.add("CHAINMAIL_BOOTS");
-			config.set("Angel.Weapons.Restrictions", angelWeaponsString);
-			config.set("Angel.Armor", angelArmorString);
 			saveConfig();
 		}
 		if (!configFile.exists()) { // Dang, that really shortened this!
