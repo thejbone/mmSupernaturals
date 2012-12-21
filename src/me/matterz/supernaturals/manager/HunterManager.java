@@ -82,9 +82,11 @@ public class HunterManager extends HumanManager {
 
 	@Override
 	public boolean shootArrow(Player shooter, EntityShootBowEvent event) {
-		boolean cancelled = shoot(shooter);
-		if (cancelled) {
-			return true;
+		if(event.getProjectile() instanceof Arrow) {
+			boolean cancelled = shoot(shooter, (Arrow) event.getProjectile());
+			if (cancelled) {
+				return true;
+			}
 		}
 		return false;
 	}
@@ -512,7 +514,7 @@ public class HunterManager extends HumanManager {
 	// Attacks //
 	// -------------------------------------------- //
 
-	public boolean shoot(final Player player) {
+	public boolean shoot(final Player player, final Arrow arrow) {
 
 		final SuperNPlayer snplayer = SuperNManager.get(player);
 
@@ -551,10 +553,9 @@ public class HunterManager extends HumanManager {
 		if (arrowType.equalsIgnoreCase("fire")) {
 			if (snplayer.getPower() > SNConfigHandler.hunterPowerArrowFire) {
 				SuperNManager.alterPower(snplayer, -SNConfigHandler.hunterPowerArrowFire, "Fire Arrow!");
-				Arrow arrow = player.launchProjectile(Arrow.class);
 				arrowMap.put(arrow, arrowType);
 				arrow.setFireTicks(SNConfigHandler.hunterFireArrowFireTicks);
-				return true;
+				return false;
 			} else {
 				SuperNManager.sendMessage(snplayer, "Not enough power to shoot Fire Arrows!");
 				SuperNManager.sendMessage(snplayer, "Switching to normal arrows.");
@@ -564,7 +565,6 @@ public class HunterManager extends HumanManager {
 		} else if (arrowType.equalsIgnoreCase("triple")) {
 			if (snplayer.getPower() > SNConfigHandler.hunterPowerArrowTriple) {
 				SuperNManager.alterPower(snplayer, -SNConfigHandler.hunterPowerArrowTriple, "Triple Arrow!");
-				final Arrow arrow = player.launchProjectile(Arrow.class);
 				arrowMap.put(arrow, arrowType);
 				SupernaturalsPlugin.instance.getServer().getScheduler().scheduleSyncDelayedTask(SupernaturalsPlugin.instance, new Runnable() {
 					@Override
@@ -572,7 +572,7 @@ public class HunterManager extends HumanManager {
 						splitArrow(player, arrow);
 					}
 				}, 4);
-				return true;
+				return false;
 			} else {
 				SuperNManager.sendMessage(snplayer, "Not enough power to shoot Triple Arrows!");
 				SuperNManager.sendMessage(snplayer, "Switching to normal arrows.");
@@ -582,7 +582,6 @@ public class HunterManager extends HumanManager {
 		} else if (arrowType.equalsIgnoreCase("power")) {
 			if (snplayer.getPower() > SNConfigHandler.hunterPowerArrowPower) {
 				SuperNManager.alterPower(snplayer, -SNConfigHandler.hunterPowerArrowPower, "Power Arrow!");
-				Arrow arrow = player.launchProjectile(Arrow.class);
 				arrowMap.put(arrow, arrowType);
 				drainedPlayers.add(player);
 				if (SNConfigHandler.debugMode) {
@@ -599,7 +598,7 @@ public class HunterManager extends HumanManager {
 								+ " is no longer drained.");
 					}
 				}, SNConfigHandler.hunterCooldown / 50);
-				return true;
+				return false;
 			} else {
 				SuperNManager.sendMessage(snplayer, "Not enough power to shoot Power Arrows!");
 				SuperNManager.sendMessage(snplayer, "Switching to normal arrows.");
@@ -609,9 +608,8 @@ public class HunterManager extends HumanManager {
 		} else if (arrowType.equalsIgnoreCase("grapple")) {
 			if (snplayer.getPower() > SNConfigHandler.hunterPowerArrowGrapple) {
 				SuperNManager.alterPower(snplayer, -SNConfigHandler.hunterPowerArrowGrapple, "Grapple Arrow!");
-				Arrow arrow = player.launchProjectile(Arrow.class);
 				arrowMap.put(arrow, arrowType);
-				return true;
+				return false;
 			} else {
 				SuperNManager.sendMessage(snplayer, "Not enough power to shoot Grapple Arrow!");
 				SuperNManager.sendMessage(snplayer, "Switching to normal arrows.");
@@ -627,7 +625,7 @@ public class HunterManager extends HumanManager {
 		if (SNConfigHandler.debugMode) {
 			SupernaturalsPlugin.log(player.getName() + "'s triple arrow event.");
 		}
-		player.launchProjectile(Arrow.class);
+		player.launchProjectile(Arrow.class).setVelocity(arrow.getVelocity());
 		String arrowType = arrowMap.get(arrow);
 		if (arrowType.equals("triple")) {
 			arrowMap.put(arrow, "double");
@@ -642,6 +640,7 @@ public class HunterManager extends HumanManager {
 		}
 	}
 
+	/* Grappling broke. Will be fixed at a later time.
 	public boolean isGrappling(Player player) {
 		return grapplingPlayers.contains(player);
 	}
@@ -667,4 +666,5 @@ public class HunterManager extends HumanManager {
 			}, 20 * 2);
 		}
 	}
+	*/
 }

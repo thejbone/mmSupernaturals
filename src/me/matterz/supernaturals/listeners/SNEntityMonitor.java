@@ -69,7 +69,7 @@ public class SNEntityMonitor implements Listener {
 				}
 				String arrowType = plugin.getHunterManager().getArrowMap().get(arrow);
 				if (arrowType.equalsIgnoreCase("grapple")) {
-					plugin.getHunterManager().startGrappling(player, arrow.getLocation());
+					player.teleport(arrow.getLocation());
 				} else if (arrowType.equalsIgnoreCase("fire")) {
 					arrow.getLocation();
 					Block block = arrow.getWorld().getBlockAt(arrow.getLocation());

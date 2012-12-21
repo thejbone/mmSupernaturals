@@ -61,7 +61,7 @@ public class ArrowUtil implements Runnable {
 		if (arrow != null) {
 			SupernaturalsPlugin.instance.getHunterManager().splitArrow(player, arrow);
 			return;
-		} else {
+		}/* else {
 			if (player.getLocation().distance(targetLocation) < 3) {
 				SupernaturalsPlugin.instance.getHunterManager().stopGrappling(player);
 				return;
@@ -82,6 +82,6 @@ public class ArrowUtil implements Runnable {
 			player.setVelocity(travelVector);
 			ArrowUtil gh = new ArrowUtil(player, targetLocation, startTime, grappleDistance);
 			SupernaturalsPlugin.instance.getServer().getScheduler().scheduleSyncDelayedTask(SupernaturalsPlugin.instance, gh);
-		}
+		}*/
 	}
 }
