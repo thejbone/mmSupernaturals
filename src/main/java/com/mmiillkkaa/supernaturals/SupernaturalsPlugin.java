@@ -22,12 +22,12 @@ package com.mmiillkkaa.supernaturals;
 import static com.sk89q.worldguard.bukkit.BukkitUtil.toVector;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -37,6 +37,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.mcstats.Metrics;
 
 import com.mmiillkkaa.supernaturals.commands.SNCommand;
 import com.mmiillkkaa.supernaturals.commands.SNCommandAdmin;
@@ -259,6 +260,12 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		SuperNManager.startTimer();
 		HunterManager.createBounties();
 		setupPermissions();
+		try {
+			Metrics metrics = new Metrics(this);
+			metrics.start();
+		} catch (IOException e) {
+			log("Couldn't start Metrics.");
+		}
 	}
 
 	// -------------------------------------------- //
