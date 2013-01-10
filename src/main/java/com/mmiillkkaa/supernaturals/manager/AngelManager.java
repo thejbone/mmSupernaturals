@@ -32,8 +32,8 @@ public class AngelManager extends ClassManager {
 	@Override
 	public void deathEvent(Player player) {
 		SuperNPlayer snplayer = SuperNManager.get(player);
-		if(player.getLastDamageCause().equals(DamageCause.LAVA)) {
-			SuperNManager.sendMessage(snplayer, "Unholy Lava has removed your holy powers!");
+		if(player.getLastDamageCause().getCause().equals(DamageCause.LAVA) || player.getLastDamageCause().getCause().equals(DamageCause.FIRE) || player.getLastDamageCause().getCause().equals(DamageCause.FIRE_TICK)) {
+			SuperNManager.sendMessage(snplayer, "Flames have removed your holy powers!");
 			SuperNManager.cure(snplayer);
 		}
 	}
@@ -64,8 +64,12 @@ public class AngelManager extends ClassManager {
 		SuperNPlayer sntarget = SuperNManager.get(target);
 		if (player.getItemInHand().getType().toString().equals(SNConfigHandler.angelHealMaterial)) {
 			if (snplayer.getPower() > SNConfigHandler.angelHealPowerCost) {
-				target.setHealth(target.getHealth()
-						+ SNConfigHandler.angelHealHealthGain);
+				if(!(target.getHealth() + SNConfigHandler.angelHealHealthGain > 20)) {
+					target.setHealth(target.getHealth()
+							+ SNConfigHandler.angelHealHealthGain);
+				} else {
+					target.setHealth(20);
+				}
 				SuperNManager.alterPower(snplayer, -SNConfigHandler.angelHealPowerCost, "Healing "
 						+ target.getName());
 				target.sendMessage(ChatColor.RED + "Healed by "
