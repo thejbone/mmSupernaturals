@@ -234,7 +234,7 @@ public class PriestManager extends HumanManager {
 								player.setHealth(0);
 								if (snplayer.isGhoul()) {
 									double random = Math.random();
-									if (random < SNConfigHandler.spreadChance - 0.1) {
+									if (random < SNConfigHandler.ghoulCureChance - 0.1) {
 										SuperNManager.cure(snplayer);
 									}
 								}

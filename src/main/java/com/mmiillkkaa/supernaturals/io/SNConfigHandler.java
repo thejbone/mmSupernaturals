@@ -77,6 +77,7 @@ public class SNConfigHandler {
 	public static double priestDamageFactorAttackHuman;
 	public static double priestDrainFactor;
 	public static double hunterPowerArrowDamage;
+	public static double ghoulCureChance;
 	public static int jumpBloodCost;
 	public static int dashBloodCost;
 	public static int truceBreakTime;
@@ -297,6 +298,7 @@ public class SNConfigHandler {
 		File configFile = new File(plugin.getDataFolder(), "config.yml");
 		if (configFile.exists() && config.getString("Version") != plugin.getDescription().getVersion()) {
 			config.set("Version", plugin.getDescription().getVersion());
+			config.set("Ghoul.CureChance", "0.5");
 			saveConfig();
 		}
 		if (!configFile.exists()) { // Dang, that really shortened this!
@@ -414,6 +416,7 @@ public class SNConfigHandler {
 		ghoulWeaponImmunityString = config.getStringList("Ghoul.Immunity");
 		ghoulArmorString = config.getStringList("Ghoul.Armor");
 		ghoulRightClickSummon = config.getBoolean("Ghoul.RightClickSummon");
+		ghoulCureChance = config.getDouble("Ghoul.CureChance");
 
 		dashDeltaSpeed = config.getDouble("Were.DashDelta", 4);
 		dashBloodCost = config.getInt("Were.Power.Dash", 400);

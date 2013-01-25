@@ -189,6 +189,7 @@ Priest:
   Armor:
   - AIR
 Ghoul:
+  CureChance: 0.5
   Power:
     Start: 5000
     Kill:
