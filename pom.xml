@@ -55,7 +55,7 @@
   	<dependency>
   		<groupId>org.bukkit</groupId>
   		<artifactId>bukkit</artifactId>
-  		<version>1.4.6-R0.3</version>
+  		<version>1.4.7-R0.1</version>
   		<scope>compile</scope>
   	</dependency>
   	<dependency>
@@ -67,7 +67,7 @@
   	<dependency>
   		<groupId>com.sk89q</groupId>
   		<artifactId>worldedit</artifactId>
-  		<version>5.4.5</version>
+  		<version>5.5</version>
   		<scope>compile</scope>
   	</dependency>
   	<dependency>
