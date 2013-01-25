@@ -26,6 +26,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerPortalEvent;
 
@@ -51,6 +52,35 @@ public class SNPlayerMonitor implements Listener {
 	// event.getPlayer().setSneaking(true);
 	// }
 	// }
+
+	@EventHandler(priority = EventPriority.MONITOR)
+	public void onPlayerChat(AsyncPlayerChatEvent event) {
+		if(event.isCancelled()) {
+			return;
+		}
+		Player player = event.getPlayer();
+		SuperNPlayer snplayer = SuperNManager.get(player);
+		String prefix;
+		if (snplayer.isPriest()) {
+			prefix = ChatColor.GOLD + "Priest";
+		} else if (snplayer.isVampire()) {
+			prefix = ChatColor.DARK_PURPLE + "Vampire";
+		} else if (snplayer.isGhoul()) {
+			prefix = ChatColor.DARK_GRAY + "Ghoul";
+		} else if (snplayer.isWere()) {
+			prefix = ChatColor.BLUE + "Werewolf";
+		} else if (snplayer.isHunter()) {
+			prefix = ChatColor.GREEN + "WitchHunter";
+		} else if (snplayer.isDemon()) {
+			prefix = ChatColor.RED + "Demon";
+		} else if (snplayer.isAngel()) {
+			prefix = ChatColor.AQUA + "Angel";
+		} else {
+			prefix = ChatColor.WHITE + "Human";
+		}
+
+		event.setFormat(event.getFormat().replace("[SN]", prefix));
+	}
 
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerPortal(PlayerPortalEvent event) {
