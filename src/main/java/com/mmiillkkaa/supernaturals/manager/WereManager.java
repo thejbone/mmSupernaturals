@@ -316,7 +316,7 @@ public class WereManager extends ClassManager {
 					Wolf wolf = (Wolf) player.getWorld().spawnEntity(player.getLocation(), EntityType.WOLF);
 					wolf.setTamed(true);
 					wolf.setOwner(player);
-					wolf.setHealth(20);
+					wolf.setHealth(8);
 					wolvesMap.put(wolf, snplayer);
 					SuperNManager.alterPower(snplayer, -SNConfigHandler.werePowerSummonCost, "Summoning wolf!");
 					if (SNConfigHandler.debugMode) {
