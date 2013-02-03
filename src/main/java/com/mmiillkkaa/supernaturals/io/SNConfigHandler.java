@@ -298,7 +298,6 @@ public class SNConfigHandler {
 		File configFile = new File(plugin.getDataFolder(), "config.yml");
 		if (configFile.exists() && config.getString("Version") != plugin.getDescription().getVersion()) {
 			config.set("Version", plugin.getDescription().getVersion());
-			config.set("Ghoul.CureChance", "0.5");
 			saveConfig();
 		}
 		if (!configFile.exists()) { // Dang, that really shortened this!
