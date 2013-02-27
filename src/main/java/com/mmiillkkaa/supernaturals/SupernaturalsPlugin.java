@@ -37,7 +37,6 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.mcstats.Metrics;
 
 import com.mmiillkkaa.supernaturals.commands.SNCommand;
 import com.mmiillkkaa.supernaturals.commands.SNCommandAdmin;
