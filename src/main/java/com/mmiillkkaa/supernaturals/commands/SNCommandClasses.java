@@ -62,7 +62,7 @@ public class SNCommandClasses extends SNCommand {
 		classMessages.add("Angel: " + ChatColor.WHITE
 				+ "A Human with a free spirit.");
 		spanishClassMessages.add("*** " + ChatColor.WHITE
-				+ "Clases de Seres Místicos " + ChatColor.RED + "***");
+				+ "Clases de Seres MÃ­sticos." + ChatColor.RED + "***");
 		spanishClassMessages.add("Humano: " + ChatColor.WHITE
 				+ "- De carne y hueso, solo sirven para destruir el mundo.");
 		spanishClassMessages.add("Sacerdote: " + ChatColor.WHITE
@@ -76,7 +76,7 @@ public class SNCommandClasses extends SNCommand {
 		spanishClassMessages.add("Cazador de Brujas: " + ChatColor.WHITE
 				+ "- Experto con arcos y sigiloso.");
 		spanishClassMessages.add("Demonio: " + ChatColor.WHITE
-				+ "- Tiene una extraña union con el infierno.");
+				+ "- Tiene una extraï¿½a union con el infierno.");
 	}
 
 	@Override
