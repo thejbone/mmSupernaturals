@@ -1,6 +1,8 @@
 package com.mmiillkkaa.supernaturals.manager;
 
 
+import java.util.HashMap;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -28,6 +30,8 @@ public class AngelManager extends ClassManager {
 	public AngelManager() {
 		super();
 	}
+
+	public HashMap<Wolf, SuperNPlayer> angelWolfMap = new HashMap<Wolf, SuperNPlayer>();
 
 	@Override
 	public void deathEvent(Player player) {
@@ -124,10 +128,20 @@ public class AngelManager extends ClassManager {
 						return true;
 					}
 					if (itemInHandMaterial.toString().equals(SNConfigHandler.angelSummonWolfMaterial)) {
+						int wolves = 0;
+						for(Wolf wolf : angelWolfMap.keySet()) {
+							if(angelWolfMap.get(wolf).equals(snplayer)) {
+								wolves++;
+							}
+						}
+						if(wolves > 4) {
+							player.sendMessage(ChatColor.RED + "Too much wolves, not enough space! (Stop spawning wolves!)");
+							return true;
+						}
 						Wolf spawnedWolf = (Wolf) player.getWorld().spawnEntity(plusOne, EntityType.WOLF);
 						spawnedWolf.setTamed(true);
 						spawnedWolf.setOwner(player);
-						spawnedWolf.setHealth(20);
+						spawnedWolf.setHealth(8);
 						event.setCancelled(true);
 						SuperNManager.alterPower(snplayer, -SNConfigHandler.angelSummonPowerCost, "Summoned wolf.");
 						return true;
