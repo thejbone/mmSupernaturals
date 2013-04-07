@@ -68,11 +68,11 @@ public class AngelManager extends ClassManager {
 		SuperNPlayer sntarget = SuperNManager.get(target);
 		if (player.getItemInHand().getType().toString().equals(SNConfigHandler.angelHealMaterial)) {
 			if (snplayer.getPower() > SNConfigHandler.angelHealPowerCost) {
-				if(!(target.getHealth() + SNConfigHandler.angelHealHealthGain > 20)) {
+				if(!(target.getHealth() + SNConfigHandler.angelHealHealthGain > target.getMaxHealth())) {
 					target.setHealth(target.getHealth()
 							+ SNConfigHandler.angelHealHealthGain);
 				} else {
-					target.setHealth(20);
+					target.setHealth(target.getMaxHealth());
 				}
 				SuperNManager.alterPower(snplayer, -SNConfigHandler.angelHealPowerCost, "Healing "
 						+ target.getName());

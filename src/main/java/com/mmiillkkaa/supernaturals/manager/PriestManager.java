@@ -395,7 +395,7 @@ public class PriestManager extends HumanManager {
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		SuperNPlayer snvictim = SuperNManager.get(victim);
 		if (snplayer.getPower() > SNConfigHandler.priestPowerHeal) {
-			if (!snvictim.isSuper() && victim.getHealth() < 20
+			if (!snvictim.isSuper() && victim.getHealth() < victim.getMaxHealth()
 					&& !victim.isDead()) {
 				SuperNManager.alterPower(snplayer, -SNConfigHandler.priestPowerHeal, "Healed "
 						+ victim.getName());
@@ -404,8 +404,8 @@ public class PriestManager extends HumanManager {
 						+ "!");
 				int health = victim.getHealth()
 						+ SNConfigHandler.priestHealAmount;
-				if (health > 20) {
-					health = 20;
+				if (health > victim.getMaxHealth()) {
+					health = victim.getMaxHealth();
 				}
 				victim.setHealth(health);
 				ItemStack item = player.getItemInHand();

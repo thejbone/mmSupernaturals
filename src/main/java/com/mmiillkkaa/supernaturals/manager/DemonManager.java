@@ -345,8 +345,8 @@ public class DemonManager extends ClassManager {
 
 		int health = player.getHealth();
 		health += SNConfigHandler.demonHealing;
-		if (health > 20) {
-			health = 20;
+		if (health > player.getMaxHealth()) {
+			health = player.getMaxHealth();
 		}
 		player.setHealth(health);
 	}
