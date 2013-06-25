@@ -130,17 +130,12 @@ public class SNPlayerMonitor implements Listener {
 			return;
 		}
 		boolean vanished = false;
-		boolean blahblah = false;
-		while(!blahblah) {
-			for(Player onePlayer : plugin.getServer().getOnlinePlayers()) {
-				if(onePlayer != player) {
-					if(!onePlayer.canSee(onePlayer)) {
-						vanished = true;
-						blahblah = true;
-					}
+		for(Player onePlayer : plugin.getServer().getOnlinePlayers()) {
+			if(onePlayer != player) {
+				if(!onePlayer.canSee(player)) {
+					vanished = true;
 				}
 			}
-			blahblah = true;
 		}
 		SuperNManager.updateName(snplayer);
 		if(vanished) {
