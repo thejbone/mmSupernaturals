@@ -19,7 +19,6 @@
 
 package com.mmiillkkaa.supernaturals.manager;
 
-
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -53,7 +52,8 @@ public abstract class ClassManager {
 	public void deathEvent(Player player) {
 	}
 
-	public void killEvent(Player pDamager, SuperNPlayer damager, SuperNPlayer victim) {
+	public void killEvent(Player pDamager, SuperNPlayer damager,
+			SuperNPlayer victim) {
 	}
 
 	public boolean playerInteract(PlayerInteractEvent event) {
@@ -64,9 +64,13 @@ public abstract class ClassManager {
 	}
 
 	public void dropItem(Player player, ItemStack item) {
-		SuperNPlayer snplayer = SuperNManager.get(player);
-		SuperNManager.sendMessage(snplayer, "Your class cannot wear this type of armor!");
-		Item newItem = player.getWorld().dropItem(player.getLocation(), item);
-		newItem.setItemStack(item);
+		if (!player.hasPermission("supernatural.player.ignorearmor")) {
+			SuperNPlayer snplayer = SuperNManager.get(player);
+			SuperNManager.sendMessage(snplayer,
+					"Your class cannot wear this type of armor!");
+			Item newItem = player.getWorld().dropItem(player.getLocation(),
+					item);
+			newItem.setItemStack(item);
+		}
 	}
 }

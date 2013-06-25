@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -78,7 +77,8 @@ public class WereManager extends ClassManager {
 								+ " was not allowed to use "
 								+ item.getType().toString());
 					}
-					SuperNManager.sendMessage(snDamager, "Werewolves cannot use this weapon at night!");
+					SuperNManager.sendMessage(snDamager,
+							"Werewolves cannot use this weapon at night!");
 					damage = 0;
 				} else {
 					damage += damage
@@ -97,25 +97,37 @@ public class WereManager extends ClassManager {
 
 		SuperNPlayer snplayer = SuperNManager.get(player);
 
-		SuperNManager.alterPower(snplayer, -SNConfigHandler.wereDeathPowerPenalty, "You died!");
+		SuperNManager.alterPower(snplayer,
+				-SNConfigHandler.wereDeathPowerPenalty, "You died!");
 	}
 
 	@Override
-	public void killEvent(Player pDamager, SuperNPlayer damager, SuperNPlayer victim) {
+	public void killEvent(Player pDamager, SuperNPlayer damager,
+			SuperNPlayer victim) {
 		if (victim == null) {
-			SuperNManager.alterPower(damager, SNConfigHandler.wereKillPowerCreatureGain, "Creature death!");
+			SuperNManager.alterPower(damager,
+					SNConfigHandler.wereKillPowerCreatureGain,
+					"Creature death!");
 		} else {
 			double random = Math.random();
 			if (victim.getPower() > SNConfigHandler.wereKillPowerPlayerGain) {
-				SuperNManager.alterPower(damager, SNConfigHandler.wereKillPowerPlayerGain, "Player killed!");
+				SuperNManager.alterPower(damager,
+						SNConfigHandler.wereKillPowerPlayerGain,
+						"Player killed!");
 			} else {
-				SuperNManager.sendMessage(damager, "You cannot gain power from a player with no power themselves.");
+				SuperNManager
+						.sendMessage(damager,
+								"You cannot gain power from a player with no power themselves.");
 			}
 			if (SNConfigHandler.wereKillSpreadCurse
 					&& !victim.isSuper()
-					&& SuperNManager.worldTimeIsNight(SupernaturalsPlugin.instance.getServer().getPlayer(victim.getName()))) {
+					&& SuperNManager
+							.worldTimeIsNight(SupernaturalsPlugin.instance
+									.getServer().getPlayer(victim.getName()))) {
 				if (random < SNConfigHandler.spreadChance) {
-					SuperNManager.sendMessage(victim, "Your basic nature changes... You feel more in touch with your animal side.");
+					SuperNManager
+							.sendMessage(victim,
+									"Your basic nature changes... You feel more in touch with your animal side.");
 					SuperNManager.convert(victim, "werewolf");
 				}
 			}
@@ -142,40 +154,48 @@ public class WereManager extends ClassManager {
 				return false;
 			}
 
-			if (itemMaterial.toString().equalsIgnoreCase(SNConfigHandler.wolfMaterial)) {
+			if (itemMaterial.toString().equalsIgnoreCase(
+					SNConfigHandler.wolfMaterial)) {
 				if (SuperNManager.worldTimeIsNight(player)) {
 					summon(player);
 					event.setCancelled(true);
 					return true;
 				} else {
-					SuperNManager.sendMessage(snplayer, "Cannot use this ability during the day.");
+					SuperNManager.sendMessage(snplayer,
+							"Cannot use this ability during the day.");
 					return false;
 				}
-			} else if (itemMaterial.toString().equalsIgnoreCase(SNConfigHandler.wolfbaneMaterial)) {
+			} else if (itemMaterial.toString().equalsIgnoreCase(
+					SNConfigHandler.wolfbaneMaterial)) {
 				if (!SupernaturalsPlugin.hasPermissions(player, permissions2)) {
 					return false;
 				}
 				if (SuperNManager.worldTimeIsNight(player)) {
-					SuperNManager.sendMessage(snplayer, "Cannot cure lycanthropy during the night.");
+					SuperNManager.sendMessage(snplayer,
+							"Cannot cure lycanthropy during the night.");
 					return false;
 				} else {
 					wolfbane(player);
 					event.setCancelled(true);
 					return true;
 				}
-			} else if (itemMaterial.toString().equalsIgnoreCase(SNConfigHandler.dashMaterial)) {
+			} else if (itemMaterial.toString().equalsIgnoreCase(
+					SNConfigHandler.dashMaterial)) {
 				if (SuperNManager.worldTimeIsNight(player)) {
-					SuperNManager.jump(event.getPlayer(), SNConfigHandler.dashDeltaSpeed, false);
+					SuperNManager.jump(event.getPlayer(),
+							SNConfigHandler.dashDeltaSpeed, false);
 					event.setCancelled(true);
 					return true;
 				} else {
-					SuperNManager.sendMessage(snplayer, "Cannot use this ability during the day.");
+					SuperNManager.sendMessage(snplayer,
+							"Cannot use this ability during the day.");
 					return false;
 				}
 			}
 		}
 
-		if (!(action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK))) {
+		if (!(action.equals(Action.RIGHT_CLICK_AIR) || action
+				.equals(Action.RIGHT_CLICK_BLOCK))) {
 			return false;
 		}
 
@@ -184,10 +204,12 @@ public class WereManager extends ClassManager {
 				if (itemMaterial != null) {
 					if (SNConfigHandler.foodMaterials.contains(itemMaterial)) {
 						if (itemMaterial.equals(Material.BREAD)) {
-							SuperNManager.sendMessage(snplayer, "Werewolves do not gain power from Bread.");
+							SuperNManager.sendMessage(snplayer,
+									"Werewolves do not gain power from Bread.");
 							return false;
 						} else {
-							SuperNManager.alterPower(snplayer, SNConfigHandler.werePowerFood, "Eating!");
+							SuperNManager.alterPower(snplayer,
+									SNConfigHandler.werePowerFood, "Eating!");
 							if (SNConfigHandler.debugMode) {
 								SupernaturalsPlugin.log(snplayer.getName()
 										+ " ate " + itemMaterial.toString()
@@ -212,15 +234,19 @@ public class WereManager extends ClassManager {
 						return false;
 					}
 					if (itemMaterial.equals(Material.BREAD)) {
-						SuperNManager.sendMessage(snplayer, "Werewolves do not gain power from Bread.");
+						SuperNManager.sendMessage(snplayer,
+								"Werewolves do not gain power from Bread.");
 						return false;
 					} else {
-						SuperNManager.alterPower(snplayer, SNConfigHandler.werePowerFood, "Eating!");
+						SuperNManager.alterPower(snplayer,
+								SNConfigHandler.werePowerFood, "Eating!");
 						if (SNConfigHandler.debugMode) {
-							SupernaturalsPlugin.log(snplayer.getName()
-									+ " ate " + itemMaterial.toString()
-									+ " to gain "
-									+ SNConfigHandler.werePowerFood + " power!");
+							SupernaturalsPlugin
+									.log(snplayer.getName() + " ate "
+											+ itemMaterial.toString()
+											+ " to gain "
+											+ SNConfigHandler.werePowerFood
+											+ " power!");
 						}
 						player.setFoodLevel(player.getFoodLevel() + 6); // Hardcoded
 																		// value
@@ -242,34 +268,37 @@ public class WereManager extends ClassManager {
 
 	@Override
 	public void armorCheck(Player player) {
-		PlayerInventory inv = player.getInventory();
-		ItemStack helmet = inv.getHelmet();
-		ItemStack chest = inv.getChestplate();
-		ItemStack leggings = inv.getLeggings();
-		ItemStack boots = inv.getBoots();
+		if (!player.hasPermission("supernatural.player.ignorearmor")) {
+			PlayerInventory inv = player.getInventory();
+			ItemStack helmet = inv.getHelmet();
+			ItemStack chest = inv.getChestplate();
+			ItemStack leggings = inv.getLeggings();
+			ItemStack boots = inv.getBoots();
 
-		if (helmet != null) {
-			if (!SNConfigHandler.wereArmor.contains(helmet.getType()) && !helmet.getType().equals(Material.WOOL)) {
-				inv.setHelmet(null);
-				dropItem(player, helmet);
+			if (helmet != null) {
+				if (!SNConfigHandler.wereArmor.contains(helmet.getType())
+						&& !helmet.getType().equals(Material.WOOL)) {
+					inv.setHelmet(null);
+					dropItem(player, helmet);
+				}
 			}
-		}
-		if (chest != null) {
-			if (!SNConfigHandler.wereArmor.contains(chest.getType())) {
-				inv.setChestplate(null);
-				dropItem(player, chest);
+			if (chest != null) {
+				if (!SNConfigHandler.wereArmor.contains(chest.getType())) {
+					inv.setChestplate(null);
+					dropItem(player, chest);
+				}
 			}
-		}
-		if (leggings != null) {
-			if (!SNConfigHandler.wereArmor.contains(leggings.getType())) {
-				inv.setLeggings(null);
-				dropItem(player, leggings);
+			if (leggings != null) {
+				if (!SNConfigHandler.wereArmor.contains(leggings.getType())) {
+					inv.setLeggings(null);
+					dropItem(player, leggings);
+				}
 			}
-		}
-		if (boots != null) {
-			if (!SNConfigHandler.wereArmor.contains(boots.getType())) {
-				inv.setBoots(null);
-				dropItem(player, boots);
+			if (boots != null) {
+				if (!SNConfigHandler.wereArmor.contains(boots.getType())) {
+					inv.setBoots(null);
+					dropItem(player, boots);
+				}
 			}
 		}
 	}
@@ -281,14 +310,19 @@ public class WereManager extends ClassManager {
 	public boolean wolfbane(Player player) {
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		if (SNConfigHandler.wereWolfbaneRecipe.playerHasEnough(player)) {
-			SuperNManager.sendMessage(snplayer, "You create a wolfbane potion!");
-			SuperNManager.sendMessage(snplayer, SNConfigHandler.wereWolfbaneRecipe.getRecipeLine());
+			SuperNManager
+					.sendMessage(snplayer, "You create a wolfbane potion!");
+			SuperNManager.sendMessage(snplayer,
+					SNConfigHandler.wereWolfbaneRecipe.getRecipeLine());
 			SNConfigHandler.wereWolfbaneRecipe.removeFromPlayer(player);
 			SuperNManager.cure(snplayer);
 			return true;
 		} else {
-			SuperNManager.sendMessage(snplayer, "You cannot create a Wolfbane potion without the following: ");
-			SuperNManager.sendMessage(snplayer, SNConfigHandler.wereWolfbaneRecipe.getRecipeLine());
+			SuperNManager
+					.sendMessage(snplayer,
+							"You cannot create a Wolfbane potion without the following: ");
+			SuperNManager.sendMessage(snplayer,
+					SNConfigHandler.wereWolfbaneRecipe.getRecipeLine());
 			return false;
 		}
 	}
@@ -313,12 +347,15 @@ public class WereManager extends ClassManager {
 					}
 				}
 				if (i <= 4) {
-					Wolf wolf = (Wolf) player.getWorld().spawnEntity(player.getLocation(), EntityType.WOLF);
+					Wolf wolf = (Wolf) player.getWorld().spawnEntity(
+							player.getLocation(), EntityType.WOLF);
 					wolf.setTamed(true);
 					wolf.setOwner(player);
 					wolf.setHealth(8);
 					wolvesMap.put(wolf, snplayer);
-					SuperNManager.alterPower(snplayer, -SNConfigHandler.werePowerSummonCost, "Summoning wolf!");
+					SuperNManager.alterPower(snplayer,
+							-SNConfigHandler.werePowerSummonCost,
+							"Summoning wolf!");
 					if (SNConfigHandler.debugMode) {
 						SupernaturalsPlugin.log(snplayer.getName()
 								+ " summoned a wolf pet!");
@@ -330,15 +367,18 @@ public class WereManager extends ClassManager {
 					}
 					return true;
 				} else {
-					SuperNManager.sendMessage(snplayer, "You already have all the wolves you can control.");
+					SuperNManager.sendMessage(snplayer,
+							"You already have all the wolves you can control.");
 					return false;
 				}
 			} else {
-				SuperNManager.sendMessage(snplayer, "Not enough power to summon.");
+				SuperNManager.sendMessage(snplayer,
+						"Not enough power to summon.");
 				return false;
 			}
 		} else {
-			SuperNManager.sendMessage(snplayer, "Cannot use werewolf abilities during the day!");
+			SuperNManager.sendMessage(snplayer,
+					"Cannot use werewolf abilities during the day!");
 			return false;
 		}
 	}
