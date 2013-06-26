@@ -91,6 +91,8 @@ permissions:
         default: false
     supernatural.player.witchhuntersign:
         default: true
+    supernatural.player.ignorearmor:
+    	default: op
     supernatural.admin.infinitepower:
         default: op
     supernatural.admin.partial.curse:
