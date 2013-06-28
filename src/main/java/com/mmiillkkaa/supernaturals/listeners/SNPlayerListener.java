@@ -44,7 +44,6 @@ public class SNPlayerListener implements Listener {
 	private String worldPermission = "supernatural.world.enabled";
 
 	public SNPlayerListener(SupernaturalsPlugin instance) {
-		instance.getServer().getPluginManager().registerEvents(this, instance);
 		plugin = instance;
 	}
 

@@ -16,7 +16,6 @@ public class SNServerMonitor implements Listener {
 	public SupernaturalsPlugin plugin;
 
 	public SNServerMonitor(SupernaturalsPlugin instance) {
-		instance.getServer().getPluginManager().registerEvents(this, instance);
 		plugin = instance;
 	}
 

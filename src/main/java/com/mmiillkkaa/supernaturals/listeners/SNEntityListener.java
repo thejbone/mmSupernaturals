@@ -47,7 +47,6 @@ public class SNEntityListener implements Listener {
 	private String worldPermission = "supernatural.world.enabled";
 
 	public SNEntityListener(SupernaturalsPlugin instance) {
-		instance.getServer().getPluginManager().registerEvents(this, instance);
 		plugin = instance;
 	}
 

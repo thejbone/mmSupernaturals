@@ -90,19 +90,6 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	private SNDataHandler snData = new SNDataHandler();
 	private SNWhitelistHandler snWhitelist = new SNWhitelistHandler(this);
 
-	@SuppressWarnings("unused")
-	private SNEntityListener entityListener;
-	@SuppressWarnings("unused")
-	private SNPlayerListener playerListener;
-	@SuppressWarnings("unused")
-	private SNPlayerMonitor playerMonitor;
-	@SuppressWarnings("unused")
-	private SNEntityMonitor entityMonitor;
-	@SuppressWarnings("unused")
-	private SNBlockListener blockListener;
-	@SuppressWarnings("unused")
-	private SNServerMonitor serverMonitor;
-
 	private SuperNManager superManager = new SuperNManager(this);
 	private HumanManager humanManager = new HumanManager(this);
 	private VampireManager vampManager = new VampireManager();
@@ -233,12 +220,12 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		commands.add(new SNCommandJoin());
 		commands.add(new SNCommandSetup());
 
-		entityListener = new SNEntityListener(this);
-		playerListener = new SNPlayerListener(this);
-		playerMonitor = new SNPlayerMonitor(this);
-		entityMonitor = new SNEntityMonitor(this);
-		blockListener = new SNBlockListener(this);
-		serverMonitor = new SNServerMonitor(this);
+		pm.registerEvents(new SNBlockListener(this), this);
+		pm.registerEvents(new SNEntityListener(this), this);
+		pm.registerEvents(new SNEntityMonitor(this), this);
+		pm.registerEvents(new SNPlayerListener(this), this);
+		pm.registerEvents(new SNPlayerMonitor(this), this);
+		pm.registerEvents(new SNServerMonitor(this), this);
 
 		PluginDescriptionFile pdfFile = getDescription();
 		log(pdfFile.getName() + " version " + pdfFile.getVersion()
