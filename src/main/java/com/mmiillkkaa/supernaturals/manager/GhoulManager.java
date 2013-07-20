@@ -239,7 +239,7 @@ public class GhoulManager extends ClassManager {
 		Material material = player.getLocation().getBlock().getType();
 
 		if (material == Material.STATIONARY_WATER || material == Material.WATER) {
-			int health = player.getHealth() - SNConfigHandler.ghoulDamageWater;
+			double health = player.getHealth() - SNConfigHandler.ghoulDamageWater;
 			if (health < 0) {
 				health = 0;
 			}

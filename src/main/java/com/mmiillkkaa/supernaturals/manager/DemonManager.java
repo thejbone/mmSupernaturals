@@ -369,7 +369,7 @@ public class DemonManager extends ClassManager {
 			return;
 		}
 
-		int health = player.getHealth();
+		double health = player.getHealth();
 		health += SNConfigHandler.demonHealing;
 		if (health > player.getMaxHealth()) {
 			health = player.getMaxHealth();
