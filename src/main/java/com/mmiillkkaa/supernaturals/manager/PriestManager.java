@@ -68,11 +68,6 @@ public class PriestManager extends HumanManager {
 
 		if (item != null) {
 			if (SNConfigHandler.priestWeapons.contains(item.getType())) {
-				if (SNConfigHandler.debugMode) {
-					SupernaturalsPlugin.log(pDamager.getName()
-							+ " was not allowed to use "
-							+ item.getType().toString());
-				}
 				SuperNManager.sendMessage(snDamager,
 						"Priests cannot use this weapon!");
 				return 0;
@@ -136,10 +131,6 @@ public class PriestManager extends HumanManager {
 		if (action.equals(Action.LEFT_CLICK_AIR)
 				|| action.equals(Action.LEFT_CLICK_BLOCK)) {
 			if (itemMaterial.equals(Material.BOWL)) {
-				if (SNConfigHandler.debugMode) {
-					SupernaturalsPlugin.log(snplayer.getName()
-							+ " is attempting to donate remotely.");
-				}
 				remoteDonations(player);
 				return true;
 			}
@@ -349,14 +340,6 @@ public class PriestManager extends HumanManager {
 
 		if (itemMaterial != null) {
 			if (SNConfigHandler.priestSpellMaterials.contains(itemMaterial)) {
-				if (SNConfigHandler.debugMode) {
-					SupernaturalsPlugin.log(snplayer.getName()
-							+ " is attempting to cast a spell...");
-				}
-				if (SNConfigHandler.debugMode) {
-					SupernaturalsPlugin.log(target.getName()
-							+ " is targetted by spell.");
-				}
 				if (itemMaterial.equals(SNConfigHandler.priestSpellMaterials
 						.get(0))) {
 					banish(player, target);
@@ -379,30 +362,15 @@ public class PriestManager extends HumanManager {
 				if (!event.isCancelled()) {
 					event.setCancelled(cancelled);
 				}
-				return;
-			} else if (itemMaterial.toString().equalsIgnoreCase(
+            } else if (itemMaterial.toString().equalsIgnoreCase(
 					SNConfigHandler.priestSpellGuardianAngel)) {
-				if (SNConfigHandler.debugMode) {
-					SupernaturalsPlugin.log(snplayer.getName()
-							+ " is attempting to cast guardian angel...");
-				}
-				if (SNConfigHandler.debugMode) {
-					SupernaturalsPlugin.log(target.getName()
-							+ " is targetted by guardian angel.");
-				}
 				cancelled = guardianAngel(player, target);
 				if (!event.isCancelled()) {
 					event.setCancelled(cancelled);
 				}
-				return;
-			} else if (itemMaterial.equals(Material.BOWL)) {
-				if (SNConfigHandler.debugMode) {
-					SupernaturalsPlugin.log(snplayer.getName()
-							+ " is attempting to donate remotely.");
-				}
+            } else if (itemMaterial.equals(Material.BOWL)) {
 				remoteDonations(player);
-				return;
-			}
+            }
 		}
 	}
 

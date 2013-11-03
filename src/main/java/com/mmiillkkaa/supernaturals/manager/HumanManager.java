@@ -65,10 +65,6 @@ public class HumanManager extends ClassManager {
 
 	@Override
 	public void deathEvent(Player player) {
-		if (SNConfigHandler.debugMode) {
-			SupernaturalsPlugin.log("Player died.");
-		}
-
 		if(player == null) {
 			return;
 		}

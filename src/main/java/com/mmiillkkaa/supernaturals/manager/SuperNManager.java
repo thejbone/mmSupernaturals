@@ -278,9 +278,6 @@ public class SuperNManager {
 			} else {
 				SuperNManager.alterPower(snplayer,
 						-SNConfigHandler.jumpBloodCost, "SuperJump!");
-				if (SNConfigHandler.debugMode) {
-					SupernaturalsPlugin.log(snplayer.getName() + " used jump!");
-				}
 			}
 		} else {
 			if (snplayer.getPower() - SNConfigHandler.dashBloodCost <= 0) {
@@ -290,9 +287,6 @@ public class SuperNManager {
 			} else {
 				SuperNManager.alterPower(snplayer,
 						-SNConfigHandler.dashBloodCost, "Dash!");
-				if (SNConfigHandler.debugMode) {
-					SupernaturalsPlugin.log(snplayer.getName() + " used dash!");
-				}
 			}
 		}
 
@@ -410,15 +404,10 @@ public class SuperNManager {
 		}
 
 		double deltaSeconds = milliseconds / 1000D;
-		;
 		double deltaHeal;
 
 		if (snplayer.isVampire()) {
 			if (snplayer.getPower() <= SNConfigHandler.vampireHealthCost) {
-				if (SNConfigHandler.debugMode) {
-					SupernaturalsPlugin.log("Regen Event: Vampire player "
-							+ player.getName() + " not enough power!");
-				}
 				return;
 			}
 
@@ -448,10 +437,6 @@ public class SuperNManager {
 			player.setHealth(targetHealth);
 		} catch (IllegalArgumentException e) {
 			SupernaturalsPlugin.log("Attempted to regen dead player.");
-		}
-		if (SNConfigHandler.debugMode) {
-			SupernaturalsPlugin.log("Regen Event: player " + player.getName()
-					+ " gained " + healthDelta + " health.");
 		}
 	}
 
@@ -549,12 +534,8 @@ public class SuperNManager {
 	public static boolean worldTimeIsNight(Player player) {
 		long time = player.getWorld().getTime() % 24000;
 
-		if (time < 0 || time > 12400) {
-			return true;
-		}
-
-		return false;
-	}
+        return time < 0 || time > 12400;
+    }
 
 	public static void startTimer() {
 		timer = SupernaturalsPlugin.instance

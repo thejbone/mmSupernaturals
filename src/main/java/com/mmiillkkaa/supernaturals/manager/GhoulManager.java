@@ -95,11 +95,6 @@ public class GhoulManager extends ClassManager {
 
 		if (item != null) {
 			if (SNConfigHandler.ghoulWeapons.contains(item.getType())) {
-				if (SNConfigHandler.debugMode) {
-					SupernaturalsPlugin.log(pDamager.getName()
-							+ " was not allowed to use "
-							+ item.getType().toString());
-				}
 				SuperNManager.sendMessage(snDamager,
 						"Ghouls cannot use this weapon!");
 				damage = 0;
@@ -113,10 +108,6 @@ public class GhoulManager extends ClassManager {
 
 	@Override
 	public void deathEvent(Player player) {
-		if (SNConfigHandler.debugMode) {
-			SupernaturalsPlugin.log("Player died.");
-		}
-
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		SuperNManager.alterPower(snplayer,
 				-SNConfigHandler.ghoulDeathPowerPenalty, "You died!");
@@ -269,10 +260,6 @@ public class GhoulManager extends ClassManager {
 
 		if (itemMaterial.toString().equalsIgnoreCase(
 				SNConfigHandler.ghoulBondMaterial)) {
-			if (SNConfigHandler.debugMode) {
-				SupernaturalsPlugin.log(snplayer.getName()
-						+ " is attempting to bond...");
-			}
 			boolean success = createBond(player, target);
 			if (!success) {
 				return;
@@ -287,11 +274,6 @@ public class GhoulManager extends ClassManager {
 					+ ChatColor.WHITE + bonds.get(player).getName());
 			SuperNManager
 					.sendMessage(bonds.get(player), "Unholy Bond removed!");
-			if (SNConfigHandler.debugMode) {
-				SupernaturalsPlugin.log("Unholy Bond removed from "
-						+ player.getName() + " with "
-						+ bonds.get(player).getName());
-			}
 			bonds.remove(player);
 			return;
 		}
@@ -303,11 +285,6 @@ public class GhoulManager extends ClassManager {
 									+ bonds.get(ghoul).getName());
 					SuperNManager.sendMessage(bonds.get(player),
 							"Unholy Bond removed!");
-					if (SNConfigHandler.debugMode) {
-						SupernaturalsPlugin.log("Unholy Bond removed from "
-								+ player.getName() + " with "
-								+ bonds.get(player).getName());
-					}
 					bonds.remove(ghoul);
 					return;
 				}
@@ -325,11 +302,6 @@ public class GhoulManager extends ClassManager {
 						+ ChatColor.WHITE + bonds.get(ghoul).getName());
 				SuperNManager.sendMessage(bonds.get(ghoul),
 						"Unholy Bond removed!");
-				if (SNConfigHandler.debugMode) {
-					SupernaturalsPlugin.log("Unholy Bond removed from "
-							+ ghoul.getName() + " with "
-							+ bonds.get(ghoul).getName());
-				}
 				bonds.remove(ghoul);
 			}
 			return false;
@@ -343,10 +315,6 @@ public class GhoulManager extends ClassManager {
 						+ ChatColor.WHITE + bonds.get(ghoul).getName());
 				SuperNManager.sendMessage(bonds.get(ghoul),
 						"Unholy Bond removed!");
-				if (SNConfigHandler.debugMode) {
-					SupernaturalsPlugin.log("Unholy Bond removed from "
-							+ ghoul.getName() + " with " + snvictim.getName());
-				}
 				bonds.remove(ghoul);
 			}
 
@@ -355,10 +323,6 @@ public class GhoulManager extends ClassManager {
 			SuperNManager
 					.sendMessage(snvictim, "You now have an Unholy Bond with "
 							+ ghoul.getName() + "!");
-			if (SNConfigHandler.debugMode) {
-				SupernaturalsPlugin.log("Unholy Bond formed for "
-						+ ghoul.getName() + " with " + snvictim.getName());
-			}
 			bonds.put(ghoul, snvictim);
 
 			ItemStack item = player.getItemInHand();
@@ -408,20 +372,7 @@ public class GhoulManager extends ClassManager {
 			return false;
 		}
 
-		if (snplayer.getPower() > SNConfigHandler.ghoulPowerBond) {
-			if (SNConfigHandler.debugMode) {
-				SupernaturalsPlugin.log("Unholy Bond activated for "
-						+ snplayer.getName() + " with " + snvictim.getName());
-			}
-			return true;
-		} else {
-			if (SNConfigHandler.debugMode) {
-				SupernaturalsPlugin.log("Not enough power for "
-						+ snplayer.getName() + " to maintain bond with "
-						+ snvictim.getName());
-			}
-			return false;
-		}
+        return snplayer.getPower() > SNConfigHandler.ghoulPowerBond;
 	}
 
 	public SuperNPlayer getGhoul(SuperNPlayer snplayer) {
@@ -448,10 +399,6 @@ public class GhoulManager extends ClassManager {
 			SuperNManager.alterPower(snplayer,
 					-SNConfigHandler.ghoulPowerSummonCost,
 					"Summoning a Zombie!");
-			if (SNConfigHandler.debugMode) {
-				SupernaturalsPlugin.log(snplayer.getName()
-						+ " summoned a Zombie!");
-			}
 			if (item.getAmount() == 1) {
 				player.setItemInHand(null);
 			} else {

@@ -66,10 +66,6 @@ public class SNEntityListener implements Listener {
 
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onEntityExplode(EntityExplodeEvent event) {
-		if (SNConfigHandler.debugMode) {
-			SupernaturalsPlugin.log("Entity Explode event with "
-					+ event.getEntity().getClass().getSimpleName());
-		}
 		if (event.getEntity() instanceof Fireball) {
 			Fireball fireball = (Fireball) event.getEntity();
 			if (fireball.getShooter() instanceof Player) {
@@ -145,10 +141,6 @@ public class SNEntityListener implements Listener {
 			if (plugin.getGhoulManager().checkBond(pVictim)) {
 				double damageAfterArmor = Armor.getReducedDamage(pVictim, (int) Math.round(damage));
 				if (damageAfterArmor > 1) {
-					if (SNConfigHandler.debugMode) {
-						SupernaturalsPlugin.log(snvictim.getName()
-								+ " has an unholy bond active.");
-					}
 					damage /= 2;
 					damageAfterArmor /= 2;
 					SuperNPlayer ghoul = plugin.getGhoulManager().getGhoul(snvictim);
@@ -166,16 +158,8 @@ public class SNEntityListener implements Listener {
 			}
 
 			if (plugin.getDataHandler().hasAngel(snvictim)) {
-				if (SNConfigHandler.debugMode) {
-					SupernaturalsPlugin.log(snvictim.getName()
-							+ " has a guardian angel angel.");
-				}
 				double damageAfterArmor = Armor.getReducedDamage(pVictim, (int) Math.round(damage));
 				if (pVictim.getHealth() - damageAfterArmor <= 0) {
-					if (SNConfigHandler.debugMode) {
-						SupernaturalsPlugin.log(snvictim.getName()
-								+ " has used their guardian angel.");
-					}
 					SuperNManager.sendMessage(snvictim, "Guardian Angel used!");
 					plugin.getDataHandler().removeAngel(snvictim);
 					pVictim.setHealth(20);

@@ -42,7 +42,6 @@ public class SNConfigHandler {
 	// Config variables
 	public static Configuration config;
 	public static boolean convertNode;
-	public static boolean debugMode;
 	public static boolean vampireKillSpreadCurse;
 	public static boolean ghoulKillSpreadCurse;
 	public static boolean ghoulRightClickSummon;
@@ -306,7 +305,6 @@ public class SNConfigHandler {
 		}
 
 		convertNode = config.getBoolean("UseConvertPermissionNode");
-		debugMode = config.getBoolean("DebugMode", false);
 		multiworld = config.getBoolean("MultiWorld", false);
 		enableColors = config.getBoolean("EnableChatColors", true);
 		truceBreakTime = config.getInt("Supernatural.Truce.BreakTime", 120000);
@@ -655,9 +653,6 @@ public class SNConfigHandler {
 	}
 
 	public static void reloadConfig() {
-		if (SNConfigHandler.debugMode) {
-			SupernaturalsPlugin.log("Reloaded configuration file");
-		}
 		plugin.reloadConfig();
 		loadValues(config);
 	}

@@ -69,9 +69,7 @@ public class SNDataHandler implements Serializable {
 			handler = (SNDataHandler) ois.readObject();
 			ois.close();
 		} catch (Exception e) {
-			if (SNConfigHandler.debugMode) {
-				SupernaturalsPlugin.log(Level.WARNING, "Storage Data not found.");
-			}
+			SupernaturalsPlugin.log(Level.WARNING, "Storage Data not found.");
 		}
 		return handler;
 	}

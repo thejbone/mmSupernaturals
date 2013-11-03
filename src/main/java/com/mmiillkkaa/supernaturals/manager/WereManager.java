@@ -72,11 +72,6 @@ public class WereManager extends ClassManager {
 		if (SuperNManager.worldTimeIsNight(pDamager)) {
 			if (item != null) {
 				if (SNConfigHandler.wereWeapons.contains(item.getType())) {
-					if (SNConfigHandler.debugMode) {
-						SupernaturalsPlugin.log(pDamager.getName()
-								+ " was not allowed to use "
-								+ item.getType().toString());
-					}
 					SuperNManager.sendMessage(snDamager,
 							"Werewolves cannot use this weapon at night!");
 					damage = 0;
@@ -91,10 +86,6 @@ public class WereManager extends ClassManager {
 
 	@Override
 	public void deathEvent(Player player) {
-		if (SNConfigHandler.debugMode) {
-			SupernaturalsPlugin.log("Player died.");
-		}
-
 		SuperNPlayer snplayer = SuperNManager.get(player);
 
 		SuperNManager.alterPower(snplayer,
@@ -210,13 +201,6 @@ public class WereManager extends ClassManager {
 						} else {
 							SuperNManager.alterPower(snplayer,
 									SNConfigHandler.werePowerFood, "Eating!");
-							if (SNConfigHandler.debugMode) {
-								SupernaturalsPlugin.log(snplayer.getName()
-										+ " ate " + itemMaterial.toString()
-										+ " to gain "
-										+ SNConfigHandler.werePowerFood
-										+ " power!");
-							}
 							player.setFoodLevel(player.getFoodLevel() + 6); // Hardcoded
 																			// value
 																			// :D
@@ -240,14 +224,6 @@ public class WereManager extends ClassManager {
 					} else {
 						SuperNManager.alterPower(snplayer,
 								SNConfigHandler.werePowerFood, "Eating!");
-						if (SNConfigHandler.debugMode) {
-							SupernaturalsPlugin
-									.log(snplayer.getName() + " ate "
-											+ itemMaterial.toString()
-											+ " to gain "
-											+ SNConfigHandler.werePowerFood
-											+ " power!");
-						}
 						player.setFoodLevel(player.getFoodLevel() + 6); // Hardcoded
 																		// value
 																		// :D
@@ -356,10 +332,6 @@ public class WereManager extends ClassManager {
 					SuperNManager.alterPower(snplayer,
 							-SNConfigHandler.werePowerSummonCost,
 							"Summoning wolf!");
-					if (SNConfigHandler.debugMode) {
-						SupernaturalsPlugin.log(snplayer.getName()
-								+ " summoned a wolf pet!");
-					}
 					if (item.getAmount() == 1) {
 						player.setItemInHand(null);
 					} else {

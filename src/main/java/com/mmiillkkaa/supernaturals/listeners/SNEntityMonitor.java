@@ -193,19 +193,11 @@ public class SNEntityMonitor implements Listener {
 			if (lDamager instanceof Player) {
 				pDamager = (Player) lDamager;
 				SuperNPlayer snDamager = SuperNManager.get(pDamager);
-				if (SNConfigHandler.debugMode) {
-					SupernaturalsPlugin.log("Player " + snDamager.getName()
-							+ " has killed " + snplayer.getName());
-				}
 				if (snplayer.isHunter()) {
 					if (snDamager.equals(snplayer)) {
 						SuperNManager.sendMessage(snplayer, "You have killed yourself!");
 						SuperNManager.sendMessage(snplayer, "This action, voluntary or not, has rescinded your status as a WitchHunter.");
 						SuperNManager.cure(snplayer);
-						if (SNConfigHandler.debugMode) {
-							SupernaturalsPlugin.log("Player "
-									+ pDamager.getName() + " cured themself.");
-						}
 					}
 				} else if (snDamager.isHuman()) {
 					ArrayList<String> supersKilled = new ArrayList<String>();
@@ -234,11 +226,6 @@ public class SNEntityMonitor implements Listener {
 					return;
 				}
 				pDamager = (Player) wolf.getOwner();
-				if (SNConfigHandler.debugMode) {
-					SupernaturalsPlugin.log("Player " + pDamager.getName()
-							+ " has killed " + snplayer.getName()
-							+ " with wolf.");
-				}
 				SuperNPlayer snDamager = SuperNManager.get(pDamager);
 				SupernaturalsPlugin.instance.getClassManager(pDamager).killEvent(pDamager, snDamager, snplayer);
 			}

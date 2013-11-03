@@ -42,12 +42,10 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.material.Door;
-import org.bukkit.util.Vector;
 
 import com.mmiillkkaa.supernaturals.SuperNPlayer;
 import com.mmiillkkaa.supernaturals.SupernaturalsPlugin;
 import com.mmiillkkaa.supernaturals.io.SNConfigHandler;
-import com.mmiillkkaa.supernaturals.util.ArrowUtil;
 
 public class HunterManager extends HumanManager {
 
@@ -108,10 +106,6 @@ public class HunterManager extends HumanManager {
 			} else if (arrowType.equalsIgnoreCase("fire")) {
 				victim.setFireTicks(SNConfigHandler.hunterFireArrowFireTicks);
 			}
-			if (SNConfigHandler.debugMode) {
-				SupernaturalsPlugin.log("Arrow event with " + damage
-						+ " damage!");
-			}
 			return damage;
 		} else {
 			Player pDamager = (Player) event.getDamager();
@@ -121,18 +115,10 @@ public class HunterManager extends HumanManager {
 			// Check Weapons and Modify Damage
 			if (item != null) {
 				if (SNConfigHandler.hunterWeapons.contains(item.getType())) {
-					if (SNConfigHandler.debugMode) {
-						SupernaturalsPlugin.log(pDamager.getName()
-								+ " was not allowed to use "
-								+ item.getType().toString());
-					}
 					SuperNManager.sendMessage(snDamager,
 							"WitchHunters cannot use this weapon!");
 					return 0;
 				}
-			}
-			if (SNConfigHandler.debugMode) {
-				SupernaturalsPlugin.log("Bow Event with " + damage + " damage");
 			}
 			return damage;
 		}
@@ -252,11 +238,8 @@ public class HunterManager extends HumanManager {
 	}
 
 	public static boolean checkBounty(SuperNPlayer snplayer) {
-		if (bountyList.contains(snplayer)) {
-			return true;
-		}
-		return false;
-	}
+        return bountyList.contains(snplayer);
+    }
 
 	public static boolean removeBounty(SuperNPlayer snplayer) {
 		if (bountyList.contains(snplayer)) {
@@ -286,10 +269,6 @@ public class HunterManager extends HumanManager {
 										+ ChatColor.RED
 										+ " has been added to the WitchHunter target list!");
 				bountyFound = true;
-				if (SNConfigHandler.debugMode) {
-					SupernaturalsPlugin.log("Bounty created on "
-							+ sntarget.getName());
-				}
 				return;
 			}
 			count++;
@@ -343,10 +322,6 @@ public class HunterManager extends HumanManager {
 										+ sntarget.getName()
 										+ ChatColor.RED
 										+ " has been added to the WitchHunter target list!");
-				if (SNConfigHandler.debugMode) {
-					SupernaturalsPlugin.log("Bounty created on "
-							+ sntarget.getName());
-				}
 			}
 			count++;
 			if (count > 100) {
@@ -370,20 +345,12 @@ public class HunterManager extends HumanManager {
 	}
 
 	public boolean doorIsOpening(Location location) {
-		if (hallDoors.contains(location)) {
-			return true;
-		}
-		return false;
-	}
+        return hallDoors.contains(location);
+    }
 
 	public boolean doorEvent(Player player, Block block, Door door) {
 		if (door.isOpen()) {
 			return true;
-		}
-
-		if (SNConfigHandler.debugMode) {
-			SupernaturalsPlugin.log(player.getName()
-					+ " activated a WitchHunters' Hall.");
 		}
 
 		SuperNPlayer snplayer = SuperNManager.get(player);
@@ -427,9 +394,6 @@ public class HunterManager extends HumanManager {
 									closeDoor(loc);
 								}
 							}, 20);
-			if (SNConfigHandler.debugMode) {
-				SupernaturalsPlugin.log("WitchHunter door is set open.");
-			}
 			return true;
 		}
 		SuperNManager.sendMessage(snplayer, "WitchHunters Only!");
@@ -529,10 +493,6 @@ public class HunterManager extends HumanManager {
 		hunterMap.put(snplayer, nextType);
 		SuperNManager.sendMessage(snplayer, "Changed to arrow type: "
 				+ ChatColor.WHITE + nextType);
-		if (SNConfigHandler.debugMode) {
-			SupernaturalsPlugin.log(snplayer.getName()
-					+ " changed to arrow type: " + nextType);
-		}
 		return true;
 	}
 
@@ -595,11 +555,6 @@ public class HunterManager extends HumanManager {
 			arrowType = "normal";
 		}
 
-		if (SNConfigHandler.debugMode) {
-			SupernaturalsPlugin.log(snplayer.getName() + " is firing "
-					+ arrowType + " arrows.");
-		}
-
 		if (arrowType.equalsIgnoreCase("fire")) {
 			if (snplayer.getPower() > SNConfigHandler.hunterPowerArrowFire) {
 				SuperNManager.alterPower(snplayer,
@@ -646,10 +601,6 @@ public class HunterManager extends HumanManager {
 						-SNConfigHandler.hunterPowerArrowPower, "Power Arrow!");
 				arrowMap.put(arrow, arrowType);
 				drainedPlayers.add(player);
-				if (SNConfigHandler.debugMode) {
-					SupernaturalsPlugin
-							.log(snplayer.getName() + " is drained.");
-				}
 				SupernaturalsPlugin.instance
 						.getServer()
 						.getScheduler()
@@ -697,10 +648,6 @@ public class HunterManager extends HumanManager {
 	}
 
 	public void splitArrow(final Player player, final Arrow arrow) {
-		if (SNConfigHandler.debugMode) {
-			SupernaturalsPlugin
-					.log(player.getName() + "'s triple arrow event.");
-		}
 		player.launchProjectile(Arrow.class).setVelocity(arrow.getVelocity());
 		String arrowType = arrowMap.get(arrow);
 		if (arrowType.equals("triple")) {

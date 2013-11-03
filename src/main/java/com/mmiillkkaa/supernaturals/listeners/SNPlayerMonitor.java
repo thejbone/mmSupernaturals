@@ -101,9 +101,6 @@ public class SNPlayerMonitor implements Listener {
 			return;
 		}
 		if (event.getTo().getWorld().getEnvironment().equals(Environment.NETHER)) {
-			if (SNConfigHandler.debugMode) {
-				SupernaturalsPlugin.log("Player inventory logged.");
-			}
 			plugin.getDemonManager().checkInventory(player);
 		}
 	}

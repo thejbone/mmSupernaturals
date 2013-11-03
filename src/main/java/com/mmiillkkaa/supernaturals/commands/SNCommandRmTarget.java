@@ -80,11 +80,9 @@ public class SNCommandRmTarget extends SNCommand {
 				SuperNPlayer snplayer = SuperNManager.get(senderPlayer);
 				if (HunterManager.removeBounty(snplayer)) {
 					this.sendMessage("Fuiste eliminado de la lista de objetivos!");
-					return;
-				} else {
+                } else {
 					this.sendMessage("No eres un objetivo activo.");
-					return;
-				}
+                }
 			} else {
 				String playername = parameters.get(0);
 				SuperNPlayer snplayer = SuperNManager.get(playername);
@@ -99,12 +97,10 @@ public class SNCommandRmTarget extends SNCommand {
 							+ ChatColor.RED
 							+ " ha sido removido de la lista de objetivos!");
 					HunterManager.addBounty();
-					return;
-				} else {
+                } else {
 					this.sendMessage(ChatColor.WHITE + snplayer.getName()
 							+ ChatColor.RED + " no es un objetivo activo.");
-					return;
-				}
+                }
 			}
 		} else {
 			if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
@@ -116,11 +112,9 @@ public class SNCommandRmTarget extends SNCommand {
 				SuperNPlayer snplayer = SuperNManager.get(senderPlayer);
 				if (HunterManager.removeBounty(snplayer)) {
 					this.sendMessage("You were removed from the target list!");
-					return;
-				} else {
+                } else {
 					this.sendMessage("You are not an active target.");
-					return;
-				}
+                }
 			} else {
 				String playername = parameters.get(0);
 				SuperNPlayer snplayer = SuperNManager.get(playername);
@@ -135,12 +129,10 @@ public class SNCommandRmTarget extends SNCommand {
 							+ ChatColor.RED
 							+ " was removed from the target list!");
 					HunterManager.addBounty();
-					return;
-				} else {
+                } else {
 					this.sendMessage(ChatColor.WHITE + snplayer.getName()
 							+ ChatColor.RED + " is not an active target.");
-					return;
-				}
+                }
 			}
 		}
 	}

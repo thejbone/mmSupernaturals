@@ -53,9 +53,6 @@ public class SNBlockListener implements Listener {
 					event.setCancelled(true);
 					block.setType(Material.AIR);
 					plugin.getDemonManager().removeWeb(block);
-					if (SNConfigHandler.debugMode) {
-						SupernaturalsPlugin.log("Removed web block through destruction.");
-					}
 					return;
 				}
 			}

@@ -63,8 +63,7 @@ public class SNCommandPower extends SNCommand {
 						+ snplayer.getType() + ChatColor.RED
 						+ " y tus Poderes actuales son: " + ChatColor.WHITE
 						+ (int) snplayer.getPower());
-				return;
-			} else {
+            } else {
 				if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions2)) {
 					this.sendMessage("No tienes permiso para usar este comando.");
 					return;
@@ -120,8 +119,7 @@ public class SNCommandPower extends SNCommand {
 						+ snplayer.getType() + ChatColor.RED
 						+ " and your current power level is: "
 						+ ChatColor.WHITE + (int) snplayer.getPower());
-				return;
-			} else {
+            } else {
 				if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions2)) {
 					this.sendMessage("You do not have permissions to use this command.");
 					return;

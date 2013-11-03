@@ -206,9 +206,6 @@ public class AngelManager extends ClassManager {
 		} else {
 			SuperNManager.alterPower(snplayer,
 					-SNConfigHandler.angelJumpPowerCost, "SuperJump!");
-			if (SNConfigHandler.debugMode) {
-				SupernaturalsPlugin.log(snplayer.getName() + " used jump!");
-			}
 		}
 
 		Vector vjadd;

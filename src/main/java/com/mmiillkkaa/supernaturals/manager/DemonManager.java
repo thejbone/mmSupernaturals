@@ -112,11 +112,6 @@ public class DemonManager extends ClassManager {
 
 		if (item != null)
 			if (SNConfigHandler.demonWeapons.contains(item.getType())) {
-				if (SNConfigHandler.debugMode) {
-					SupernaturalsPlugin.log(pDamager.getName()
-							+ " was not allowed to use "
-							+ item.getType().toString());
-				}
 				SuperNManager.sendMessage(snDamager,
 						"Demons cannot use this weapon!");
 				damage = 0;
@@ -136,10 +131,6 @@ public class DemonManager extends ClassManager {
 
 	@Override
 	public void deathEvent(Player player) {
-		if (SNConfigHandler.debugMode) {
-			SupernaturalsPlugin.log("Player died.");
-		}
-
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		EntityDamageEvent e = player.getLastDamageCause();
 
@@ -158,19 +149,12 @@ public class DemonManager extends ClassManager {
 						|| pBiome == Biome.FROZEN_RIVER
 						|| pBiome == Biome.ICE_MOUNTAINS
 						|| pBiome == Biome.ICE_PLAINS) {
-					if (SNConfigHandler.debugMode) {
-						SupernaturalsPlugin
-								.log("Demon drowned.  Checking inventory...");
-					}
 					if (player.getInventory().contains(Material.SNOW_BALL,
 							SNConfigHandler.demonSnowballAmount)) {
 						SuperNManager
 								.sendMessage(snplayer,
 										"Your icy death has cooled the infernal fires raging within your body.");
 						SuperNManager.cure(snplayer);
-						if (SNConfigHandler.debugMode) {
-							SupernaturalsPlugin.log("Snowballs found!");
-						}
 					}
 				}
 			}
@@ -222,11 +206,6 @@ public class DemonManager extends ClassManager {
 
 		if (itemMaterial.toString().equalsIgnoreCase(
 				SNConfigHandler.demonMaterial)) {
-			if (SNConfigHandler.debugMode) {
-				SupernaturalsPlugin.log(player.getName()
-						+ " is casting FIREBALL with "
-						+ itemMaterial.toString());
-			}
 			cancelled = fireball(player);
 			if (!event.isCancelled() && cancelled) {
 				event.setCancelled(true);
@@ -234,10 +213,6 @@ public class DemonManager extends ClassManager {
 			return true;
 		} else if (itemMaterial.toString().equalsIgnoreCase(
 				SNConfigHandler.demonSnareMaterial)) {
-			if (SNConfigHandler.debugMode) {
-				SupernaturalsPlugin.log(player.getName()
-						+ " is casting SNARE with " + itemMaterial.toString());
-			}
 			Player target = SupernaturalsPlugin.instance.getSuperManager()
 					.getTarget(player);
 			cancelled = snare(player, target);
@@ -296,10 +271,6 @@ public class DemonManager extends ClassManager {
 
 	public boolean checkInventory(Player player) {
 		PlayerInventory inv = player.getInventory();
-		if (SNConfigHandler.debugMode) {
-			SupernaturalsPlugin
-					.log("Player teleported to Nether.  Checking inventory...");
-		}
 		ItemStack helmet = inv.getHelmet();
 		ItemStack chestplate = inv.getChestplate();
 		ItemStack leggings = inv.getLeggings();
@@ -500,10 +471,6 @@ public class DemonManager extends ClassManager {
 								}
 								for (Block block : blocks) {
 									webMap.remove(block);
-									if (SNConfigHandler.debugMode) {
-										SupernaturalsPlugin
-												.log("Removed web block.");
-									}
 								}
 							}
 						}, SNConfigHandler.demonSnareDuration / 50);
@@ -542,11 +509,6 @@ public class DemonManager extends ClassManager {
 			return true;
 		}
 
-		if (SNConfigHandler.debugMode) {
-			SupernaturalsPlugin.log(player.getName()
-					+ " activated a Demons' Hall.");
-		}
-
 		SuperNPlayer snplayer = SuperNManager.get(player);
 
 		final Location loc = block.getLocation();
@@ -583,9 +545,6 @@ public class DemonManager extends ClassManager {
 									closeDoor(loc);
 								}
 							}, 20);
-			if (SNConfigHandler.debugMode) {
-				SupernaturalsPlugin.log("Demon door is set open.");
-			}
 			return true;
 		}
 		SuperNManager.sendMessage(snplayer, "Demons Only!");

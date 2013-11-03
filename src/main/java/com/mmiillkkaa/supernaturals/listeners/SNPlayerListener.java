@@ -86,10 +86,6 @@ public class SNPlayerListener implements Listener {
 			}
 
 			if (block.getType().equals(Material.IRON_DOOR_BLOCK)) {
-				if (SNConfigHandler.debugMode) {
-					SupernaturalsPlugin.log(snplayer.getName()
-							+ " activated an Iron Door.");
-				}
 				for (int x = blockLoc.getBlockX() - 2; x < blockLoc.getBlockX() + 3; x++) {
 					for (int y = blockLoc.getBlockY() - 2; y < blockLoc.getBlockY() + 3; y++) {
 						for (int z = blockLoc.getBlockZ() - 2; z < blockLoc.getBlockZ() + 3; z++) {
@@ -97,22 +93,11 @@ public class SNPlayerListener implements Listener {
 							Block newBlock = newLoc.getBlock();
 							if (newBlock.getType().equals(Material.SIGN)
 									|| newBlock.getType().equals(Material.WALL_SIGN)) {
-								if (SNConfigHandler.debugMode) {
-									SupernaturalsPlugin.log(snplayer.getName()
-											+ " found a sign.");
-								}
 								Sign sign = (Sign) newBlock.getState();
 								String[] text = sign.getLines();
 								for (int i = 0; i < text.length; i++) {
-									if (SNConfigHandler.debugMode) {
-										SupernaturalsPlugin.log("The sign says: "
-												+ text[i]);
-									}
 									if (text[i].contains(SNConfigHandler.hunterHallMessage)) {
 										if (plugin.getHunterManager().doorIsOpening(blockLoc)) {
-											if (SNConfigHandler.debugMode) {
-												SupernaturalsPlugin.log("Cancelled door event.");
-											}
 											event.setCancelled(true);
 											return;
 										}
@@ -123,9 +108,6 @@ public class SNPlayerListener implements Listener {
 									}
 									if (text[i].contains(SNConfigHandler.demonHallMessage)) {
 										if (plugin.getHunterManager().doorIsOpening(blockLoc)) {
-											if (SNConfigHandler.debugMode) {
-												SupernaturalsPlugin.log("Cancelled door event.");
-											}
 											event.setCancelled(true);
 											return;
 										}
@@ -136,9 +118,6 @@ public class SNPlayerListener implements Listener {
 									}
 									if (text[i].contains(SNConfigHandler.vampireHallMessage)) {
 										if (plugin.getHunterManager().doorIsOpening(blockLoc)) {
-											if (SNConfigHandler.debugMode) {
-												SupernaturalsPlugin.log("Cancelled door event.");
-											}
 											event.setCancelled(true);
 											return;
 										}
@@ -170,22 +149,10 @@ public class SNPlayerListener implements Listener {
 		Material blockMaterial = event.getClickedBlock().getType();
 
 		if (blockMaterial == Material.getMaterial(SNConfigHandler.vampireAltarInfectMaterial)) {
-			if (SNConfigHandler.debugMode) {
-				SupernaturalsPlugin.log(snplayer.getName()
-						+ " triggered a Vampire Infect Altar.");
-			}
 			plugin.getVampireManager().useAltarInfect(player, event.getClickedBlock());
 		} else if (blockMaterial == Material.getMaterial(SNConfigHandler.vampireAltarCureMaterial)) {
-			if (SNConfigHandler.debugMode) {
-				SupernaturalsPlugin.log(snplayer.getName()
-						+ " triggered a Vampire Cure Altar.");
-			}
 			plugin.getVampireManager().useAltarCure(player, event.getClickedBlock());
 		} else if (blockMaterial == Material.getMaterial(SNConfigHandler.priestAltarMaterial)) {
-			if (SNConfigHandler.debugMode) {
-				SupernaturalsPlugin.log(snplayer.getName()
-						+ " triggered a Priest Altar.");
-			}
 			plugin.getPriestManager().useAltar(player);
 		}
 	}
@@ -207,10 +174,6 @@ public class SNPlayerListener implements Listener {
 			if (snplayer.isVampire()
 					&& event.getPlayer().getItemInHand().getType().toString().equalsIgnoreCase(SNConfigHandler.vampireJumpMaterial)) {
 				event.setCancelled(true);
-				if (SNConfigHandler.debugMode) {
-					SupernaturalsPlugin.log(event.getPlayer().getName()
-							+ " was not kicked for flying as a vampire.");
-				}
 			}
 		}
 	}

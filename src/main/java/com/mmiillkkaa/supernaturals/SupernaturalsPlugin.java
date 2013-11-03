@@ -262,20 +262,10 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		if (sender instanceof Player) {
 			List<String> parameters = new ArrayList<String>(Arrays.asList(args));
-			if (SNConfigHandler.debugMode) {
-				SupernaturalsPlugin.log(((Player) sender).getName()
-						+ " used command: " + commandLabel + " with args: "
-						+ TextUtil.implode(parameters, ", "));
-			}
 			handleCommand(sender, parameters, true);
 			return true;
 		} else {
 			List<String> parameters = new ArrayList<String>(Arrays.asList(args));
-			if (SNConfigHandler.debugMode) {
-				SupernaturalsPlugin.log(((Player) sender).getName()
-						+ " used command: " + commandLabel + " with args: "
-						+ TextUtil.implode(parameters, ", "));
-			}
 			handleCommand(sender, parameters, false);
 			return true;
 		}
@@ -333,9 +323,6 @@ public class SupernaturalsPlugin extends JavaPlugin {
 	}
 
 	public static void reConfig() {
-		if (SNConfigHandler.debugMode) {
-			SupernaturalsPlugin.log("Reloading config...");
-		}
 		SNConfigHandler.reloadConfig();
 	}
 
