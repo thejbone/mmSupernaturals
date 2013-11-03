@@ -26,6 +26,7 @@ import java.util.Set;
 import java.util.logging.Level;
 
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -248,9 +249,7 @@ public class SuperNManager {
 
 	public static void alterPower(SuperNPlayer snplayer, double delta,
 			String reason) {
-		if (SupernaturalsPlugin
-				.hasPermissions(SupernaturalsPlugin.instance.getServer()
-						.getPlayer(snplayer.getName()), infPowerPermissions)) {
+		if (Bukkit.getServer().getPlayer(snplayer.getName()) != null && SupernaturalsPlugin.hasPermissions(Bukkit.getServer().getPlayer(snplayer.getName()), infPowerPermissions)) {
 			if (delta < 0) {
 				return;
 			}
