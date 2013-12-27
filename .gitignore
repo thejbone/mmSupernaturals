@@ -3,3 +3,6 @@
 *.swo
 *.py[cod]
 target/
+.classpath
+.project
+.settings/
