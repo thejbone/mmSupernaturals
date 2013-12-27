@@ -83,7 +83,7 @@ public class DemonManager extends ClassManager {
 				demons.add(dPlayer);
 				heal(victim);
 				SuperNManager.alterPower(snVictim,
-						SNConfigHandler.demonPowerGain, "Lava!");
+						SNConfigHandler.demonPowerGain, "岩漿!");
 				SupernaturalsPlugin.instance
 						.getServer()
 						.getScheduler()
@@ -113,7 +113,7 @@ public class DemonManager extends ClassManager {
 		if (item != null)
 			if (SNConfigHandler.demonWeapons.contains(item.getType())) {
 				SuperNManager.sendMessage(snDamager,
-						"Demons cannot use this weapon!");
+						"惡魔(Demons)無法使用武器!");
 				damage = 0;
 			}
 		if (victim instanceof Player) {
@@ -135,7 +135,7 @@ public class DemonManager extends ClassManager {
 		EntityDamageEvent e = player.getLastDamageCause();
 
 		SuperNManager.alterPower(snplayer,
-				-SNConfigHandler.demonDeathPowerPenalty, "You died!");
+				-SNConfigHandler.demonDeathPowerPenalty, "你死了!");
 
 		if (e == null) {
 			return;
@@ -153,7 +153,7 @@ public class DemonManager extends ClassManager {
 							SNConfigHandler.demonSnowballAmount)) {
 						SuperNManager
 								.sendMessage(snplayer,
-										"Your icy death has cooled the infernal fires raging within your body.");
+										"你冰冷的死亡冷卻了在你身體裡肆虐的地獄火.");
 						SuperNManager.cure(snplayer);
 					}
 				}
@@ -167,16 +167,16 @@ public class DemonManager extends ClassManager {
 		if (victim == null) {
 			SuperNManager.alterPower(damager,
 					SNConfigHandler.demonKillPowerCreatureGain,
-					"Creature death!");
+					"擊殺生物!");
 		} else {
 			if (victim.getPower() > SNConfigHandler.demonKillPowerPlayerGain) {
 				SuperNManager.alterPower(damager,
 						SNConfigHandler.demonKillPowerPlayerGain,
-						"Player killed!");
+						"擊殺玩家!");
 			} else {
 				SuperNManager
 						.sendMessage(damager,
-								"You cannot gain power from a player with no power themselves.");
+								"你無法從沒有能量的玩家身上獲得能量.");
 			}
 		}
 	}
@@ -375,12 +375,12 @@ public class DemonManager extends ClassManager {
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		if (!SupernaturalsPlugin.instance.getPvP(player)) {
 			SuperNManager.sendMessage(snplayer,
-					"You cannot shoot fireballs in non-PvP areas");
+					"你無法在禁止戰鬥的地方施展火球術(Fireball)");
 			return false;
 		}
 		if (snplayer.getPower() < SNConfigHandler.demonPowerFireball) {
 			SuperNManager.sendMessage(snplayer,
-					"Not enough power to cast fireball!");
+					"沒有足夠的能量施展火球術(Fireball)!");
 			return false;
 		}
 		Location loc = player
@@ -393,7 +393,7 @@ public class DemonManager extends ClassManager {
 		fireball.setShooter(player);
 		fireball.setYield(0);
 		SuperNManager.alterPower(SuperNManager.get(player),
-				-SNConfigHandler.demonPowerFireball, "Fireball!");
+				-SNConfigHandler.demonPowerFireball, "火球術(Fireball)!");
 		ItemStack item = player.getItemInHand();
 		if (item.getAmount() == 1) {
 			player.setItemInHand(null);
@@ -407,19 +407,18 @@ public class DemonManager extends ClassManager {
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		SuperNPlayer snvictim = SuperNManager.get(target);
 		if (snplayer.getPower() < SNConfigHandler.demonConvertPower) {
-			SuperNManager.sendMessage(snplayer, "Not enough power to convert!");
+			SuperNManager.sendMessage(snplayer, "沒有足夠的能量轉換!");
 			return false;
 		}
 		if (target.getItemInHand().getType().equals(Material.NETHERRACK)) {
 			SuperNManager.alterPower(snplayer,
 					-SNConfigHandler.demonConvertPower,
-					"Converted " + target.getName());
+					"轉換了" + target.getName());
 			SuperNManager.convert(snvictim, "demon");
 			SuperNManager.sendMessage(snvictim, ChatColor.RED
-					+ "Heat builds up in your body...");
+					+ "熱量在你的體內開始累積...");
 			SuperNManager.sendMessage(snvictim,
-					ChatColor.RED + "You have been converted to a demon by "
-							+ player.getName());
+					ChatColor.RED + "你被 " + player.getName() + " 轉換為惡魔(Demon)");
 			return true;
 		}
 		return false;
@@ -429,7 +428,7 @@ public class DemonManager extends ClassManager {
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		if (snplayer.getPower() < SNConfigHandler.demonPowerSnare) {
 			SuperNManager.sendMessage(snplayer,
-					"Not enough power to cast snare!");
+					"沒有足夠的能量施展牢籠(Snare)!");
 			return false;
 		}
 		Block block;
@@ -483,7 +482,7 @@ public class DemonManager extends ClassManager {
 		}
 
 		SuperNManager.alterPower(SuperNManager.get(player),
-				-SNConfigHandler.demonPowerSnare, "Snare!");
+				-SNConfigHandler.demonPowerSnare, "牢籠(Snare)!");
 		return true;
 	}
 
@@ -547,7 +546,7 @@ public class DemonManager extends ClassManager {
 							}, 20);
 			return true;
 		}
-		SuperNManager.sendMessage(snplayer, "Demons Only!");
+		SuperNManager.sendMessage(snplayer, "惡魔(Demons)專用!");
 		return true;
 	}
 

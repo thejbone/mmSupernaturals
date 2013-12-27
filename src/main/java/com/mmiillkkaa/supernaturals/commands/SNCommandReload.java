@@ -27,10 +27,10 @@ import org.bukkit.entity.Player;
 import com.mmiillkkaa.supernaturals.SupernaturalsPlugin;
 
 public class SNCommandReload extends SNCommand {
-	public String msgLoadSuccess = "Loaded %s.";
-	public String msgLoadFail = "FAILED to load %s.";
-	public String msgSaveSuccess = "Saved %s.";
-	public String msgSaveFail = "FAILED to save %s.";
+	public String msgLoadSuccess = "載入 %s.";
+	public String msgLoadFail = "%s 載入失敗.";
+	public String msgSaveSuccess = "儲存 %s.";
+	public String msgSaveFail = "%s 儲存失敗.";
 
 	public SNCommandReload() {
 		requiredParameters = new ArrayList<String>();
@@ -39,7 +39,7 @@ public class SNCommandReload extends SNCommand {
 		senderMustBePlayer = false;
 		permissions = "supernatural.admin.command.reload";
 		helpNameAndParams = "";
-		helpDescription = "Reload Config or Data files";
+		helpDescription = "重新載入設定檔或資料檔";
 	}
 
 	@Override
@@ -47,37 +47,37 @@ public class SNCommandReload extends SNCommand {
 		if (!(sender instanceof Player)) {
 			if (parameters.isEmpty()) {
 				SupernaturalsPlugin.reConfig();
-				this.sendMessage("Config file has been reloaded");
+				this.sendMessage("設定檔已重新讀取");
 			} else {
 				if (parameters.get(0).equalsIgnoreCase("config")) {
 					SupernaturalsPlugin.reConfig();
-					this.sendMessage("Config file has been reloaded");
+					this.sendMessage("設定檔已重新讀取");
 				} else if (parameters.get(0).equalsIgnoreCase("data")) {
 					SupernaturalsPlugin.reloadData();
-					this.sendMessage("Data file has been reloaded");
+					this.sendMessage("資料檔已重新讀取");
 				} else {
-					this.sendMessage("Invalid option.");
+					this.sendMessage("不正確的選項.");
 				}
 			}
 			return;
 		}
 		Player senderPlayer = (Player) sender;
 		if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
-			this.sendMessage("You do not have permissions to use this command.");
+			this.sendMessage("你沒有權限使用這個指令.");
 			return;
 		}
 		if (parameters.isEmpty()) {
 			SupernaturalsPlugin.reConfig();
-			this.sendMessage("Config file has been reloaded");
+			this.sendMessage("設定檔已重新讀取");
 		} else {
 			if (parameters.get(0).equalsIgnoreCase("config")) {
 				SupernaturalsPlugin.reConfig();
-				this.sendMessage("Config file has been reloaded");
+				this.sendMessage("設定檔已重新讀取");
 			} else if (parameters.get(0).equalsIgnoreCase("data")) {
 				SupernaturalsPlugin.reloadData();
-				this.sendMessage("Data file has been reloaded");
+				this.sendMessage("資料檔已重新讀取");
 			} else {
-				this.sendMessage("Invalid option.");
+				this.sendMessage("不正確的選項.");
 			}
 		}
 	}

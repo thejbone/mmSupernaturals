@@ -153,14 +153,14 @@ public class SNEntityListener implements Listener {
 						health = 0;
 					}
 					gPlayer.setHealth(health);
-					SuperNManager.alterPower(ghoul, -SNConfigHandler.ghoulPowerBond, "Unholy Bond!");
+					SuperNManager.alterPower(ghoul, -SNConfigHandler.ghoulPowerBond, "邪惡纏繞(Unholy Bond)!");
 				}
 			}
 
 			if (plugin.getDataHandler().hasAngel(snvictim)) {
 				double damageAfterArmor = Armor.getReducedDamage(pVictim, (int) Math.round(damage));
 				if (pVictim.getHealth() - damageAfterArmor <= 0) {
-					SuperNManager.sendMessage(snvictim, "Guardian Angel used!");
+					SuperNManager.sendMessage(snvictim, "施展守護天使(Guardian Angel)!");
 					plugin.getDataHandler().removeAngel(snvictim);
 					pVictim.setHealth(20);
 					event.setDamage(0);

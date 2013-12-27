@@ -45,25 +45,25 @@ public class SNCommandRmTarget extends SNCommand {
 	public void perform() {
 		if (!(sender instanceof Player)) {
 			if (parameters.isEmpty()) {
-				this.sendMessage("Missing player!");
+				this.sendMessage("缺乏玩家名稱!");
 			} else {
 				String playername = parameters.get(0);
 				SuperNPlayer snplayer = SuperNManager.get(playername);
 
 				if (snplayer == null) {
-					this.sendMessage("Player not found.");
+					this.sendMessage("沒有這個玩家.");
 					return;
 				}
 
 				if (HunterManager.removeBounty(snplayer)) {
 					this.sendMessage(ChatColor.WHITE + snplayer.getName()
 							+ ChatColor.RED
-							+ " was removed from the target list!");
+							+ " 已從獵殺清單移除!");
 					HunterManager.addBounty();
 					return;
 				} else {
 					this.sendMessage(ChatColor.WHITE + snplayer.getName()
-							+ ChatColor.RED + " is not an active target.");
+							+ ChatColor.RED + " 並不在目標中.");
 					return;
 				}
 			}
@@ -104,34 +104,34 @@ public class SNCommandRmTarget extends SNCommand {
 			}
 		} else {
 			if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
-				this.sendMessage("You do not have permissions to use this command.");
+				this.sendMessage("你沒有權限使用這個指令.");
 				return;
 			}
 
 			if (parameters.isEmpty()) {
 				SuperNPlayer snplayer = SuperNManager.get(senderPlayer);
 				if (HunterManager.removeBounty(snplayer)) {
-					this.sendMessage("You were removed from the target list!");
+					this.sendMessage("你已從獵殺清單中移除!");
                 } else {
-					this.sendMessage("You are not an active target.");
+					this.sendMessage("你並不在目標中.");
                 }
 			} else {
 				String playername = parameters.get(0);
 				SuperNPlayer snplayer = SuperNManager.get(playername);
 
 				if (snplayer == null) {
-					this.sendMessage("Player not found.");
+					this.sendMessage("沒有這個玩家.");
 					return;
 				}
 
 				if (HunterManager.removeBounty(snplayer)) {
 					this.sendMessage(ChatColor.WHITE + snplayer.getName()
 							+ ChatColor.RED
-							+ " was removed from the target list!");
+							+ " 已從獵殺清單移除!");
 					HunterManager.addBounty();
                 } else {
 					this.sendMessage(ChatColor.WHITE + snplayer.getName()
-							+ ChatColor.RED + " is not an active target.");
+							+ ChatColor.RED + " 並不在目標中.");
                 }
 			}
 		}

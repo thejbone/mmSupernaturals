@@ -69,14 +69,14 @@ public class PriestManager extends HumanManager {
 		if (item != null) {
 			if (SNConfigHandler.priestWeapons.contains(item.getType())) {
 				SuperNManager.sendMessage(snDamager,
-						"Priests cannot use this weapon!");
+						"牧師(Priests)無法使用這個武器!");
 				return 0;
 			}
 		}
 
 		if (victim instanceof Animals && !(victim instanceof Wolf)) {
 			SuperNManager.sendMessage(SuperNManager.get(pDamager),
-					"You cannot hurt innocent animals.");
+					"你不能傷害無辜的動物.");
 			damage = 0;
 		} else if (victim instanceof Player) {
 			Player pVictim = (Player) victim;
@@ -108,7 +108,7 @@ public class PriestManager extends HumanManager {
 		super.deathEvent(player);
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		SuperNManager.alterPower(snplayer,
-				-SNConfigHandler.priestDeathPowerPenalty, "You died!");
+				-SNConfigHandler.priestDeathPowerPenalty, "你死了!");
 	}
 
 	@Override
@@ -201,7 +201,7 @@ public class PriestManager extends HumanManager {
 							if (player.getItemInHand().getType()
 									.equals(Material.COAL)) {
 								SuperNManager.sendMessage(snplayer,
-										"The Church excommunicates you!");
+										"你已被逐出教會!");
 								SuperNManager.cure(snplayer);
 							} else {
 								PlayerInventory inv = player.getInventory();
@@ -225,20 +225,17 @@ public class PriestManager extends HumanManager {
 									inv.remove(mat);
 								}
 								player.updateInventory();
-								SuperNManager
-										.sendMessage(
-												snplayer,
-												"The Church accepts your gracious donations of Bread, Fish, Grilled Pork and Apples.");
+								SuperNManager.sendMessage(snplayer,
+												"教會接受你盛情捐贈的麵包(Bread), 魚(Fish), 烤豬肉(Grilled Pork)和頻果(Apole).");
 								SuperNManager.alterPower(snplayer, delta,
-										"Donations!");
+										"已捐贈!");
 							}
 						} else {
 							SuperNManager.sendMessage(snplayer,
-									"The Church Altar radiates holy power.");
+									"教會的祭壇散發著神聖力量.");
 							if (snplayer.isSuper()) {
-								SuperNManager
-										.sendMessage(snplayer,
-												"The holy power of the Church tears you asunder!");
+								SuperNManager.sendMessage(snplayer,
+												"這股神聖的力量讓你哭得四分五裂!");
 								EntityDamageEvent event = new EntityDamageEvent(
 										player, DamageCause.BLOCK_EXPLOSION, 20);
 								player.setLastDamageCause(event);
@@ -256,27 +253,24 @@ public class PriestManager extends HumanManager {
 								if (!SupernaturalsPlugin.hasPermissions(player,
 										"supernatural.player.shrineuse.priest")) {
 									SuperNManager.sendMessage(snplayer,
-											"You cannot use priest altars.");
+											"你無法使用牧師(Priest)祭壇.");
 									return;
 								}
 								SuperNManager
 										.sendMessage(snplayer,
-												"You donate these items to the Church:");
+												"你捐贈這些物品給教會:");
 								SuperNManager.sendMessage(snplayer,
 										SNConfigHandler.priestAltarRecipe
 												.getRecipeLine());
-								SuperNManager
-										.sendMessage(snplayer,
-												"The Church recognizes your holy spirit and accepts you into the priesthood.");
+								SuperNManager.sendMessage(snplayer,
+												"教會承認你神聖的靈魂並且賦予你牧師的身份.");
 								SNConfigHandler.priestAltarRecipe
 										.removeFromPlayer(player);
 								SuperNManager.convert(snplayer, "priest",
 										SNConfigHandler.priestPowerStart);
 							} else {
-								SuperNManager
-										.sendMessage(
-												snplayer,
-												"The Church judges your intended donate insufficient.  You must gather the following: ");
+								SuperNManager.sendMessage(snplayer,
+												"教會認定你的捐獻不足. 你必須收集以下物品: ");
 								SuperNManager.sendMessage(snplayer,
 										SNConfigHandler.priestAltarRecipe
 												.getRecipeLine());
@@ -311,14 +305,13 @@ public class PriestManager extends HumanManager {
 			}
 		}
 		if (delta == 0) {
-			SuperNManager
-					.sendMessage(snplayer,
-							"The Church only accepts donations of Bread, Fish, Grilled Pork and Apples.");
+			SuperNManager.sendMessage(snplayer,
+							"教會只能接受麵包(Bread), 魚(Fish), 烤豬肉(Grilled)和蘋果(Applea)的捐獻.");
 		} else {
 			player.updateInventory();
 			SuperNManager.sendMessage(snplayer,
-					"You receive some power for your remote donations.");
-			SuperNManager.alterPower(snplayer, delta * .5, "Donations!");
+					"因為捐獻你而獲得了一些能量.");
+			SuperNManager.alterPower(snplayer, delta * .5, "已捐獻!");
 		}
 	}
 
@@ -379,17 +372,17 @@ public class PriestManager extends HumanManager {
 		SuperNPlayer snvictim = SuperNManager.get(victim);
 		if (!SupernaturalsPlugin.instance.getPvP(victim)) {
 			SuperNManager.sendMessage(snplayer,
-					"Cannot cast in a non-PvP zone.");
+					"無法再禁止戰鬥的地方施展.");
 			return false;
 		}
 		if (snplayer.getPower() > SNConfigHandler.priestPowerBanish) {
 			if (snvictim.isSuper()) {
 				SuperNManager.alterPower(snplayer,
-						-SNConfigHandler.priestPowerBanish, "Banished "
+						-SNConfigHandler.priestPowerBanish, "放逐了 "
 								+ victim.getName());
-				SuperNManager.sendMessage(snvictim, "You were banished by "
+				SuperNManager.sendMessage(snvictim, "你已被 "
 						+ ChatColor.WHITE + snplayer.getName() + ChatColor.RED
-						+ "!");
+						+ "　放逐(Banish)!");
 				victim.teleport(SNConfigHandler.priestBanishLocation);
 				ItemStack item = player.getItemInHand();
 				if (item.getAmount() == 1) {
@@ -400,10 +393,10 @@ public class PriestManager extends HumanManager {
 				return true;
 			}
 			SuperNManager.sendMessage(snplayer,
-					"Can only banish supernatural players.");
+					"只能放逐(Banish)超自然玩家.");
 			return false;
 		} else {
-			SuperNManager.sendMessage(snplayer, "Not enough power to banish.");
+			SuperNManager.sendMessage(snplayer, "沒有足夠的能量來放逐(Banish).");
 			return false;
 		}
 	}
@@ -417,10 +410,10 @@ public class PriestManager extends HumanManager {
 					&& !victim.isDead()) {
 				SuperNManager.alterPower(snplayer,
 						-SNConfigHandler.priestPowerHeal,
-						"Healed " + victim.getName());
-				SuperNManager.sendMessage(snvictim, "You were healed by "
+						"治療了 " + victim.getName());
+				SuperNManager.sendMessage(snvictim, "你被 "
 						+ ChatColor.WHITE + snplayer.getName() + ChatColor.RED
-						+ "!");
+						+ "　治療了(Heal)!");
 				double health = victim.getHealth()
 						+ SNConfigHandler.priestHealAmount;
 				if (health > victim.getMaxHealth()) {
@@ -435,11 +428,11 @@ public class PriestManager extends HumanManager {
 				}
 				return true;
 			} else {
-				SuperNManager.sendMessage(snplayer, "Player cannot be healed.");
+				SuperNManager.sendMessage(snplayer, "這個玩家無法被治療(Heal).");
 				return false;
 			}
 		} else {
-			SuperNManager.sendMessage(snplayer, "Not enough power to heal.");
+			SuperNManager.sendMessage(snplayer, "沒有足夠的能量來治療(Heal).");
 			return false;
 		}
 	}
@@ -449,17 +442,17 @@ public class PriestManager extends HumanManager {
 		SuperNPlayer snvictim = SuperNManager.get(victim);
 		if (!SupernaturalsPlugin.instance.getPvP(victim)) {
 			SuperNManager.sendMessage(snplayer,
-					"Cannot cast in a non-PvP zone.");
+					"無法再禁止戰鬥的地方施展.");
 			return false;
 		}
 		if (snplayer.getPower() > SNConfigHandler.priestPowerExorcise) {
 			if (snvictim.isSuper()) {
 				SuperNManager.alterPower(snplayer,
-						-SNConfigHandler.priestPowerExorcise, "Exorcised "
+						-SNConfigHandler.priestPowerExorcise, "淨化了 "
 								+ victim.getName());
-				SuperNManager.sendMessage(snvictim, "You were exorcised by "
+				SuperNManager.sendMessage(snvictim, "你被 "
 						+ ChatColor.WHITE + snplayer.getName() + ChatColor.RED
-						+ "!");
+						+ " 淨化(Exorcise)了!");
 				SuperNManager.cure(snvictim);
 				ItemStack item = player.getItemInHand();
 				if (item.getAmount() == 1) {
@@ -470,12 +463,12 @@ public class PriestManager extends HumanManager {
 				return true;
 			} else {
 				SuperNManager.sendMessage(snplayer,
-						"Only supernatural players can be exorcised.");
+						"只有超自然玩家可以被淨化(Exorcise).");
 				return false;
 			}
 		} else {
 			SuperNManager
-					.sendMessage(snplayer, "Not enough power to exorcise.");
+					.sendMessage(snplayer, "沒有足夠的能量來淨化(Exorcise).");
 			return false;
 		}
 	}
@@ -488,10 +481,10 @@ public class PriestManager extends HumanManager {
 				if (victim.getItemInHand().getType().equals(material)) {
 					SuperNManager.alterPower(snplayer,
 							-SNConfigHandler.priestPowerCure,
-							"Cured " + victim.getName());
+							"治癒了 " + victim.getName());
 					SuperNManager.sendMessage(snvictim, ChatColor.WHITE
 							+ snplayer.getName() + ChatColor.RED
-							+ " has restored your humanity");
+							+ " 讓你重拾了人性");
 					SuperNManager.cure(snvictim);
 					ItemStack item = player.getItemInHand();
 					ItemStack item2 = victim.getItemInHand();
@@ -509,18 +502,18 @@ public class PriestManager extends HumanManager {
 				} else {
 					SuperNManager.sendMessage(snplayer,
 							ChatColor.WHITE + snvictim.getName()
-									+ ChatColor.RED + " is not holding "
+									+ ChatColor.RED + " 沒有拿著 "
 									+ ChatColor.WHITE + material.toString()
 									+ ChatColor.RED + ".");
 					return false;
 				}
 			} else {
 				SuperNManager.sendMessage(snplayer,
-						"You can only cure supernatural players.");
+						"你只能治癒(Cure)超自然玩家.");
 				return false;
 			}
 		} else {
-			SuperNManager.sendMessage(snplayer, "Not enough power to cure.");
+			SuperNManager.sendMessage(snplayer, "沒有足夠的能量來治癒(Cure).");
 			return false;
 		}
 	}
@@ -530,7 +523,7 @@ public class PriestManager extends HumanManager {
 		SuperNPlayer snvictim = SuperNManager.get(victim);
 		if (!SupernaturalsPlugin.instance.getPvP(victim)) {
 			SuperNManager.sendMessage(snplayer,
-					"Cannot cast in a non-PvP zone.");
+					"無法再禁止戰鬥的地方施展.");
 			return false;
 		}
 		if (snplayer.getPower() > SNConfigHandler.priestPowerDrain) {
@@ -538,10 +531,10 @@ public class PriestManager extends HumanManager {
 				double power = snvictim.getPower();
 				power *= SNConfigHandler.priestDrainFactor;
 				SuperNManager.alterPower(snplayer,
-						-SNConfigHandler.priestPowerDrain, "Drained  "
-								+ snvictim.getName() + "'s power!");
-				SuperNManager.alterPower(snvictim, -power, "Drained by "
-						+ snplayer.getName());
+						-SNConfigHandler.priestPowerDrain, "流失了 "
+								+ snvictim.getName() + " 的能量!");
+				SuperNManager.alterPower(snvictim, -power, "被 "
+						+ snplayer.getName() + "流失了能量");
 				ItemStack item = player.getItemInHand();
 				if (item.getAmount() == 1) {
 					player.setItemInHand(null);
@@ -551,12 +544,12 @@ public class PriestManager extends HumanManager {
 				return true;
 			} else {
 				SuperNManager.sendMessage(snplayer,
-						"Only supernatural players can be power drained.");
+						"只有超自然玩家可以被流失(Drain)能量.");
 				return false;
 			}
 		} else {
 			SuperNManager.sendMessage(snplayer,
-					"Not enough power to drain power.");
+					"沒有足夠的能量來流失(Drain)能量.");
 			return false;
 		}
 	}
@@ -571,24 +564,21 @@ public class PriestManager extends HumanManager {
 						priest)) {
 					SuperNManager.sendMessage(
 							priest,
-							"Removed Guardian Angel from "
-									+ ChatColor.WHITE
-									+ SupernaturalsPlugin.instance
-											.getDataHandler()
-											.getAngelPlayer(priest).getName());
-					SuperNManager.sendMessage(SupernaturalsPlugin.instance
-							.getDataHandler().getAngelPlayer(priest),
-							"Guardian Angel removed!");
+							"從 " + ChatColor.WHITE +
+                                                        SupernaturalsPlugin.instance.getDataHandler().getAngelPlayer(priest).getName() +
+                                                        ChatColor.RED + "　的身上移除了守護天使(Guardian Angel)");
+					SuperNManager.sendMessage(SupernaturalsPlugin.instance.getDataHandler().getAngelPlayer(priest),
+							"已移除守護天使(Guardian Angel)!");
 					SupernaturalsPlugin.instance.getDataHandler().removeAngel(
 							priest);
 				}
 				SuperNManager.sendMessage(snvictim,
-						"You now have a Guardian Angel!");
+						"一個守護天使(Guardian Angel)出現在你的身旁!");
 				SuperNManager.alterPower(
 						priest,
 						-SNConfigHandler.priestPowerGuardianAngel,
-						"Guardian Angel on " + ChatColor.WHITE
-								+ snvictim.getName() + ChatColor.RED + "!");
+						"施展守護天使(Guardian Angel)在 " + ChatColor.WHITE
+								+ snvictim.getName() + ChatColor.RED + " 的身上!");
 				SupernaturalsPlugin.instance.getDataHandler().addAngel(priest,
 						snvictim);
 
@@ -600,13 +590,12 @@ public class PriestManager extends HumanManager {
 				}
 				return true;
 			}
-			SuperNManager
-					.sendMessage(priest,
-							"You cannot set a Guardian Angel on a Supernatural player.");
+			SuperNManager.sendMessage(priest,
+							"你無法在超自然玩家身上施放守護天使(Guardian Angel).");
 			return false;
 		} else {
 			SuperNManager.sendMessage(priest,
-					"Not enough power to cast Guardian Angel.");
+					"沒有足夠的力量施展守護天使(Guardian Angel).");
 			return false;
 		}
 	}

@@ -43,28 +43,28 @@ public class SNCommandAdmin extends SNCommand {
 
 	static {
 		adminHelpMessages.add("*** " + ChatColor.WHITE
-				+ "Supernatural Admin Help" + ChatColor.RED + " ***");
-		adminHelpMessages.add("/sn cure <PlayerName> " + ChatColor.WHITE
-				+ "- Cure self or player.");
-		adminHelpMessages.add("/sn convert <PlayerName> [SupernaturalType] "
+				+ "Supernatural 管理者指令" + ChatColor.RED + " ***");
+		adminHelpMessages.add("/sn cure <玩家名稱> " + ChatColor.WHITE
+				+ "- 治療自己或玩家.");
+		adminHelpMessages.add("/sn convert <玩家名稱> [超自然生物] "
 				+ ChatColor.WHITE
-				+ "- Turn self or player into any supernatural.");
-		adminHelpMessages.add("/sn reset <PlayerName>" + ChatColor.WHITE
-				+ "- Reset self or player's power.");
-		adminHelpMessages.add("/sn power <PlayerName> [Power] "
-				+ ChatColor.WHITE + "- Give power to self or player.");
-		adminHelpMessages.add("/sn rmtarget <PlayerName> " + ChatColor.WHITE
-				+ "- Removes player from current WitchHunter kill list.");
+				+ "- 將自己或玩家轉換為任意的超自然生物.");
+		adminHelpMessages.add("/sn reset <玩家名稱>" + ChatColor.WHITE
+				+ "- 重置自己或玩家的能量.");
+		adminHelpMessages.add("/sn power <玩家名稱> [Power] "
+				+ ChatColor.WHITE + "- 給自己或玩家能量.");
+		adminHelpMessages.add("/sn rmtarget <玩家名稱> " + ChatColor.WHITE
+				+ "- 將玩家從魔女獵人的獵殺名單移除.");
 		adminHelpMessages.add("/sn save " + ChatColor.WHITE
-				+ "- Save data to disk.");
+				+ "- 儲存資料到硬碟.");
 		adminHelpMessages.add("/sn reload " + ChatColor.WHITE
-				+ "- Reload data from disk.");
+				+ "- 從硬碟讀取資料.");
 		adminHelpMessages.add("/sn restartTask " + ChatColor.WHITE
-				+ "- Restarts the Task Timer.");
+				+ "- 重置技能計時器..");
 		adminHelpMessages.add("/sn setchurch " + ChatColor.WHITE
-				+ "- Sets your current location as the priests' church.");
+				+ "- 將你目前的位置設定為牧師的教堂.");
 		adminHelpMessages.add("/sn setbanish " + ChatColor.WHITE
-				+ "- Sets your current location as the priests' banish spot.");
+				+ "- 將你目前的位置設定為牧師的放逐點.");
 	}
 
 	@Override
@@ -78,7 +78,7 @@ public class SNCommandAdmin extends SNCommand {
 			this.sendMessage(adminHelpMessages);
 		} else {
 			if (!SNConfigHandler.spanish) {
-				this.sendMessage("You do not have permissions to use this command.");
+				this.sendMessage("你沒有權限使用這個指令.");
 			} else {
 				this.sendMessage("No tienes permiso para usar este comando.");
 			}

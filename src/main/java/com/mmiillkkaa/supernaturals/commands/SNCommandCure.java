@@ -44,20 +44,20 @@ public class SNCommandCure extends SNCommand {
 	public void perform() {
 		if (!(sender instanceof Player)) {
 			if (parameters.isEmpty()) {
-				this.sendMessage("Missing Player!");
+				this.sendMessage("缺少玩家名稱!");
 			} else {
 				String playername = parameters.get(0);
 				Player player = SupernaturalsPlugin.instance.getServer().getPlayer(playername);
 				if (player == null) {
 					if (!SNConfigHandler.spanish) {
-						this.sendMessage("Player not found.");
+						this.sendMessage("沒有這個玩家.");
 					} else {
 						this.sendMessage("Jugador no encontrado.");
 					}
 					return;
 				}
 				this.sendMessage(ChatColor.WHITE + player.getDisplayName()
-						+ ChatColor.RED + " was cured of any curse!");
+						+ ChatColor.RED + " 已被完全治癒!");
 
 				SuperNPlayer snplayer = SuperNManager.get(player);
 				SuperNManager.cure(snplayer);
@@ -67,7 +67,7 @@ public class SNCommandCure extends SNCommand {
 		Player senderPlayer = (Player) sender;
 		if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
 			if (!SNConfigHandler.spanish) {
-				this.sendMessage("You do not have permissions to use this command.");
+				this.sendMessage("你沒有權限使用這個指令.");
 			} else {
 				this.sendMessage("No tienes permiso para este comando.");
 			}
@@ -82,14 +82,14 @@ public class SNCommandCure extends SNCommand {
 			Player player = SupernaturalsPlugin.instance.getServer().getPlayer(playername);
 			if (player == null) {
 				if (!SNConfigHandler.spanish) {
-					this.sendMessage("Player not found.");
+					this.sendMessage("沒有這個玩家.");
 				} else {
 					this.sendMessage("Jugador no encontrado.");
 				}
 				return;
 			}
 			this.sendMessage(ChatColor.WHITE + player.getDisplayName()
-					+ ChatColor.RED + " was cured of any curse!");
+					+ ChatColor.RED + " 已被完全治癒!");
 
 			SuperNPlayer snplayer = SuperNManager.get(player);
 			SuperNManager.cure(snplayer);

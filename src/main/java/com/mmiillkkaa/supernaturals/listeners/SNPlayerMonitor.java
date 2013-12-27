@@ -114,8 +114,7 @@ public class SNPlayerMonitor implements Listener {
 		}
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		if (!SNWhitelistHandler.isWhitelisted(SuperNManager.get(player))) {
-			SuperNManager.sendMessage(snplayer, "Your class has been reset because you are trying to bypass");
-			SuperNManager.sendMessage(snplayer, "The mmSupernaturals whitelist!");
+			SuperNManager.sendMessage(snplayer, "你的職業已被重置, 因為你企圖閃避 mmSupernaturals 白名單.");
 		}
 
 		if (SupernaturalsPlugin.hasPermissions(player, "supernatural.admin.infinitepower")) {
@@ -195,52 +194,52 @@ public class SNPlayerMonitor implements Listener {
 			if (snplayer.isHuman()) {
 				player.setDisplayName(player.getDisplayName().trim().replace(player.getName(), ChatColor.WHITE
 						+ player.getName() + ChatColor.WHITE));
-				plugin.getServer().broadcastMessage(ChatColor.WHITE + "Human "
+				plugin.getServer().broadcastMessage(ChatColor.WHITE + "人類(Human) "
 						+ player.getName() + ChatColor.GOLD
-						+ " has joined the server.");
+						+ " 加入了伺服器.");
 			} else if (snplayer.isVampire()) {
 				player.setDisplayName(player.getDisplayName().trim().replace(player.getName(), ChatColor.DARK_PURPLE
-						+ player.getName() + ChatColor.WHITE));  
+						+ player.getName() + ChatColor.WHITE));
 				plugin.getServer().broadcastMessage(ChatColor.DARK_PURPLE
-						+ "Vampire " + player.getName() + ChatColor.GOLD
-						+ " has joined the server.");
+						+ "吸血鬼(Vampire) " + player.getName() + ChatColor.GOLD
+						+ " 加入了伺服器.");
 			} else if (snplayer.isWere()) {
 				player.setDisplayName(player.getDisplayName().trim().replace(player.getName(), ChatColor.BLUE
 						+ player.getName() + ChatColor.WHITE));
 				plugin.getServer().broadcastMessage(ChatColor.BLUE
-						+ "Werewolf " + player.getName() + ChatColor.GOLD
-						+ " has joined the server.");
+						+ "狼人(Werewolf) " + player.getName() + ChatColor.GOLD
+						+ " 加入了伺服器.");
 			} else if (snplayer.isGhoul()) {
 				player.setDisplayName(player.getDisplayName().trim().replace(player.getName(), ChatColor.DARK_GRAY
 						+ player.getName() + ChatColor.WHITE));
 				plugin.getServer().broadcastMessage(ChatColor.DARK_GRAY
-						+ "Ghoul " + player.getName() + ChatColor.GOLD
-						+ " has joined the server.");
+						+ "食屍鬼(Ghoul) " + player.getName() + ChatColor.GOLD
+						+ " 加入了伺服器.");
 			} else if (snplayer.isPriest()) {
 				player.setDisplayName(player.getDisplayName().trim().replace(player.getName(), ChatColor.GOLD
 						+ player.getName() + ChatColor.WHITE));
-				plugin.getServer().broadcastMessage(ChatColor.GOLD + "Priest "
+				plugin.getServer().broadcastMessage(ChatColor.GOLD + "牧師(Priest) "
 						+ player.getName() + ChatColor.GOLD
-						+ " has joined the server.");
+						+ " 加入了伺服器.");
 			} else if (snplayer.isHunter()) {
 				// player.setSneaking(true);
 				player.setDisplayName(player.getDisplayName().trim().replace(player.getName(), ChatColor.GREEN
 						+ player.getName() + ChatColor.WHITE));
 				plugin.getServer().broadcastMessage(ChatColor.GREEN
-						+ "WitchHunter " + player.getName() + ChatColor.GOLD
-						+ " has joined the server.");
+						+ "女巫獵人(WitchHunter) " + player.getName() + ChatColor.GOLD
+						+ " 加入了伺服器.");
 			} else if (snplayer.isDemon()) {
 				player.setDisplayName(player.getDisplayName().trim().replace(player.getName(), ChatColor.RED
 						+ player.getName() + ChatColor.WHITE));
-				plugin.getServer().broadcastMessage(ChatColor.RED + "Demon "
+				plugin.getServer().broadcastMessage(ChatColor.RED + "惡魔(Demon) "
 						+ player.getName() + ChatColor.GOLD
-						+ " has joined the server.");
+						+ " 加入了伺服器.");
 			} else if (snplayer.isAngel()) {
 				player.setDisplayName(player.getDisplayName().trim().replace(player.getName(), ChatColor.AQUA
 						+ player.getName() + ChatColor.WHITE));
-				plugin.getServer().broadcastMessage(ChatColor.AQUA + "Angel "
+				plugin.getServer().broadcastMessage(ChatColor.AQUA + "天使(Angel) "
 						+ player.getName() + ChatColor.GOLD
-						+ " has joined the server.");
+						+ " 加入了伺服器.");
 			}
 		}
 	}

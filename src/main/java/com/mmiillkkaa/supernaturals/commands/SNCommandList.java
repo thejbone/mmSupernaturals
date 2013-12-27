@@ -40,7 +40,7 @@ public class SNCommandList extends SNCommand {
 		senderMustBePlayer = false;
 		permissions = "supernatural.command.list";
 		helpNameAndParams = "list";
-		helpDescription = "List supernaturals on the server.";
+		helpDescription = "列出伺服器上的超自然生物.";
 	}
 
 	@Override
@@ -76,19 +76,21 @@ public class SNCommandList extends SNCommand {
 			List<String> messages = new ArrayList<String>();
 			List<String> messagesSpanish = new ArrayList<String>();
 			messages.add("*** " + ChatColor.WHITE
-					+ "Online Supernatural Players " + ChatColor.RED + "***");
-			messages.add("Vampires: " + ChatColor.WHITE
+					+ "線上的 Supernatural 玩家" + ChatColor.RED + "***");
+			messages.add("吸血鬼(Vampires): " + ChatColor.WHITE
 					+ TextUtil.implode(vampires, ", "));
-			messages.add("Werewolves: " + ChatColor.WHITE
+			messages.add("狼人(Werewolves): " + ChatColor.WHITE
 					+ TextUtil.implode(werewolves, ", "));
-			messages.add("Ghouls: " + ChatColor.WHITE
+			messages.add("食屍鬼(Ghouls): " + ChatColor.WHITE
 					+ TextUtil.implode(ghouls, ", "));
-			messages.add("Priests: " + ChatColor.WHITE
+			messages.add("牧師(Priests): " + ChatColor.WHITE
 					+ TextUtil.implode(priests, ", "));
-			messages.add("WitchHunters: " + ChatColor.WHITE
+			messages.add("女巫獵人(WitchHunters): " + ChatColor.WHITE
 					+ TextUtil.implode(hunters, ", "));
-			messages.add("Demons: " + ChatColor.WHITE
+			messages.add("惡魔(Demons): " + ChatColor.WHITE
 					+ TextUtil.implode(demons, ", "));
+			messages.add("天使(Angels): " + ChatColor.WHITE
+					+ TextUtil.implode(angels, ", "));
 			messagesSpanish.add("*** " + ChatColor.WHITE
 					+ "Seres Místicos. conectados: " + ChatColor.RED + "***");
 			messagesSpanish.add("Vampiros: " + ChatColor.WHITE
@@ -115,7 +117,7 @@ public class SNCommandList extends SNCommand {
 		Player senderPlayer = (Player) sender;
 		if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
 			if (!SNConfigHandler.spanish) {
-				this.sendMessage("You do not have permissions to use this command.");
+				this.sendMessage("你沒有權限使用這個指令.");
 			} else {
 				this.sendMessage("No tienes permiso para este comando.");
 			}
@@ -151,21 +153,21 @@ public class SNCommandList extends SNCommand {
 		// Create Messages
 		List<String> messages = new ArrayList<String>();
 		List<String> messagesSpanish = new ArrayList<String>();
-		messages.add("*** " + ChatColor.WHITE + "Online Supernatural Players "
+		messages.add("*** " + ChatColor.WHITE + "線上的 Supernatural 玩家"
 				+ ChatColor.RED + "***");
-		messages.add("Vampires: " + ChatColor.WHITE
+		messages.add("吸血鬼(Vampires): " + ChatColor.WHITE
 				+ TextUtil.implode(vampires, ", "));
-		messages.add("Werewolves: " + ChatColor.WHITE
+		messages.add("狼人(Werewolves): " + ChatColor.WHITE
 				+ TextUtil.implode(werewolves, ", "));
-		messages.add("Ghouls: " + ChatColor.WHITE
+		messages.add("食屍鬼(Ghouls): " + ChatColor.WHITE
 				+ TextUtil.implode(ghouls, ", "));
-		messages.add("Priests: " + ChatColor.WHITE
+		messages.add("牧師(Priests): " + ChatColor.WHITE
 				+ TextUtil.implode(priests, ", "));
-		messages.add("WitchHunters: " + ChatColor.WHITE
+		messages.add("女巫獵人(WitchHunters): " + ChatColor.WHITE
 				+ TextUtil.implode(hunters, ", "));
-		messages.add("Demons: " + ChatColor.WHITE
+		messages.add("惡魔(Demons): " + ChatColor.WHITE
 				+ TextUtil.implode(demons, ", "));
-		messages.add("Angels: " + ChatColor.WHITE
+		messages.add("天使(Angels): " + ChatColor.WHITE
 				+ TextUtil.implode(angels, ", "));
 		messagesSpanish.add("*** " + ChatColor.WHITE
 				+ "Seres Místicos. conectados: " + ChatColor.RED + "***");

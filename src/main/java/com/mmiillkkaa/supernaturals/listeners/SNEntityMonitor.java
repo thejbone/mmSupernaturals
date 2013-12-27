@@ -152,7 +152,7 @@ public class SNEntityMonitor implements Listener {
 			if (pDamager != null) {
 				SuperNPlayer snplayer = SuperNManager.get(pDamager);
 				if (snplayer.isAngel()) {
-					SuperNManager.alterPower(snplayer, SNConfigHandler.angelKillMonsterPowerGain, "Killed Monster");
+					SuperNManager.alterPower(snplayer, SNConfigHandler.angelKillMonsterPowerGain, "擊殺怪物");
 				}
 			}
 		}
@@ -195,8 +195,8 @@ public class SNEntityMonitor implements Listener {
 				SuperNPlayer snDamager = SuperNManager.get(pDamager);
 				if (snplayer.isHunter()) {
 					if (snDamager.equals(snplayer)) {
-						SuperNManager.sendMessage(snplayer, "You have killed yourself!");
-						SuperNManager.sendMessage(snplayer, "This action, voluntary or not, has rescinded your status as a WitchHunter.");
+						SuperNManager.sendMessage(snplayer, "你把自己殺死了!");
+						SuperNManager.sendMessage(snplayer, "這個動作, 不論你是否存心的, 都讓你失去了女巫獵人的身份.");
 						SuperNManager.cure(snplayer);
 					}
 				} else if (snDamager.isHuman()) {

@@ -36,26 +36,26 @@ public class SNCommandReset extends SNCommand {
 		senderMustBePlayer = false;
 		optionalParameters.add("playername");
 		permissions = "supernatural.admin.command.reset";
-		helpNameAndParams = "reset | reset [playername]";
-		helpDescription = "Reset a player's power to zero";
+		helpNameAndParams = "reset | reset [玩家名稱]";
+		helpDescription = "重置玩家的能量為零";
 	}
 
 	@Override
 	public void perform() {
 		if (!(sender instanceof Player)) {
 			if (parameters.isEmpty()) {
-				this.sendMessage("Missing player!");
+				this.sendMessage("缺乏玩家名稱!");
 			} else {
 				String playername = parameters.get(0);
 				Player player = SupernaturalsPlugin.instance.getServer().getPlayer(playername);
 
 				if (player == null) {
-					this.sendMessage("Player not found!");
+					this.sendMessage("沒有這個玩家!");
 					return;
 				}
 				SuperNPlayer snplayer = SuperNManager.get(player);
-				SuperNManager.alterPower(snplayer, -10000, "Admin");
-				this.sendMessage("Power reset for player: "
+				SuperNManager.alterPower(snplayer, -10000, "天神");
+				this.sendMessage("已重置玩家能量: "
 						+ snplayer.getName());
 			}
 			return;
@@ -63,23 +63,23 @@ public class SNCommandReset extends SNCommand {
 
 		Player senderPlayer = (Player) sender;
 		if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
-			this.sendMessage("You do not have permissions to use this command.");
+			this.sendMessage("你沒有權限使用這個指令.");
 			return;
 		}
 		if (parameters.isEmpty()) {
 			SuperNPlayer snplayer = SuperNManager.get(senderPlayer);
-			SuperNManager.alterPower(snplayer, -10000, "Admin");
+			SuperNManager.alterPower(snplayer, -10000, "天神");
 		} else {
 			String playername = parameters.get(0);
 			Player player = SupernaturalsPlugin.instance.getServer().getPlayer(playername);
 
 			if (player == null) {
-				this.sendMessage("Player not found!");
+				this.sendMessage("沒有這個玩家!");
 				return;
 			}
 			SuperNPlayer snplayer = SuperNManager.get(player);
-			SuperNManager.alterPower(snplayer, -10000, "Admin");
-			this.sendMessage("Power reset for player: " + snplayer.getName());
+			SuperNManager.alterPower(snplayer, -10000, "天神");
+			this.sendMessage("已重置玩家能量: " + snplayer.getName());
 		}
 	}
 }

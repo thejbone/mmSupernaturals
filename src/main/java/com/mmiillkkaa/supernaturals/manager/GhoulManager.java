@@ -74,11 +74,9 @@ public class GhoulManager extends ClassManager {
 							.getType())) {
 						damage = 0;
 						SuperNManager.sendMessage(snDamager,
-								"Ghouls are immune to that weapon!");
+								"食屍鬼(Ghouls)對武器免疫!");
 					} else {
-						damage -= damage
-								* snVictim
-										.scale(1 - SNConfigHandler.ghoulDamageReceivedFactor);
+						damage -= damage * snVictim.scale(1 - SNConfigHandler.ghoulDamageReceivedFactor);
 					}
 				}
 			}
@@ -96,7 +94,7 @@ public class GhoulManager extends ClassManager {
 		if (item != null) {
 			if (SNConfigHandler.ghoulWeapons.contains(item.getType())) {
 				SuperNManager.sendMessage(snDamager,
-						"Ghouls cannot use this weapon!");
+						"食屍鬼(Ghouls)無法使用這個武器!");
 				damage = 0;
 			} else {
 				damage += damage
@@ -110,7 +108,7 @@ public class GhoulManager extends ClassManager {
 	public void deathEvent(Player player) {
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		SuperNManager.alterPower(snplayer,
-				-SNConfigHandler.ghoulDeathPowerPenalty, "You died!");
+				-SNConfigHandler.ghoulDeathPowerPenalty, "你死了!");
 	}
 
 	@Override
@@ -119,23 +117,19 @@ public class GhoulManager extends ClassManager {
 		if (victim == null) {
 			SuperNManager.alterPower(damager,
 					SNConfigHandler.ghoulKillPowerCreatureGain,
-					"Creature death!");
+					"擊殺生物!");
 		} else {
 			double random = Math.random();
 			if (victim.getPower() > SNConfigHandler.ghoulKillPowerPlayerGain) {
 				SuperNManager.alterPower(damager,
 						SNConfigHandler.ghoulKillPowerPlayerGain,
-						"Player killed!");
+						"擊殺玩家!");
 			} else {
-				SuperNManager
-						.sendMessage(damager,
-								"You cannot gain power from a player with no power themselves.");
+				SuperNManager.sendMessage(damager, "你無法從沒有能量的玩家身上獲得能量.");
 			}
 			if (SNConfigHandler.ghoulKillSpreadCurse && !victim.isSuper()) {
 				if (random < SNConfigHandler.spreadChance) {
-					SuperNManager
-							.sendMessage(victim,
-									"Your body dies... You feel a deep hatred for the living.");
+					SuperNManager.sendMessage(victim, "你的軀體死亡了... 你開始對生物充滿了仇恨.");
 					SuperNManager.convert(victim, "ghoul");
 				}
 			}
@@ -239,7 +233,7 @@ public class GhoulManager extends ClassManager {
 					DamageCause.DROWNING, SNConfigHandler.ghoulDamageWater);
 			player.setLastDamageCause(event);
 			SuperNManager.sendMessage(SuperNManager.get(player),
-					"Ghouls disintegrate in water!  Get Out Quick!");
+					"食屍鬼(Ghouls)將會在水中分解!  趕快出去!");
 		}
 	}
 
@@ -270,21 +264,19 @@ public class GhoulManager extends ClassManager {
 
 	public void removeBond(SuperNPlayer player) {
 		if (bonds.containsKey(player)) {
-			SuperNManager.sendMessage(player, "Removed Unholy Bond from "
-					+ ChatColor.WHITE + bonds.get(player).getName());
-			SuperNManager
-					.sendMessage(bonds.get(player), "Unholy Bond removed!");
+			SuperNManager.sendMessage(player, "從 " + ChatColor.WHITE + bonds.get(player).getName()
+                                + ChatColor.RED + " 的身上移除了邪惡纏繞(Unholy Bond)");
+			SuperNManager.sendMessage(bonds.get(player), "移除了邪惡纏繞(Unholy Bond)!");
 			bonds.remove(player);
 			return;
 		}
 		if (bonds.containsValue(player)) {
 			for (SuperNPlayer ghoul : bonds.keySet()) {
 				if (bonds.get(ghoul).equals(player)) {
-					SuperNManager.sendMessage(player,
-							"Removed Unholy Bond from " + ChatColor.WHITE
-									+ bonds.get(ghoul).getName());
+					SuperNManager.sendMessage(player, "從 " + ChatColor.WHITE + bonds.get(ghoul).getName()
+                                                + ChatColor.RED + " 的身上移除了邪惡纏繞(Unholy Bond)");
 					SuperNManager.sendMessage(bonds.get(player),
-							"Unholy Bond removed!");
+							"移除了邪惡纏繞(Unholy Bond)!");
 					bonds.remove(ghoul);
 					return;
 				}
@@ -298,10 +290,10 @@ public class GhoulManager extends ClassManager {
 
 		if (victim == null) {
 			if (bonds.containsKey(ghoul)) {
-				SuperNManager.sendMessage(ghoul, "Removed Unholy Bond from "
-						+ ChatColor.WHITE + bonds.get(ghoul).getName());
+				SuperNManager.sendMessage(ghoul, "從 " + ChatColor.WHITE + bonds.get(ghoul).getName()
+                                        + ChatColor.RED + " 的身上移除了邪惡纏繞(Unholy Bond)");
 				SuperNManager.sendMessage(bonds.get(ghoul),
-						"Unholy Bond removed!");
+						"移除了邪惡纏繞(Unholy Bond)!");
 				bonds.remove(ghoul);
 			}
 			return false;
@@ -311,18 +303,17 @@ public class GhoulManager extends ClassManager {
 
 		if (snvictim.isSuper()) {
 			if (bonds.containsKey(ghoul)) {
-				SuperNManager.sendMessage(ghoul, "Removed Unholy Bond from "
-						+ ChatColor.WHITE + bonds.get(ghoul).getName());
+				SuperNManager.sendMessage(ghoul, "從 " + ChatColor.WHITE + bonds.get(ghoul).getName()
+                                        + ChatColor.RED + " 的身上移除了邪惡纏繞(Unholy Bond)");
 				SuperNManager.sendMessage(bonds.get(ghoul),
-						"Unholy Bond removed!");
+						"移除了邪惡纏繞(Unholy Bond)!");
 				bonds.remove(ghoul);
 			}
 
 			SuperNManager.sendMessage(ghoul,
-					"You now have an Unholy Bond with " + victim.getName());
-			SuperNManager
-					.sendMessage(snvictim, "You now have an Unholy Bond with "
-							+ ghoul.getName() + "!");
+					"你在 " + victim.getName() + " 的身上施放了死亡纏繞(Unholy Bond)");
+			SuperNManager.sendMessage(snvictim,
+                                ghoul.getName() + " 在你的身上施放了死亡纏繞(Unholy Bond)!");
 			bonds.put(ghoul, snvictim);
 
 			ItemStack item = player.getItemInHand();
@@ -333,8 +324,7 @@ public class GhoulManager extends ClassManager {
 			}
 			return true;
 		}
-		SuperNManager
-				.sendMessage(ghoul, "You cannot form a bond with a human.");
+		SuperNManager.sendMessage(ghoul, "你無法在人類(Human)身上使用.");
 		return false;
 	}
 
@@ -390,7 +380,7 @@ public class GhoulManager extends ClassManager {
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		ItemStack item = player.getItemInHand();
 		if (!SupernaturalsPlugin.instance.getSpawn(player)) {
-			SuperNManager.sendMessage(snplayer, "You cannot summon here.");
+			SuperNManager.sendMessage(snplayer, "你無法在這招喚.");
 			return false;
 		}
 		if (snplayer.getPower() > SNConfigHandler.ghoulPowerSummonCost) {
@@ -398,7 +388,7 @@ public class GhoulManager extends ClassManager {
 					EntityType.ZOMBIE);
 			SuperNManager.alterPower(snplayer,
 					-SNConfigHandler.ghoulPowerSummonCost,
-					"Summoning a Zombie!");
+					"招喚了殭屍!");
 			if (item.getAmount() == 1) {
 				player.setItemInHand(null);
 			} else {
@@ -406,7 +396,7 @@ public class GhoulManager extends ClassManager {
 			}
 			return true;
 		} else {
-			SuperNManager.sendMessage(snplayer, "Not enough power to summon.");
+			SuperNManager.sendMessage(snplayer, "沒有足夠的能量招喚.");
 			return false;
 		}
 	}

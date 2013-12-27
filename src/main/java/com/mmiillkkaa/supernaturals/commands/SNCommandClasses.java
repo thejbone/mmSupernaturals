@@ -43,24 +43,24 @@ public class SNCommandClasses extends SNCommand {
 	}
 
 	static {
-		classMessages.add("*** " + ChatColor.WHITE + "Supernatural Classes "
+		classMessages.add("*** " + ChatColor.WHITE + "Supernatural 種族/職業"
 				+ ChatColor.RED + "***");
-		classMessages.add("Human: " + ChatColor.WHITE
-				+ "- Your standard run of the mill person.");
-		classMessages.add("Priest: " + ChatColor.WHITE
-				+ "- A person with significant power over the unholy.");
-		classMessages.add("Vampire: " + ChatColor.WHITE
-				+ "- No they don't sparkle!");
-		classMessages.add("Ghoul: " + ChatColor.WHITE
-				+ "- Slow and very durable.");
-		classMessages.add("Werewolf: " + ChatColor.WHITE
-				+ "- Gain significant powers at night.");
-		classMessages.add("WitchHunter: " + ChatColor.WHITE
-				+ "- Expert at bows and stealth.");
-		classMessages.add("Demon: " + ChatColor.WHITE
-				+ "- Possesses an unholy union with fire.");
-		classMessages.add("Angel: " + ChatColor.WHITE
-				+ "A Human with a free spirit.");
+		classMessages.add("人類(Human): " + ChatColor.WHITE
+				+ "- 不起眼的平凡人類.");
+		classMessages.add("牧師(Priest): " + ChatColor.WHITE
+				+ "- 一個擁有不凡力量來對抗邪惡生物的人類.");
+		classMessages.add("吸血鬼(Vampire): " + ChatColor.WHITE
+				+ "- 它們並不會冒出火花!");
+		classMessages.add("食屍鬼(Ghoul): " + ChatColor.WHITE
+				+ "- 行動遲緩並且非常不容易死亡.");
+		classMessages.add("狼人(Werewolf): " + ChatColor.WHITE
+				+ "- 在夜晚獲得強大的力量.");
+		classMessages.add("女巫獵人(WitchHunter): " + ChatColor.WHITE
+				+ "- 弓箭和潛行的專家.");
+		classMessages.add("惡魔(Demon): " + ChatColor.WHITE
+				+ "- 支配邪惡的生物與火焰.");
+		classMessages.add("天使(Angel): " + ChatColor.WHITE
+				+ "一個靈魂無法被束縛的人類.");
 		spanishClassMessages.add("*** " + ChatColor.WHITE
 				+ "Clases de Seres Místicos." + ChatColor.RED + "***");
 		spanishClassMessages.add("Humano: " + ChatColor.WHITE
@@ -89,7 +89,7 @@ public class SNCommandClasses extends SNCommand {
 
 		if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
 			if (!SNConfigHandler.spanish) {
-				this.sendMessage("You do not have permissions to use this command.");
+				this.sendMessage("你沒有權限使用這個指令.");
 			} else {
 				this.sendMessage("No tienes permiso para este comando.");
 			}

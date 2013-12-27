@@ -31,23 +31,23 @@ public class SNCommandSave extends SNCommandReload {
 		senderMustBePlayer = false;
 		permissions = "supernatural.admin.command.save";
 		helpNameAndParams = "";
-		helpDescription = "Save data from disk.";
+		helpDescription = "儲存資料到硬碟.";
 	}
 
 	@Override
 	public void perform() {
 		if (!(sender instanceof Player)) {
 			SupernaturalsPlugin.saveAll();
-			this.sendMessage("All config/player data has been saved!");
+			this.sendMessage("所有的設定檔/玩家資料已儲存!");
 		}
 		Player senderPlayer = (Player) sender;
 		if (!SNConfigHandler.spanish) {
 			if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
-				this.sendMessage("You do not have permissions to use this command.");
+				this.sendMessage("你沒有權限使用這個指令.");
 				return;
 			}
 			SupernaturalsPlugin.saveAll();
-			this.sendMessage("All config/player data has been saved!");
+			this.sendMessage("所有的設定檔/玩家資料已儲存!");
 		} else {
 			if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
 				this.sendMessage("No tienes permiso para este comando.");

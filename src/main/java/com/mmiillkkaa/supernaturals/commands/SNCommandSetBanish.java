@@ -37,7 +37,7 @@ public class SNCommandSetBanish extends SNCommand {
 		senderMustBeSupernatural = true;
 		permissions = "supernatural.admin.command.setbanish";
 		helpNameAndParams = "";
-		helpDescription = "Sets the current location as the priests' banish location";
+		helpDescription = "將目前的位置設定為放逐點";
 	}
 
 	@Override
@@ -72,7 +72,7 @@ public class SNCommandSetBanish extends SNCommand {
 			return;
 		}
 		if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
-			this.sendMessage("You do not have permissions to use this command.");
+			this.sendMessage("你沒有權限使用這個指令.");
 			return;
 		}
 
@@ -94,6 +94,6 @@ public class SNCommandSetBanish extends SNCommand {
 
 		SNConfigHandler.saveConfig();
 
-		this.sendMessage("Banish location set.");
+		this.sendMessage("已設定放逐點.");
 	}
 }

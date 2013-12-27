@@ -116,7 +116,7 @@ public class HunterManager extends HumanManager {
 			if (item != null) {
 				if (SNConfigHandler.hunterWeapons.contains(item.getType())) {
 					SuperNManager.sendMessage(snDamager,
-							"WitchHunters cannot use this weapon!");
+							"女巫獵人(WitchHunter)無法使用這個武器!");
 					return 0;
 				}
 			}
@@ -132,7 +132,7 @@ public class HunterManager extends HumanManager {
 		super.deathEvent(player);
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		SuperNManager.alterPower(snplayer,
-				-SNConfigHandler.hunterDeathPowerPenalty, "You died!");
+				-SNConfigHandler.hunterDeathPowerPenalty, "你死了!");
 	}
 
 	@Override
@@ -142,24 +142,23 @@ public class HunterManager extends HumanManager {
 			if (SNConfigHandler.hunterKillPowerCreatureGain > 0) {
 				SuperNManager.alterPower(damager,
 						SNConfigHandler.hunterKillPowerCreatureGain,
-						"Creature death!");
+						"擊殺生物!");
 			}
 		} else {
 			if (victim.getPower() > SNConfigHandler.hunterKillPowerPlayerGain) {
 				SuperNManager.alterPower(damager,
 						SNConfigHandler.hunterKillPowerPlayerGain,
-						"Player killed!");
+						"擊殺玩家!");
 				if (HunterManager.checkBounty(victim)) {
 					SuperNManager.alterPower(damager,
 							SNConfigHandler.hunterBountyCompletion,
-							"Bounty Fulfilled!");
+							"獲得賞金!");
 					HunterManager.removeBounty(victim);
 					HunterManager.addBounty();
 				}
 			} else {
-				SuperNManager
-						.sendMessage(damager,
-								"You cannot gain power from a player with no power themselves.");
+				SuperNManager .sendMessage(damager,
+                                        "你無法從沒有能量的玩家身上獲得能量.");
 			}
 		}
 	}
@@ -267,7 +266,7 @@ public class HunterManager extends HumanManager {
 								ChatColor.WHITE
 										+ sntarget.getName()
 										+ ChatColor.RED
-										+ " has been added to the WitchHunter target list!");
+										+ "已被加入女巫獵人(WitchHunter)的獵殺名單!");
 				bountyFound = true;
 				return;
 			}
@@ -321,7 +320,7 @@ public class HunterManager extends HumanManager {
 								ChatColor.WHITE
 										+ sntarget.getName()
 										+ ChatColor.RED
-										+ " has been added to the WitchHunter target list!");
+										+ " 已被加入女巫獵人(WitchHunter)的獵殺名單!");
 			}
 			count++;
 			if (count > 100) {
@@ -396,7 +395,7 @@ public class HunterManager extends HumanManager {
 							}, 20);
 			return true;
 		}
-		SuperNManager.sendMessage(snplayer, "WitchHunters Only!");
+		SuperNManager.sendMessage(snplayer, "女巫獵人(WitchHunter)專用!");
 		return true;
 	}
 
@@ -442,12 +441,10 @@ public class HunterManager extends HumanManager {
 						new Runnable() {
 							@Override
 							public void run() {
-								SuperNManager
-										.sendMessage(snplayer,
-												"You have been invited to join the WitchHunter society!");
-								SuperNManager
-										.sendMessage(snplayer,
-												"If you wish to accept this invitation visit a WitchHunters' Hall");
+								SuperNManager.sendMessage(snplayer,
+												"你已被邀請加入女巫獵人(WitchHunter)協會!");
+								SuperNManager.sendMessage(snplayer,
+												"如果你願意加入的話, 請到女巫獵人(WitchHunter)大廳走一趟");
 								if (!playerInvites.contains(snplayer)) {
 									playerInvites.add(snplayer);
 								}
@@ -458,7 +455,7 @@ public class HunterManager extends HumanManager {
 	public boolean join(SuperNPlayer snplayer) {
 		if (playerInvites.contains(snplayer)) {
 			SuperNManager.sendMessage(snplayer,
-					"Welcome to the WitchHunter society!");
+					"歡迎加入女巫獵人(WitchHunter)協會!");
 			SuperNManager.convert(snplayer, "witchhunter",
 					SNConfigHandler.hunterPowerStart);
 			return true;
@@ -491,7 +488,7 @@ public class HunterManager extends HumanManager {
 		}
 
 		hunterMap.put(snplayer, nextType);
-		SuperNManager.sendMessage(snplayer, "Changed to arrow type: "
+		SuperNManager.sendMessage(snplayer, "改變箭矢的類型為: "
 				+ ChatColor.WHITE + nextType);
 		return true;
 	}
@@ -537,7 +534,7 @@ public class HunterManager extends HumanManager {
 			}
 			if (!arrowType.equalsIgnoreCase("normal")) {
 				SuperNManager.sendMessage(snplayer,
-						"You cannot use special arrows in non-PvP areas.");
+						"你無法在禁止戰鬥的地方使用特殊箭矢.");
 			}
 			return false;
 		}
@@ -546,7 +543,7 @@ public class HunterManager extends HumanManager {
 			player.getWorld().dropItem(player.getLocation(),
 					new ItemStack(Material.ARROW, 1));
 			SuperNManager.sendMessage(snplayer,
-					"You are still recovering from Power Shot.");
+					"你仍然在等待強力射擊(Power Shot)的冷卻時間回復中.");
 			return true;
 		}
 
@@ -558,15 +555,15 @@ public class HunterManager extends HumanManager {
 		if (arrowType.equalsIgnoreCase("fire")) {
 			if (snplayer.getPower() > SNConfigHandler.hunterPowerArrowFire) {
 				SuperNManager.alterPower(snplayer,
-						-SNConfigHandler.hunterPowerArrowFire, "Fire Arrow!");
+						-SNConfigHandler.hunterPowerArrowFire, "火焰箭矢(Fire Arrow)!");
 				arrowMap.put(arrow, arrowType);
 				arrow.setFireTicks(SNConfigHandler.hunterFireArrowFireTicks);
 				return false;
 			} else {
 				SuperNManager.sendMessage(snplayer,
-						"Not enough power to shoot Fire Arrows!");
+						"沒有足夠的能量射出火焰箭矢(Fire Arrow)!");
 				SuperNManager.sendMessage(snplayer,
-						"Switching to normal arrows.");
+						"切換為一般箭矢.");
 				hunterMap.put(snplayer, "normal");
 				return false;
 			}
@@ -574,7 +571,7 @@ public class HunterManager extends HumanManager {
 			if (snplayer.getPower() > SNConfigHandler.hunterPowerArrowTriple) {
 				SuperNManager.alterPower(snplayer,
 						-SNConfigHandler.hunterPowerArrowTriple,
-						"Triple Arrow!");
+						"三重箭矢(Triple Arrow)!");
 				arrowMap.put(arrow, arrowType);
 				SupernaturalsPlugin.instance
 						.getServer()
@@ -589,16 +586,16 @@ public class HunterManager extends HumanManager {
 				return false;
 			} else {
 				SuperNManager.sendMessage(snplayer,
-						"Not enough power to shoot Triple Arrows!");
+						"沒有足夠的能量射出三重箭矢(Triple Arrow)!");
 				SuperNManager.sendMessage(snplayer,
-						"Switching to normal arrows.");
+						"切換為一般箭矢.");
 				hunterMap.put(snplayer, "normal");
 				return false;
 			}
 		} else if (arrowType.equalsIgnoreCase("power")) {
 			if (snplayer.getPower() > SNConfigHandler.hunterPowerArrowPower) {
 				SuperNManager.alterPower(snplayer,
-						-SNConfigHandler.hunterPowerArrowPower, "Power Arrow!");
+						-SNConfigHandler.hunterPowerArrowPower, "能量箭矢(Power Arrow)!");
 				arrowMap.put(arrow, arrowType);
 				drainedPlayers.add(player);
 				SupernaturalsPlugin.instance
@@ -611,7 +608,7 @@ public class HunterManager extends HumanManager {
 										drainedPlayers.remove(player);
 										if (player.isOnline()) {
 											SuperNManager.sendMessage(snplayer,
-													"You can shoot again!");
+													"你可以再次射擊!");
 										}
 										SupernaturalsPlugin.log(snplayer
 												.getName()
@@ -621,9 +618,9 @@ public class HunterManager extends HumanManager {
 				return false;
 			} else {
 				SuperNManager.sendMessage(snplayer,
-						"Not enough power to shoot Power Arrows!");
+						"沒有足夠的能量射出能量箭矢(Power Arrow)!");
 				SuperNManager.sendMessage(snplayer,
-						"Switching to normal arrows.");
+						"切換為一般箭矢.");
 				hunterMap.put(snplayer, "normal");
 				return false;
 			}
@@ -631,14 +628,14 @@ public class HunterManager extends HumanManager {
 			if (snplayer.getPower() > SNConfigHandler.hunterPowerArrowGrapple) {
 				SuperNManager.alterPower(snplayer,
 						-SNConfigHandler.hunterPowerArrowGrapple,
-						"Grapple Arrow!");
+						"鉤子箭矢(Grapple Arrow)!");
 				arrowMap.put(arrow, arrowType);
 				return false;
 			} else {
 				SuperNManager.sendMessage(snplayer,
-						"Not enough power to shoot Grapple Arrow!");
+						"沒有足夠的能量射出鉤子箭矢(Grapple Arrow)!");
 				SuperNManager.sendMessage(snplayer,
-						"Switching to normal arrows.");
+						"切換為一般箭矢.");
 				hunterMap.put(snplayer, "normal");
 				return false;
 			}

@@ -46,8 +46,8 @@ public class SNCommand {
 		permissions = "";
 		senderMustBePlayer = false;
 		senderMustBeSupernatural = false;
-		helpNameAndParams = "fail!";
-		helpDescription = "no description";
+		helpNameAndParams = "失敗!";
+		helpDescription = "沒有簡介";
 	}
 
 	public String getName() {
@@ -68,7 +68,7 @@ public class SNCommand {
 
 		if (!validateCall()) {
 			if (!SNConfigHandler.spanish) {
-				sendMessage("Try /sn help");
+				sendMessage("請輸入 /sn help");
 			} else {
 				sendMessage("Escribe /sn help");
 			}
@@ -97,7 +97,7 @@ public class SNCommand {
 
 		if (senderMustBePlayer && !(sender instanceof Player)) {
 			if (!SNConfigHandler.spanish) {
-				sendMessage("This command can only be used by ingame players.");
+				sendMessage("這個指令只能被遊戲內的玩家使用.");
 			} else {
 				sendMessage("Solo puedes usar este comando si estas dentro del juego.");
 			}
@@ -110,15 +110,15 @@ public class SNCommand {
 				sendMessage("Par�metros incorrectos. Debes ingresar "
 						+ missing + " more.");
 			} else {
-				sendMessage("Missing parameters. You must enter " + missing
-						+ " more.");
+				sendMessage("參數不足. 你必須輸入 " + missing
+						+ " 個以上.");
 			}
 			return false;
 		}
 
 		if (parameters.size() > requiredParameters.size()
 				+ optionalParameters.size()) {
-			sendMessage("To many parameters.");
+			sendMessage("太多參數.");
 			return false;
 		}
 

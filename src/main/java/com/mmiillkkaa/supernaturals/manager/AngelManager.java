@@ -41,7 +41,7 @@ public class AngelManager extends ClassManager {
 				|| player.getLastDamageCause().getCause()
 						.equals(DamageCause.FIRE_TICK)) {
 			SuperNManager.sendMessage(snplayer,
-					"Flames have removed your holy powers!");
+					"岩漿去除了你的神聖力量!");
 			SuperNManager.cure(snplayer);
 		}
 	}
@@ -53,14 +53,14 @@ public class AngelManager extends ClassManager {
 		if (event.getEntity() instanceof Animals) {
 			if (player.getItemInHand().getType().equals(Material.DIAMOND_SWORD)) {
 				SuperNManager.sendMessage(snplayer,
-						"Angels cannot use diamond swords on animals!");
+						"天使(Angels)無法用鑽石劍揮砍動物!");
 				event.setCancelled(true);
 				return 0;
 			}
 		}
 		if (SNConfigHandler.angelWeapons.contains(player.getItemInHand())) {
 			SuperNManager.sendMessage(snplayer,
-					"Angels cannot use this weapon!");
+					"天使(Angels)無法使用這個武器!");
 			event.setCancelled(true);
 			return 0;
 		}
@@ -83,13 +83,12 @@ public class AngelManager extends ClassManager {
 					target.setHealth(target.getMaxHealth());
 				}
 				SuperNManager.alterPower(snplayer,
-						-SNConfigHandler.angelHealPowerCost, "Healing "
+						-SNConfigHandler.angelHealPowerCost, "治療 "
 								+ target.getName());
-				target.sendMessage(ChatColor.RED + "Healed by "
-						+ player.getName());
+				target.sendMessage(ChatColor.RED + player.getName() + "治療了你");
 			} else {
 				SuperNManager
-						.sendMessage(snplayer, "Not enough power to heal!");
+						.sendMessage(snplayer, "沒有足夠的能來施展治療術(Heal)!");
 			}
 		}
 		if (player.getItemInHand().getType().toString()
@@ -97,17 +96,16 @@ public class AngelManager extends ClassManager {
 			if (snplayer.getPower() > SNConfigHandler.angelCurePowerCost) {
 				if (sntarget.isSuper()) {
 					SuperNManager.cure(sntarget);
-					target.sendMessage(ChatColor.RED + "Cured by "
-							+ player.getName());
+					target.sendMessage(ChatColor.RED + player.getName() + "治癒了你");
 					SuperNManager.alterPower(snplayer,
-							-SNConfigHandler.angelCurePowerCost, "Cured "
+							-SNConfigHandler.angelCurePowerCost, "治癒 "
 									+ target.getName());
 				} else {
 					SuperNManager.sendMessage(snplayer,
-							"Player is not a supernatural!");
+							"這個玩家不是超自然生物!");
 				}
 			} else {
-				SuperNManager.sendMessage(snplayer, "Not enough power!");
+				SuperNManager.sendMessage(snplayer, "能量不足!");
 			}
 		}
 	}
@@ -126,7 +124,7 @@ public class AngelManager extends ClassManager {
 					jump(player, SNConfigHandler.angelJumpDeltaSpeed);
 				} else {
 					SuperNManager.sendMessage(snplayer,
-							"Not enough power to jump!");
+							"沒有足夠的能量來作跳躍!");
 				}
 			}
 			Block targetBlock = player.getTargetBlock(null, 20);
@@ -145,7 +143,7 @@ public class AngelManager extends ClassManager {
 						event.setCancelled(true);
 						SuperNManager.alterPower(snplayer,
 								-SNConfigHandler.angelSummonPowerCost,
-								"Summoned cow.");
+								"招換了牛.");
 						return true;
 					}
 					if (itemInHandMaterial.toString().equals(
@@ -158,7 +156,7 @@ public class AngelManager extends ClassManager {
 						}
 						if (wolves > 4) {
 							player.sendMessage(ChatColor.RED
-									+ "Too much wolves, not enough space! (Stop spawning wolves!)");
+									+ "太多狼了, 空間不足! (招喚動作被中止!)");
 							return true;
 						}
 						Wolf spawnedWolf = (Wolf) player.getWorld()
@@ -169,7 +167,7 @@ public class AngelManager extends ClassManager {
 						event.setCancelled(true);
 						SuperNManager.alterPower(snplayer,
 								-SNConfigHandler.angelSummonPowerCost,
-								"Summoned wolf.");
+								"招換了狼.");
 						return true;
 					}
 					if (itemInHandMaterial.toString().equals(
@@ -178,7 +176,7 @@ public class AngelManager extends ClassManager {
 						event.setCancelled(true);
 						SuperNManager.alterPower(snplayer,
 								-SNConfigHandler.angelSummonPowerCost,
-								"Summoned pig.");
+								"招換了豬.");
 						return true;
 					}
 				}
@@ -201,11 +199,11 @@ public class AngelManager extends ClassManager {
 		SuperNPlayer snplayer = SuperNManager.get(player);
 
 		if (snplayer.getPower() < SNConfigHandler.angelJumpPowerCost) {
-			SuperNManager.sendMessage(snplayer, "Not enough Power to jump.");
+			SuperNManager.sendMessage(snplayer, "沒有足夠的能量來作跳躍.");
 			return false;
 		} else {
 			SuperNManager.alterPower(snplayer,
-					-SNConfigHandler.angelJumpPowerCost, "SuperJump!");
+					-SNConfigHandler.angelJumpPowerCost, "超級跳躍(SuperJump)!");
 		}
 
 		Vector vjadd;
@@ -269,7 +267,7 @@ public class AngelManager extends ClassManager {
 
 		if (material == Material.STATIONARY_WATER || material == Material.WATER) {
 			SuperNManager.alterPower(snplayer,
-					SNConfigHandler.angelSwimPowerGain, "Swimming in water");
+					SNConfigHandler.angelSwimPowerGain, "在水裡游泳");
 		}
 	}
 

@@ -53,16 +53,16 @@ public class SNCommandHelp extends SNCommand {
 				+ "- Lista de Seres Místicos. disponibles.");
 		helpMessagesSpanish.add("/sn KillList " + ChatColor.WHITE
 				+ "- Lista de objetivos para Cazadores de Brujas.");
-		helpMessages.add("*** " + ChatColor.WHITE + "Supernatural Help "
+		helpMessages.add("*** " + ChatColor.WHITE + "Supernatural 說明文件 "
 				+ ChatColor.RED + "***");
 		helpMessages.add("/sn Power " + ChatColor.WHITE
-				+ "- Show current power level.");
+				+ "- 顯示目前的能量等級.");
 		helpMessages.add("/sn List " + ChatColor.WHITE
-				+ "- List supernaturals on the server.");
+				+ "- 列出伺服器上的超自然生物.");
 		helpMessages.add("/sn Classes " + ChatColor.WHITE
-				+ "- Show the list of available Super-classes.");
+				+ "- 顯示可用的超自然生物類型/職業.");
 		helpMessages.add("/sn KillList " + ChatColor.WHITE
-				+ "- Show the list of current WitchHunter targets.");
+				+ "- 顯示目前女巫獵人獵殺清單.");
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class SNCommandHelp extends SNCommand {
 		if (!(sender instanceof Player)) {
 			if (helpMessages.size() == 5) {
 				helpMessages.add("/sn admin " + ChatColor.WHITE
-						+ "- Show list of admin-only commands");
+						+ "- 顯示管理員專用指令");
 			}
 			this.sendMessage(helpMessages);
 			return;
@@ -81,13 +81,13 @@ public class SNCommandHelp extends SNCommand {
 		if (SupernaturalsPlugin.hasPermissions(senderPlayer, permissions2)) {
 			if (helpMessages.size() == 5) {
 				helpMessages.add("/sn admin " + ChatColor.WHITE
-						+ "- Show list of admin-only commands");
+						+ "- 顯示管理員專用指令");
 			}
 		}
 
 		if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
 			if (!SNConfigHandler.spanish) {
-				this.sendMessage("You do not have permissions to use this command.");
+				this.sendMessage("你沒有權限使用這個指令.");
 			} else {
 				this.sendMessage("No tienes permiso para este comando.");
 			}

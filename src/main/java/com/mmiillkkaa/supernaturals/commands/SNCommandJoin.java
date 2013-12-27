@@ -13,18 +13,18 @@ public class SNCommandJoin extends SNCommand {
 		senderMustBePlayer = true;
 		senderMustBeSupernatural = false;
 		helpNameAndParams = "sn join";
-		helpDescription = "Join in on the mmSupernatuals fun!";
+		helpDescription = "加入任一個有趣的超自然生物體驗!";
 	}
 
 	@Override
 	public void perform() {
 		if (!SNConfigHandler.enableJoinCommand) {
-			this.sendMessage("This is not enabled, you are automatically in the mmSupernaturals fun!");
+			this.sendMessage("這個功能並沒有開放, 你已在體驗超自然生物的樂趣中!");
 			return;
 		}
 		Player senderPlayer = (Player) sender;
 		if (SNWhitelistHandler.playersInWhitelist.contains(senderPlayer.getName())) {
-			this.sendMessage("You are already whitelisted!");
+			this.sendMessage("你已在白名單內!");
 			return;
 		}
 		SNWhitelistHandler.addPlayer(senderPlayer.getName());

@@ -36,7 +36,7 @@ public class SNCommandSetChurch extends SNCommand {
 		senderMustBeSupernatural = true;
 		permissions = "supernatural.admin.command.setchurch";
 		helpNameAndParams = "";
-		helpDescription = "Sets the current location as the church";
+		helpDescription = "將目前的位置設定為教堂";
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class SNCommandSetChurch extends SNCommand {
 			return;
 		}
 		if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
-			this.sendMessage("You do not have permissions to use this command.");
+			this.sendMessage("你沒有權限使用這個指令.");
 			return;
 		}
 
@@ -91,6 +91,6 @@ public class SNCommandSetChurch extends SNCommand {
 
 		SNConfigHandler.saveConfig();
 
-		this.sendMessage("Church location set.");
+		this.sendMessage("已設定教堂位置.");
 	}
 }

@@ -1,7 +1,7 @@
 name: mmSupernaturals
 main: com.mmiillkkaa.supernaturals.SupernaturalsPlugin
-version: 1.4.15
-author: Matterz, edited by mmiillkkaa
+version: 1.4.15 zh_TW
+author: Matterz, edited by mmiillkkaa, marlboromoo
 commands:
   sn:
     description: Supernatural commands

@@ -279,7 +279,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 					return;
 				}
 			}
-			sender.sendMessage(ChatColor.RED + "Unknown command. Try /sn help");
+			sender.sendMessage(ChatColor.RED + "未知的指令. 請輸入 /sn help");
 			return;
 		}
 
@@ -289,16 +289,16 @@ public class SupernaturalsPlugin extends JavaPlugin {
 		for (SNCommand vampcommand : commands) {
 			if (command.equals(vampcommand.getName())) {
 				if (!isPlayer && vampcommand.senderMustBePlayer) {
-					sender.sendMessage("This command, sn " + command
-							+ ", is player-only");
+					sender.sendMessage("這個指令, sn " + command
+							+ ", 只能在遊戲內使用");
 				}
 				vampcommand.execute(sender, parameters);
 				return;
 			}
 		}
 
-		sender.sendMessage(ChatColor.RED + "Unknown command \"" + command
-				+ "\". Try /sn help");
+		sender.sendMessage(ChatColor.RED + "未知的指令 \"" + command
+				+ "\". 請輸入 /sn help");
 	}
 
 	// -------------------------------------------- //

@@ -67,7 +67,7 @@ public abstract class ClassManager {
 		if (!player.hasPermission("supernatural.player.ignorearmor")) {
 			SuperNPlayer snplayer = SuperNManager.get(player);
 			SuperNManager.sendMessage(snplayer,
-					"Your class cannot wear this type of armor!");
+					"你的種族/職業無法穿戴這種類型的盔甲!");
 			Item newItem = player.getWorld().dropItem(player.getLocation(),
 					item);
 			newItem.setItemStack(item);

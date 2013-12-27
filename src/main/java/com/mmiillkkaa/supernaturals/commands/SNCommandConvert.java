@@ -39,8 +39,8 @@ public class SNCommandConvert extends SNCommand {
 		optionalParameters.add("playername");
 		requiredParameters.add("supernaturalType");
 		permissions = "supernatural.admin.command.curse";
-		helpNameAndParams = "convert [playername] [supernaturalType]";
-		helpDescription = "Instantly turn a player into a supernatural.";
+		helpNameAndParams = "convert [玩家名稱] [超自然生物]";
+		helpDescription = "力即將一個玩家轉換為超自然生物.";
 	}
 
 	public static String permission2 = "supernatural.admin.partial.curse";
@@ -50,7 +50,7 @@ public class SNCommandConvert extends SNCommand {
 
 		if (!(sender instanceof Player)) {
 			if (parameters.size() == 1) {
-				this.sendMessage("Missing player!");
+				this.sendMessage("缺少玩家名稱!");
 			} else {
 				String playername = parameters.get(0);
 				String superType = parameters.get(1).toLowerCase();
@@ -58,7 +58,7 @@ public class SNCommandConvert extends SNCommand {
 
 				if (player == null) {
 					if (!SNConfigHandler.spanish) {
-						this.sendMessage("Player not found!");
+						this.sendMessage("沒有這個玩家!");
 					} else {
 						this.sendMessage("Jugador no encontrado!");
 					}
@@ -67,7 +67,7 @@ public class SNCommandConvert extends SNCommand {
 
 				if (!SNConfigHandler.supernaturalTypes.contains(superType)) {
 					if (!SNConfigHandler.spanish) {
-						this.sendMessage("Supernatural Type invalid!");
+						this.sendMessage("超自然生物的類型不正確!");
 					} else {
 						this.sendMessage("Ser M�stico invalido!");
 					}
@@ -79,18 +79,18 @@ public class SNCommandConvert extends SNCommand {
 				if (!SNConfigHandler.spanish) {
 					if (snplayer.getType().equalsIgnoreCase(superType)) {
 						this.sendMessage(ChatColor.WHITE + player.getName()
-								+ ChatColor.RED + " is already a "
+								+ ChatColor.RED + " 已經是 "
 								+ ChatColor.WHITE + superType + ChatColor.RED
 								+ " !");
 					} else if (snplayer.getOldType().equalsIgnoreCase(superType)) {
 						this.sendMessage(ChatColor.WHITE + player.getName()
-								+ ChatColor.RED + " was turned BACK into a "
+								+ ChatColor.RED + " 被轉換回 "
 								+ ChatColor.WHITE + superType + ChatColor.RED
 								+ " !");
 						SuperNManager.revert(snplayer);
 					} else {
 						this.sendMessage(ChatColor.WHITE + player.getName()
-								+ ChatColor.RED + " was turned into a "
+								+ ChatColor.RED + " 被轉換為 "
 								+ ChatColor.WHITE + superType + ChatColor.RED
 								+ " !");
 						SuperNManager.convert(snplayer, superType);
@@ -123,7 +123,7 @@ public class SNCommandConvert extends SNCommand {
 		if (parameters.size() == 1) {
 			if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permission2)) {
 				if (!SNConfigHandler.spanish) {
-					this.sendMessage("You do not have permissions to use this command.");
+					this.sendMessage("你沒有權限使用這個指令.");
 				} else {
 					this.sendMessage("No tienes permiso para este comando.");
 				}
@@ -133,7 +133,7 @@ public class SNCommandConvert extends SNCommand {
 
 			if (!SNConfigHandler.supernaturalTypes.contains(superType)) {
 				if (!SNConfigHandler.spanish) {
-					this.sendMessage("Supernatural Type invalid!");
+					this.sendMessage("超自然生物類型不正確!");
 				} else {
 					this.sendMessage("Ser M�stico invalido!");
 				}
@@ -145,18 +145,18 @@ public class SNCommandConvert extends SNCommand {
 			if (!SNConfigHandler.spanish) {
 				if (snplayer.getType().equalsIgnoreCase(superType)) {
 					this.sendMessage(ChatColor.WHITE + senderPlayer.getName()
-							+ ChatColor.RED + " is already a "
+							+ ChatColor.RED + " 已經是 "
 							+ ChatColor.WHITE + superType + ChatColor.RED
 							+ " !");
 				} else if (snplayer.getOldType().equalsIgnoreCase(superType)) {
 					this.sendMessage(ChatColor.WHITE + senderPlayer.getName()
-							+ ChatColor.RED + " was turned BACK into a "
+							+ ChatColor.RED + " 被轉換回 "
 							+ ChatColor.WHITE + superType + ChatColor.RED
 							+ " !");
 					SuperNManager.revert(snplayer);
 				} else {
 					this.sendMessage(ChatColor.WHITE + senderPlayer.getName()
-							+ ChatColor.RED + " was turned into a "
+							+ ChatColor.RED + " 被轉換為 "
 							+ ChatColor.WHITE + superType + ChatColor.RED
 							+ " !");
 					SuperNManager.convert(snplayer, superType);
@@ -183,7 +183,7 @@ public class SNCommandConvert extends SNCommand {
 		} else {
 			if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
 				if (!SNConfigHandler.spanish) {
-					this.sendMessage("You do not have permissions to use this command.");
+					this.sendMessage("你沒有權限使用這個指令.");
 				} else {
 					this.sendMessage("No tienes permiso para este comando.");
 				}
@@ -195,7 +195,7 @@ public class SNCommandConvert extends SNCommand {
 
 			if (player == null) {
 				if (!SNConfigHandler.spanish) {
-					this.sendMessage("Player not found!");
+					this.sendMessage("沒有這個玩家!");
 				} else {
 					this.sendMessage("Jugador no encontrado!");
 				}
@@ -204,7 +204,7 @@ public class SNCommandConvert extends SNCommand {
 
 			if (!SNConfigHandler.supernaturalTypes.contains(superType)) {
 				if (!SNConfigHandler.spanish) {
-					this.sendMessage("Supernatural Type invalid!");
+					this.sendMessage("超自然生物類型不正確!");
 				} else {
 					this.sendMessage("Ser M�stico invalido!");
 				}
@@ -216,18 +216,18 @@ public class SNCommandConvert extends SNCommand {
 			if (!SNConfigHandler.spanish) {
 				if (snplayer.getType().equalsIgnoreCase(superType)) {
 					this.sendMessage(ChatColor.WHITE + player.getName()
-							+ ChatColor.RED + " is already a "
+							+ ChatColor.RED + " 已經是 "
 							+ ChatColor.WHITE + superType + ChatColor.RED
 							+ " !");
 				} else if (snplayer.getOldType().equalsIgnoreCase(superType)) {
 					this.sendMessage(ChatColor.WHITE + player.getName()
-							+ ChatColor.RED + " was turned BACK into a "
+							+ ChatColor.RED + " 被轉換回 "
 							+ ChatColor.WHITE + superType + ChatColor.RED
 							+ " !");
 					SuperNManager.revert(snplayer);
 				} else {
 					this.sendMessage(ChatColor.WHITE + player.getName()
-							+ ChatColor.RED + " was turned into a "
+							+ ChatColor.RED + " 被轉換成 "
 							+ ChatColor.WHITE + superType + ChatColor.RED
 							+ " !");
 					SuperNManager.convert(snplayer, superType);

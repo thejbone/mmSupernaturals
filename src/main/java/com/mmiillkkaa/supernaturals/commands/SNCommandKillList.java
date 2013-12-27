@@ -39,8 +39,8 @@ public class SNCommandKillList extends SNCommand {
 		optionalParameters = new ArrayList<String>();
 		senderMustBePlayer = true;
 		permissions = "supernatural.command.killlist";
-		helpNameAndParams = "convert [playername] [supernaturalType]";
-		helpDescription = "Instantly turn a player into a supernatural.";
+		helpNameAndParams = "convert [玩家名稱] [超自然生物類型]";
+		helpDescription = "立刻將一個玩家轉換為超自然生物.";
 	}
 
 	@Override
@@ -51,7 +51,7 @@ public class SNCommandKillList extends SNCommand {
 			SuperNPlayer snSender = SuperNManager.get(senderPlayer);
 			if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
 				if (!SNConfigHandler.spanish) {
-					this.sendMessage("You do not have permissions to use this command.");
+					this.sendMessage("你沒有權限使用這個指令.");
 				} else {
 					this.sendMessage("No tienes permiso para este comando.");
 				}
@@ -59,7 +59,7 @@ public class SNCommandKillList extends SNCommand {
 			}
 
 			if (!snSender.isHunter()) {
-				this.sendMessage("You are not a WitchHunter!");
+				this.sendMessage("你並不是女巫獵人!");
 			}
 
 			ArrayList<SuperNPlayer> bountyList = HunterManager.getBountyList();
@@ -67,7 +67,7 @@ public class SNCommandKillList extends SNCommand {
 			// Create Messages
 			List<String> messages = new ArrayList<String>();
 			messages.add("*** " + ChatColor.WHITE
-					+ "Current WitchHunter Targets " + ChatColor.RED + "***");
+					+ "目前的女巫獵人目標 " + ChatColor.RED + "***");
 			for (SuperNPlayer snplayer : bountyList) {
 				messages.add(ChatColor.WHITE + snplayer.getName());
 			}

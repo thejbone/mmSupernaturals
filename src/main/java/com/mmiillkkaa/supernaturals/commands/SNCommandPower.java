@@ -41,8 +41,8 @@ public class SNCommandPower extends SNCommand {
 		permissions = "supernatural.command.power";
 		optionalParameters.add("playername");
 		optionalParameters.add("power");
-		helpNameAndParams = "power [amount] | power [playername] [amount]";
-		helpDescription = "See current power level";
+		helpNameAndParams = "power [數量] | power [玩家名稱] [數量]";
+		helpDescription = "檢視目前的能量等級";
 	}
 
 	@Override
@@ -110,18 +110,18 @@ public class SNCommandPower extends SNCommand {
 		} else {
 			if (parameters.isEmpty()) {
 				if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
-					this.sendMessage("You do not have permissions to use this command.");
+					this.sendMessage("你沒有權限使用這個指令.");
 					return;
 				}
 				SuperNPlayer snplayer = SuperNManager.get(senderPlayer);
 
-				this.sendMessage("You are a " + ChatColor.WHITE
+				this.sendMessage("你是一個 " + ChatColor.WHITE
 						+ snplayer.getType() + ChatColor.RED
-						+ " and your current power level is: "
+						+ " 且你目前的能量等級為: "
 						+ ChatColor.WHITE + (int) snplayer.getPower());
             } else {
 				if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions2)) {
-					this.sendMessage("You do not have permissions to use this command.");
+					this.sendMessage("你沒有權限使用這個指令.");
 					return;
 				}
 				if (parameters.size() == 1) {
@@ -130,7 +130,7 @@ public class SNCommandPower extends SNCommand {
 					try {
 						powerGain = Double.parseDouble(parameters.get(0));
 					} catch (NumberFormatException e) {
-						this.sendMessage("Invalid Number.");
+						this.sendMessage("不正確的數字.");
 						return;
 					}
 					if (powerGain >= 10000D) {
@@ -138,12 +138,12 @@ public class SNCommandPower extends SNCommand {
 					}
 
 					SuperNPlayer snplayer = SuperNManager.get(senderPlayer);
-					SuperNManager.alterPower(snplayer, powerGain, "Admin boost!");
+					SuperNManager.alterPower(snplayer, powerGain, "天降神力!");
 				} else {
 					String playername = parameters.get(0);
 					Player player = SupernaturalsPlugin.instance.getServer().getPlayer(playername);
 					if (player == null) {
-						this.sendMessage("Player not found!");
+						this.sendMessage("玩家不存在!");
 						return;
 					}
 					double powerGain;
@@ -151,16 +151,16 @@ public class SNCommandPower extends SNCommand {
 					try {
 						powerGain = Double.parseDouble(parameters.get(1));
 					} catch (NumberFormatException e) {
-						this.sendMessage("Invalid Number.");
+						this.sendMessage("不正確的數字.");
 						return;
 					}
 					if (powerGain >= 10000D) {
 						powerGain = 9999;
 					}
 					this.sendMessage(ChatColor.WHITE + player.getDisplayName()
-							+ ChatColor.RED + " has been powered up!");
+							+ ChatColor.RED + " 已被充能!");
 					SuperNPlayer snplayer = SuperNManager.get(player);
-					SuperNManager.alterPower(snplayer, powerGain, "Admin boost!");
+					SuperNManager.alterPower(snplayer, powerGain, "天降神力!");
 				}
 			}
 		}

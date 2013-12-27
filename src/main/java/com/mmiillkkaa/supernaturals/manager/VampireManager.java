@@ -65,12 +65,12 @@ public class VampireManager extends ClassManager {
 		if (event.getCause().equals(DamageCause.DROWNING)) {
 			if (snVictim.getPower() > SNConfigHandler.vampireDrowningCost) {
 				SuperNManager.alterPower(snVictim,
-						-SNConfigHandler.vampireDrowningCost, "Water!");
+						-SNConfigHandler.vampireDrowningCost, "水!");
 				event.setCancelled(true);
 				return 0;
 			} else {
 				SuperNManager.sendMessage(snVictim,
-						"Not enough power to prevent water damage!");
+						"沒有足夠的能量避免水的傷害!");
 				return damage;
 			}
 		} else if (event.getCause().equals(DamageCause.FALL)) {
@@ -89,7 +89,7 @@ public class VampireManager extends ClassManager {
 					if (SNConfigHandler.woodMaterials.contains(item.getType())) {
 						damage += damage * SNConfigHandler.woodFactor;
 						SuperNManager.sendMessage(snVictim,
-								"Vampires have a weakness to wood!");
+								"吸血鬼(Vampires)的弱點是木頭!");
 					} else {
 						damage -= damage
 								* snVictim
@@ -106,7 +106,7 @@ public class VampireManager extends ClassManager {
 		SuperNPlayer snplayer = SuperNManager.get(player);
 
 		SuperNManager.alterPower(snplayer,
-				-SNConfigHandler.vampireDeathPowerPenalty, "You died!");
+				-SNConfigHandler.vampireDeathPowerPenalty, "你死了!");
 	}
 
 	@Override
@@ -117,7 +117,7 @@ public class VampireManager extends ClassManager {
 					+ SNConfigHandler.vampireHungerRegainMob);
 			SuperNManager.alterPower(damager,
 					SNConfigHandler.vampireKillPowerCreatureGain,
-					"Creature death!");
+					"擊殺生物!");
 		} else {
 			if (!victim.isSuper()) {
 				pDamager.setFoodLevel(pDamager.getFoodLevel()
@@ -127,17 +127,16 @@ public class VampireManager extends ClassManager {
 			if (victim.getPower() > SNConfigHandler.vampireKillPowerPlayerGain) {
 				SuperNManager.alterPower(damager,
 						SNConfigHandler.vampireKillPowerPlayerGain,
-						"Player killed!");
+						"擊殺玩家!");
 			} else {
-				SuperNManager
-						.sendMessage(damager,
-								"You cannot gain power from a player with no power themselves.");
+				SuperNManager.sendMessage(damager,
+								"你無法從沒有能量的玩家身上獲得能量.");
 			}
 			if (SNConfigHandler.vampireKillSpreadCurse && !victim.isSuper()) {
 				if (random < SNConfigHandler.spreadChance) {
 					SuperNManager
 							.sendMessage(victim,
-									"You feel your heart stop! You have contracted vampirism.");
+									"你感到心臟停止跳動! 你被吸血鬼感染了.");
 					SuperNManager.convert(victim, "vampire");
 				}
 			}
@@ -155,7 +154,7 @@ public class VampireManager extends ClassManager {
 		if (item != null) {
 			if (SNConfigHandler.vampireWeapons.contains(item.getType())) {
 				SuperNManager.sendMessage(snDamager,
-						"Vampires cannot use this weapon!");
+						"吸血鬼(Vampires)無法使用這個武器!");
 				return 0;
 			}
 		}
@@ -202,7 +201,7 @@ public class VampireManager extends ClassManager {
 				event.setCancelled(true);
 				SuperNManager
 						.sendMessage(snplayer,
-								"Vampires can't eat food. You must drink blood instead.");
+								"吸血鬼(Vampire)無法吃食物. 你必須喝血液來代替.");
 				return true;
 			}
 			return false;
@@ -212,7 +211,7 @@ public class VampireManager extends ClassManager {
 			if (SNConfigHandler.foodMaterials.contains(itemMaterial)) {
 				SuperNManager
 						.sendMessage(snplayer,
-								"Vampires can't eat food. You must drink blood instead.");
+								"吸血鬼(Vampire)無法吃食物. 你必須喝血液來代替.");
 				event.setCancelled(true);
 				return true;
 			} else if (itemMaterial.toString().equalsIgnoreCase(
@@ -284,7 +283,7 @@ public class VampireManager extends ClassManager {
 		SuperNPlayer snplayer = SuperNManager.get(player);
 
 		SupernaturalsPlugin.instance.getDataHandler().addTeleport(snplayer);
-		SuperNManager.sendMessage(snplayer, "Teleport Location Saved!");
+		SuperNManager.sendMessage(snplayer, "傳送點已儲存!");
 	}
 
 	public boolean teleport(Player player) {
@@ -293,7 +292,7 @@ public class VampireManager extends ClassManager {
 		if (SupernaturalsPlugin.instance.getDataHandler().checkPlayer(snplayer)) {
 			if (snplayer.getPower() > SNConfigHandler.vampireTeleportCost) {
 				SuperNManager.alterPower(snplayer,
-						-SNConfigHandler.vampireTeleportCost, "Teleport!");
+						-SNConfigHandler.vampireTeleportCost, "傳送(Teleport)!");
 				player.teleport(SupernaturalsPlugin.instance.getDataHandler()
 						.getTeleport(snplayer));
 				if (item.getAmount() == 1) {
@@ -304,12 +303,12 @@ public class VampireManager extends ClassManager {
 				return true;
 			} else {
 				SuperNManager.sendMessage(snplayer,
-						"Not enough power to teleport.");
+						"沒有足夠的能量來傳送(Teleport).");
 				return false;
 			}
 		} else {
 			SuperNManager.sendMessage(snplayer,
-					"You have not set a teleport location yet!");
+					"你尚未設定傳送點!");
 			return false;
 		}
 	}
@@ -333,62 +332,57 @@ public class VampireManager extends ClassManager {
 		}
 
 		if (count < SNConfigHandler.vampireAltarInfectMaterialSurroundCount) {
-			SuperNManager.sendMessage(snplayer, "Something happens... The "
+			SuperNManager.sendMessage(snplayer, "你察覺到不對勁... "
 					+ SNConfigHandler.vampireAltarInfectMaterial.toLowerCase()
 							.replace('_', ' ')
-					+ " draws energy from the "
+					+ " 吸取了 "
 					+ SNConfigHandler.vampireAltarInfectMaterialSurround
 							.toLowerCase().replace('_', ' ')
-					+ "... But there doesn't seem to be enough "
+					+ " 的能量... 但是沒有足夠的 "
 					+ SNConfigHandler.vampireAltarInfectMaterialSurround
-							.toLowerCase().replace('_', ' ') + " nearby.");
+							.toLowerCase().replace('_', ' ') + " 在附近.");
 			return;
 		}
 
 		// Always examine first
-		SuperNManager.sendMessage(snplayer, "This altar looks really evil.");
+		SuperNManager.sendMessage(snplayer, "這個祭壇看起來真的非常邪惡.");
 
 		if (!SupernaturalsPlugin.hasPermissions(player,
 				"supernatural.player.shrineuse.vampire")) {
 			SuperNManager.sendMessage(snplayer,
-					"You cannot use vampire altars.");
+					"你無法使用吸血鬼(Vampire)祭壇.");
 			return;
 		}
 
 		// Is Vampire
 		if (snplayer.isVampire()) {
 			SuperNManager.sendMessage(snplayer,
-					"This is of no use to you as you are already a vampire.");
+					"因為你已經是個吸血鬼(Vampire)所以不需要使用這個.");
 			return;
 		} else if (snplayer.isSuper()) {
-			SuperNManager
-					.sendMessage(snplayer,
-							"This is of no use to you as you are already supernatural.");
+			SuperNManager.sendMessage(snplayer,
+					                "因為你已經是超自然生物所以不需要使用這個.");
 			return;
 		}
 
 		// Is healthy and thus can be infected...
 		if (SNConfigHandler.vampireAltarInfectRecipe.playerHasEnough(player)) {
 			SuperNManager.sendMessage(snplayer,
-					"You use these items on the altar:");
+					"你在祭壇使用這些物品:");
 			SuperNManager.sendMessage(snplayer,
 					SNConfigHandler.vampireAltarInfectRecipe.getRecipeLine());
-			SuperNManager
-					.sendMessage(
-							snplayer,
-							"The "
-									+ SNConfigHandler.vampireAltarInfectMaterial
+			SuperNManager.sendMessage(snplayer, SNConfigHandler.vampireAltarInfectMaterial
 											.toLowerCase().replace('_', ' ')
-									+ " draws energy from the "
+									+ " 從 "
 									+ SNConfigHandler.vampireAltarInfectMaterialSurround
 											.toLowerCase().replace('_', ' ')
-									+ "... The energy rushes through you and you feel a bitter cold...");
+									+ " 吸取了能量... 能量劇烈穿透你的身體而你開始感到寒冷...");
 			SNConfigHandler.vampireAltarInfectRecipe.removeFromPlayer(player);
 			SuperNManager.convert(snplayer, "vampire",
 					SNConfigHandler.vampirePowerStart);
 		} else {
 			SuperNManager.sendMessage(snplayer,
-					"To use it you need to collect these ingredients:");
+					"如欲使用它你必須收集這些物品:");
 			SuperNManager.sendMessage(snplayer,
 					SNConfigHandler.vampireAltarInfectRecipe.getRecipeLine());
 		}
@@ -406,55 +400,52 @@ public class VampireManager extends ClassManager {
 		}
 
 		if (count < SNConfigHandler.vampireAltarCureMaterialSurroundCount) {
-			SuperNManager.sendMessage(snplayer, "Something happens... The "
+			SuperNManager.sendMessage(snplayer, "你察覺到不對勁... "
 					+ SNConfigHandler.vampireAltarCureMaterial.toLowerCase()
 							.replace('_', ' ').replace('_', ' ')
-					+ " draws energy from the "
+					+ " 從 "
 					+ SNConfigHandler.vampireAltarCureMaterialSurround
 							.toLowerCase().replace('_', ' ')
-					+ "... But there doesn't seem to be enough "
+					+ " 吸取了能量... 但是沒有足夠的 "
 					+ SNConfigHandler.vampireAltarCureMaterialSurround
-							.toLowerCase().replace('_', ' ') + " nearby.");
+							.toLowerCase().replace('_', ' ') + " 在附近.");
 			return;
 		}
 
 		// Always examine first
-		SuperNManager.sendMessage(snplayer, "This altar looks pure and clean.");
+		SuperNManager.sendMessage(snplayer, "這個祭壇看起來非常純潔且乾淨.");
 
 		if (!SupernaturalsPlugin.hasPermissions(player,
 				"supernatural.player.shrineuse.vampire")) {
 			SuperNManager.sendMessage(snplayer,
-					"You cannot use vampire altars.");
+					"你無法使用些血鬼(Vampire)祭壇.");
 			return;
 		}
 
 		// If healthy
 		if (!snplayer.isVampire()) {
 			SuperNManager.sendMessage(snplayer,
-					"It can probably cure curses, but you feel fine.");
+					"它能適當的治癒詛咒, 但你感到好點了.");
 		}
 
 		// Is vampire and thus can be cured...
 		else if (SNConfigHandler.vampireAltarCureRecipe.playerHasEnough(player)) {
 			SuperNManager.sendMessage(snplayer,
-					"You use these items on the altar:");
+					"你在祭壇使用了這些物品:");
 			SuperNManager.sendMessage(snplayer,
 					SNConfigHandler.vampireAltarCureRecipe.getRecipeLine());
-			SuperNManager
-					.sendMessage(
-							snplayer,
-							"The "
-									+ SNConfigHandler.vampireAltarCureMaterial
+			SuperNManager .sendMessage(snplayer,
+									SNConfigHandler.vampireAltarCureMaterial
 											.toLowerCase().replace('_', ' ')
-									+ " draws energy from the "
+									+ " 從 "
 									+ SNConfigHandler.vampireAltarCureMaterialSurround
 											.toLowerCase().replace('_', ' ')
-									+ "... Then the energy rushes through you and you feel pure and clean.");
+									+ "吸取了能量... 能量劇烈穿透你的身體而你感到純潔且乾淨.");
 			SNConfigHandler.vampireAltarCureRecipe.removeFromPlayer(player);
 			SuperNManager.cure(snplayer);
 		} else {
 			SuperNManager.sendMessage(snplayer,
-					"To use it you need to collect these ingredients:");
+					"如欲使用它你必須蒐集這些物品:");
 			SuperNManager.sendMessage(snplayer,
 					SNConfigHandler.vampireAltarCureRecipe.getRecipeLine());
 		}
@@ -483,7 +474,7 @@ public class VampireManager extends ClassManager {
 		if (player.getFireTicks() <= 0
 				&& SNConfigHandler.vampireBurnMessageEnabled) {
 			SuperNManager.sendMessage(snplayer,
-					"Vampires burn in sunlight! Take cover!");
+					"吸血鬼(Vampire)會被陽光所燃燒! 快找個掩護!");
 		}
 
 		player.setFireTicks(ticksTillNext
@@ -613,7 +604,7 @@ public class VampireManager extends ClassManager {
 							}, 20);
 			return true;
 		}
-		SuperNManager.sendMessage(snplayer, "Vampires Only!");
+		SuperNManager.sendMessage(snplayer, "吸血鬼(Vampire)專用!");
 		return true;
 	}
 

@@ -87,7 +87,7 @@ public class HumanManager extends ClassManager {
 
 		if (e.getCause().equals(DamageCause.FALL)) {
 			if (player.getItemInHand().getType().equals(Material.FEATHER)) {
-				SuperNManager.sendMessage(snplayer, "Your spirit is lifted");
+				SuperNManager.sendMessage(snplayer, "你感到靈魂被解放");
 				SuperNManager.convert(snplayer, "angel", SNConfigHandler.angelPowerStart);
 			}
 		}
@@ -98,7 +98,7 @@ public class HumanManager extends ClassManager {
 			if (player.getWorld().getEnvironment().equals(Environment.NETHER)) {
 				if (plugin.getDemonManager().checkPlayerApp(player)
 						|| plugin.getDemonManager().checkInventory(player)) {
-					SuperNManager.sendMessage(snplayer, "Hellfire races through your veins!");
+					SuperNManager.sendMessage(snplayer, "地獄火快速的流過你的靜眽!");
 					SuperNManager.convert(snplayer, "demon", SNConfigHandler.demonPowerStart);
 				}
 			}
@@ -116,14 +116,14 @@ public class HumanManager extends ClassManager {
 			if (player.getWorld().getEnvironment().equals(Environment.NETHER)) {
 				if (lDamager instanceof PigZombie) {
 					SuperNManager.convert(snplayer, "ghoul", SNConfigHandler.ghoulPowerStart);
-					SuperNManager.sendMessage(snplayer, "You have been transformed into a Ghoul!");
+					SuperNManager.sendMessage(snplayer, "你已被轉化為食屍鬼(Ghoul)!");
 				}
 			}
 			if (lDamager instanceof Wolf) {
 				if (!((Wolf) lDamager).isTamed()
 						&& SuperNManager.worldTimeIsNight(player)) {
 					SuperNManager.convert(snplayer, "werewolf", SNConfigHandler.werePowerStart);
-					SuperNManager.sendMessage(snplayer, "You have mutated into a werewolf!");
+					SuperNManager.sendMessage(snplayer, "你突變成為狼人(Werewolf)!");
 				}
 			}
 		}

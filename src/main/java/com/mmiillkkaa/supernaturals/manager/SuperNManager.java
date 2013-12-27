@@ -119,14 +119,14 @@ public class SuperNManager {
 		}
 		if (!SNWhitelistHandler.isWhitelisted(snplayer) && !snplayer.isHuman()) {
 			SuperNManager.sendMessage(snplayer,
-					"You have not used the \"/sn join\" command!");
+					"你還未使用 \"/sn join\" 指令!");
 			return;
 		}
 		if (SNConfigHandler.convertNode) {
 			if (SupernaturalsPlugin.hasPermissions(snplayer,
 					"supernatural.convert." + superType + ".allow")) {
 				SuperNManager.sendMessage(snplayer,
-						"You do not have permission to convert to a "
+						"你沒有權限被轉換為 "
 								+ superType);
 				return;
 			}
@@ -146,9 +146,9 @@ public class SuperNManager {
 
 		snplayer.setTruce(true);
 
-		SuperNManager.sendMessage(snplayer, "You are now a " + ChatColor.WHITE
+		SuperNManager.sendMessage(snplayer, "你現在是一個 " + ChatColor.WHITE
 				+ superType + ChatColor.RED + "!");
-		SupernaturalsPlugin.log(snplayer.getName() + " turned into a "
+		SupernaturalsPlugin.log(snplayer.getName() + " 轉換成 "
 				+ ChatColor.WHITE + superType + ChatColor.RED + "!");
 
 		updateName(snplayer);
@@ -192,9 +192,9 @@ public class SuperNManager {
 		SupernaturalsPlugin.instance.getDataHandler().removeAngel(snplayer);
 
 		SuperNManager.sendMessage(snplayer,
-				"You have been restored to humanity!");
+				"你已重拾人性!");
 		SupernaturalsPlugin.log(snplayer.getName()
-				+ " was restored to humanity!");
+				+ " 已重拾人性!");
 		SupernaturalsPlugin.saveData();
 	}
 
@@ -223,10 +223,10 @@ public class SuperNManager {
 		SupernaturalsPlugin.instance.getDataHandler().removeAngel(snplayer);
 
 		SuperNManager.sendMessage(snplayer,
-				"You been reverted to your previous state of being a "
+				"你已被還原為之前的 "
 						+ ChatColor.WHITE + oldType + ChatColor.RED + "!");
 		SupernaturalsPlugin.log(snplayer.getName()
-				+ " was reverted to the previous state of being a " + oldType
+				+ " 已被還原為之前的 " + oldType
 				+ "!");
 		SupernaturalsPlugin.saveData();
 
@@ -256,7 +256,7 @@ public class SuperNManager {
 		}
 		alterPower(snplayer, delta);
 		SuperNManager
-				.sendMessage(snplayer, "Power: " + ChatColor.WHITE
+				.sendMessage(snplayer, "能量: " + ChatColor.WHITE
 						+ (int) snplayer.getPower() + ChatColor.RED + " ("
 						+ ChatColor.WHITE + (int) delta + ChatColor.RED + ") "
 						+ reason);
@@ -271,21 +271,19 @@ public class SuperNManager {
 
 		if (upOnly) {
 			if (snplayer.getPower() - SNConfigHandler.jumpBloodCost <= 0) {
-				SuperNManager
-						.sendMessage(snplayer, "Not enough Power to jump.");
+				SuperNManager.sendMessage(snplayer, "沒有足夠的能量來跳躍.");
 				return false;
 			} else {
 				SuperNManager.alterPower(snplayer,
-						-SNConfigHandler.jumpBloodCost, "SuperJump!");
+						-SNConfigHandler.jumpBloodCost, "超級跳躍(SuperJump)!");
 			}
 		} else {
 			if (snplayer.getPower() - SNConfigHandler.dashBloodCost <= 0) {
-				SuperNManager
-						.sendMessage(snplayer, "Not enough Power to dash.");
+				SuperNManager.sendMessage(snplayer, "沒有足夠的能量來衝刺.");
 				return false;
 			} else {
 				SuperNManager.alterPower(snplayer,
-						-SNConfigHandler.dashBloodCost, "Dash!");
+						-SNConfigHandler.dashBloodCost, "衝刺(Dash)!");
 			}
 		}
 
@@ -318,7 +316,7 @@ public class SuperNManager {
 		}
 		if (snplayer.getTruce()) {
 			SuperNManager.sendMessage(snplayer,
-					"You temporarily broke your truce with monsters!");
+					"你暫時打破了和怪物間的休戰契約!");
 		}
 		snplayer.setTruce(false);
 		snplayer.setTruceTimer(SNConfigHandler.truceBreakTime);
@@ -326,7 +324,7 @@ public class SuperNManager {
 
 	public static void truceRestore(SuperNPlayer snplayer) {
 		SuperNManager.sendMessage(snplayer,
-				"Your truce with monsters has been restored!");
+				"你和怪物間的休戰契約又恢復了!");
 		snplayer.setTruce(true);
 		snplayer.setTruceTimer(0);
 
@@ -412,7 +410,7 @@ public class SuperNManager {
 
 			deltaHeal = deltaSeconds * SNConfigHandler.vampireTimeHealthGained;
 			SuperNManager.alterPower(snplayer,
-					-SNConfigHandler.vampireHealthCost, "Healing!");
+					-SNConfigHandler.vampireHealthCost, "治療中!");
 
 		} else if (snplayer.isGhoul()) {
 			if (player.getWorld().hasStorm()
