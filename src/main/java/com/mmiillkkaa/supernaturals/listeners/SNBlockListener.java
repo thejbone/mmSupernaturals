@@ -19,7 +19,6 @@
 
 package com.mmiillkkaa.supernaturals.listeners;
 
-
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -36,47 +35,49 @@ import com.mmiillkkaa.supernaturals.manager.SuperNManager;
 
 public class SNBlockListener implements Listener {
 
-	private SupernaturalsPlugin plugin;
-	private String permissions = "supernatural.player.witchhuntersign";
-	private String worldPermission = "supernatural.world.enabled";
+    private SupernaturalsPlugin plugin;
+    private String permissions = "supernatural.player.witchhuntersign";
+    private String worldPermission = "supernatural.world.enabled";
 
-	public SNBlockListener(SupernaturalsPlugin instance) {
-		plugin = instance;
-	}
+    public SNBlockListener(SupernaturalsPlugin instance) {
+        plugin = instance;
+    }
 
-	@EventHandler(priority = EventPriority.LOW)
-	public void onBlockBreak(BlockBreakEvent event) {
-		Block eventBlock = event.getBlock();
-		if (eventBlock.getType().equals(Material.WEB)) {
-			for (Block block : plugin.getDemonManager().getWebs().keySet()) {
-				if (block.equals(eventBlock)) {
-					event.setCancelled(true);
-					block.setType(Material.AIR);
-					plugin.getDemonManager().removeWeb(block);
-					return;
-				}
-			}
-		}
-	}
+    @EventHandler(priority = EventPriority.LOW)
+    public void onBlockBreak(BlockBreakEvent event) {
+        Block eventBlock = event.getBlock();
+        if (eventBlock.getType().equals(Material.WEB)) {
+            for (Block block : plugin.getDemonManager().getWebs().keySet()) {
+                if (block.equals(eventBlock)) {
+                    event.setCancelled(true);
+                    block.setType(Material.AIR);
+                    plugin.getDemonManager().removeWeb(block);
+                    return;
+                }
+            }
+        }
+    }
 
-	@EventHandler(priority = EventPriority.LOW)
-	public void onSignChange(SignChangeEvent event) {
-		Player player = event.getPlayer();
-		String[] text = event.getLines();
-		if (!SupernaturalsPlugin.hasPermissions(player, worldPermission)
-				&& SNConfigHandler.multiworld) {
-			return;
-		}
-		for (int i = 0; i < text.length; i++) {
-			if (text[i].contains(SNConfigHandler.hunterHallMessage)) {
-				if (!SupernaturalsPlugin.hasPermissions(player, permissions)) {
-					SuperNManager.sendMessage(SuperNManager.get(player), "你沒有權限製造女巫獵人的告示牌");
-					event.setCancelled(true);
-					event.getBlock().setTypeId(0);
-					player.getWorld().dropItem(player.getLocation(), new ItemStack(Material.SIGN, 1));
-				}
-				return;
-			}
-		}
-	}
+    @EventHandler(priority = EventPriority.LOW)
+    public void onSignChange(SignChangeEvent event) {
+        Player player = event.getPlayer();
+        String[] text = event.getLines();
+        if (!SupernaturalsPlugin.hasPermissions(player, worldPermission)
+                && SNConfigHandler.multiworld) {
+            return;
+        }
+        for (int i = 0; i < text.length; i++) {
+            if (text[i].contains(SNConfigHandler.hunterHallMessage)) {
+                if (!SupernaturalsPlugin.hasPermissions(player, permissions)) {
+                    SuperNManager.sendMessage(SuperNManager.get(player),
+                            "你沒有權限製造女巫獵人的告示牌");
+                    event.setCancelled(true);
+                    event.getBlock().setTypeId(0);
+                    player.getWorld().dropItem(player.getLocation(),
+                            new ItemStack(Material.SIGN, 1));
+                }
+                return;
+            }
+        }
+    }
 }

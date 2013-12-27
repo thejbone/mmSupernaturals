@@ -22,7 +22,6 @@ package com.mmiillkkaa.supernaturals.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -34,66 +33,66 @@ import com.mmiillkkaa.supernaturals.manager.SuperNManager;
 
 public class SNCommandKillList extends SNCommand {
 
-	public SNCommandKillList() {
-		requiredParameters = new ArrayList<String>();
-		optionalParameters = new ArrayList<String>();
-		senderMustBePlayer = true;
-		permissions = "supernatural.command.killlist";
-		helpNameAndParams = "convert [玩家名稱] [超自然生物類型]";
-		helpDescription = "立刻將一個玩家轉換為超自然生物.";
-	}
+    public SNCommandKillList() {
+        requiredParameters = new ArrayList<String>();
+        optionalParameters = new ArrayList<String>();
+        senderMustBePlayer = true;
+        permissions = "supernatural.command.killlist";
+        helpNameAndParams = "convert [玩家名稱] [超自然生物類型]";
+        helpDescription = "立刻將一個玩家轉換為超自然生物.";
+    }
 
-	@Override
-	public void perform() {
+    @Override
+    public void perform() {
 
-		if (!SNConfigHandler.spanish) {
-			Player senderPlayer = (Player) sender;
-			SuperNPlayer snSender = SuperNManager.get(senderPlayer);
-			if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
-				if (!SNConfigHandler.spanish) {
-					this.sendMessage("你沒有權限使用這個指令.");
-				} else {
-					this.sendMessage("No tienes permiso para este comando.");
-				}
-				return;
-			}
+        if (!SNConfigHandler.spanish) {
+            Player senderPlayer = (Player) sender;
+            SuperNPlayer snSender = SuperNManager.get(senderPlayer);
+            if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
+                if (!SNConfigHandler.spanish) {
+                    this.sendMessage("你沒有權限使用這個指令.");
+                } else {
+                    this.sendMessage("No tienes permiso para este comando.");
+                }
+                return;
+            }
 
-			if (!snSender.isHunter()) {
-				this.sendMessage("你並不是女巫獵人!");
-			}
+            if (!snSender.isHunter()) {
+                this.sendMessage("你並不是女巫獵人!");
+            }
 
-			ArrayList<SuperNPlayer> bountyList = HunterManager.getBountyList();
+            ArrayList<SuperNPlayer> bountyList = HunterManager.getBountyList();
 
-			// Create Messages
-			List<String> messages = new ArrayList<String>();
-			messages.add("*** " + ChatColor.WHITE
-					+ "目前的女巫獵人目標 " + ChatColor.RED + "***");
-			for (SuperNPlayer snplayer : bountyList) {
-				messages.add(ChatColor.WHITE + snplayer.getName());
-			}
+            // Create Messages
+            List<String> messages = new ArrayList<String>();
+            messages.add("*** " + ChatColor.WHITE + "目前的女巫獵人目標 "
+                    + ChatColor.RED + "***");
+            for (SuperNPlayer snplayer : bountyList) {
+                messages.add(ChatColor.WHITE + snplayer.getName());
+            }
 
-			// Send them
-			this.sendMessage(messages);
-		} else {
-			Player senderPlayer = (Player) sender;
-			if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
-				this.sendMessage("No tienes permiso para este comando.");
-				return;
-			}
+            // Send them
+            this.sendMessage(messages);
+        } else {
+            Player senderPlayer = (Player) sender;
+            if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
+                this.sendMessage("No tienes permiso para este comando.");
+                return;
+            }
 
-			ArrayList<SuperNPlayer> bountyList = HunterManager.getBountyList();
+            ArrayList<SuperNPlayer> bountyList = HunterManager.getBountyList();
 
-			// Create Messages
-			List<String> messages = new ArrayList<String>();
-			messages.add("*** " + ChatColor.WHITE
-					+ "Objetivos para Cazadores de Brujas: " + ChatColor.RED
-					+ "***");
-			for (SuperNPlayer snplayer : bountyList) {
-				messages.add(ChatColor.WHITE + snplayer.getName());
-			}
+            // Create Messages
+            List<String> messages = new ArrayList<String>();
+            messages.add("*** " + ChatColor.WHITE
+                    + "Objetivos para Cazadores de Brujas: " + ChatColor.RED
+                    + "***");
+            for (SuperNPlayer snplayer : bountyList) {
+                messages.add(ChatColor.WHITE + snplayer.getName());
+            }
 
-			// Send them
-			this.sendMessage(messages);
-		}
-	}
+            // Send them
+            this.sendMessage(messages);
+        }
+    }
 }

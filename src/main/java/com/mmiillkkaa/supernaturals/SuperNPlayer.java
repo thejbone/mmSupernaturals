@@ -23,203 +23,204 @@ import java.io.Serializable;
 
 public class SuperNPlayer implements Serializable {
 
-	/**
-	 * Auto-Generated serialVersionUID
-	 */
-	private static final long serialVersionUID = -2693531379993789149L;
+    /**
+     * Auto-Generated serialVersionUID
+     */
+    private static final long serialVersionUID = -2693531379993789149L;
 
-	public String playername;
-	public String superType = "human";
-	public String oldSuperType = "human";
-	public double oldSuperPower = 0;
-	public double superPower = 0;
-	public boolean truce = true;
-	public int truceTimer = 0;
+    public String playername;
+    public String superType = "human";
+    public String oldSuperType = "human";
+    public double oldSuperPower = 0;
+    public double superPower = 0;
+    public boolean truce = true;
+    public int truceTimer = 0;
 
-	public SuperNPlayer() {
-	}
+    public SuperNPlayer() {
+    }
 
-	public SuperNPlayer(String playername) {
-		this.playername = playername;
-		superType = "human";
-		oldSuperType = "human";
-		oldSuperPower = 0;
-		superPower = 0;
-		truce = true;
-		truceTimer = 0;
-	}
+    public SuperNPlayer(String playername) {
+        this.playername = playername;
+        superType = "human";
+        oldSuperType = "human";
+        oldSuperPower = 0;
+        superPower = 0;
+        truce = true;
+        truceTimer = 0;
+    }
 
-	// -------------------------------------------- //
-	// Parameters //
-	// -------------------------------------------- //
+    // -------------------------------------------- //
+    // Parameters //
+    // -------------------------------------------- //
 
-	public String getName() {
-		return playername;
-	}
+    public String getName() {
+        return playername;
+    }
 
-	public void setName(String name) {
-		playername = name;
-	}
+    public void setName(String name) {
+        playername = name;
+    }
 
-	public String getType() {
-		return superType;
-	}
+    public String getType() {
+        return superType;
+    }
 
-	public void setType(String type) {
-		superType = type;
-	}
+    public void setType(String type) {
+        superType = type;
+    }
 
-	public String getOldType() {
-		return oldSuperType;
-	}
+    public String getOldType() {
+        return oldSuperType;
+    }
 
-	public void setOldType(String type) {
-		oldSuperType = type;
-	}
+    public void setOldType(String type) {
+        oldSuperType = type;
+    }
 
-	public double getOldPower() {
-		return oldSuperPower;
-	}
+    public double getOldPower() {
+        return oldSuperPower;
+    }
 
-	public void setOldPower(double amount) {
-		oldSuperPower = amount;
-	}
+    public void setOldPower(double amount) {
+        oldSuperPower = amount;
+    }
 
-	public double getPower() {
-		return superPower;
-	}
+    public double getPower() {
+        return superPower;
+    }
 
-	public void setPower(double amount) {
-		superPower = this.limitDouble(amount);
-	}
+    public void setPower(double amount) {
+        superPower = this.limitDouble(amount);
+    }
 
-	public boolean getTruce() {
-		return truce;
-	}
+    public boolean getTruce() {
+        return truce;
+    }
 
-	public void setTruce(boolean truce) {
-		this.truce = truce;
-		truceTimer = 0;
-	}
+    public void setTruce(boolean truce) {
+        this.truce = truce;
+        truceTimer = 0;
+    }
 
-	public int getTruceTimer() {
-		return truceTimer;
-	}
+    public int getTruceTimer() {
+        return truceTimer;
+    }
 
-	public void setTruceTimer(int timer) {
-		truceTimer = timer;
-	}
+    public void setTruceTimer(int timer) {
+        truceTimer = timer;
+    }
 
-	// -------------------------------------------- //
-	// Booleans //
-	// -------------------------------------------- //
+    // -------------------------------------------- //
+    // Booleans //
+    // -------------------------------------------- //
 
-	public boolean isSuper() {
-		if (getType().equalsIgnoreCase("human")
-				|| getType().equalsIgnoreCase("priest")
-				|| getType().equalsIgnoreCase("witchhunter")
-				|| getType().equalsIgnoreCase("angel")) {
-			return false;
-		}
-		return true;
-	}
+    public boolean isSuper() {
+        if (getType().equalsIgnoreCase("human")
+                || getType().equalsIgnoreCase("priest")
+                || getType().equalsIgnoreCase("witchhunter")
+                || getType().equalsIgnoreCase("angel")) {
+            return false;
+        }
+        return true;
+    }
 
-	public boolean isAngel() {
-		if (getType().equalsIgnoreCase("angel")) {
-			return true;
-		}
-		return false;
-	}
+    public boolean isAngel() {
+        if (getType().equalsIgnoreCase("angel")) {
+            return true;
+        }
+        return false;
+    }
 
-	public boolean isHuman() {
-		if (getType().equalsIgnoreCase("human")) {
-			return true;
-		}
-		return false;
-	}
+    public boolean isHuman() {
+        if (getType().equalsIgnoreCase("human")) {
+            return true;
+        }
+        return false;
+    }
 
-	public boolean isVampire() {
-		if (getType().equalsIgnoreCase("vampire")) {
-			return true;
-		}
-		return false;
-	}
+    public boolean isVampire() {
+        if (getType().equalsIgnoreCase("vampire")) {
+            return true;
+        }
+        return false;
+    }
 
-	public boolean isPriest() {
-		if (getType().equalsIgnoreCase("priest")) {
-			return true;
-		}
-		return false;
-	}
+    public boolean isPriest() {
+        if (getType().equalsIgnoreCase("priest")) {
+            return true;
+        }
+        return false;
+    }
 
-	public boolean isWere() {
-		if (getType().equalsIgnoreCase("werewolf")) {
-			return true;
-		}
-		return false;
-	}
+    public boolean isWere() {
+        if (getType().equalsIgnoreCase("werewolf")) {
+            return true;
+        }
+        return false;
+    }
 
-	public boolean isGhoul() {
-		if (getType().equalsIgnoreCase("ghoul")) {
-			return true;
-		}
-		return false;
-	}
+    public boolean isGhoul() {
+        if (getType().equalsIgnoreCase("ghoul")) {
+            return true;
+        }
+        return false;
+    }
 
-	public boolean isHunter() {
-		if (getType().equalsIgnoreCase("witchhunter")) {
-			return true;
-		}
-		return false;
-	}
+    public boolean isHunter() {
+        if (getType().equalsIgnoreCase("witchhunter")) {
+            return true;
+        }
+        return false;
+    }
 
-	public boolean isDemon() {
-		if (getType().equalsIgnoreCase("demon")) {
-			return true;
-		}
-		return false;
-	}
+    public boolean isDemon() {
+        if (getType().equalsIgnoreCase("demon")) {
+            return true;
+        }
+        return false;
+    }
 
-	public double scale(double input) {
-		double powerPercentage = input * (getPower() / 10000);
-		return powerPercentage;
-	}
+    public double scale(double input) {
+        double powerPercentage = input * (getPower() / 10000);
+        return powerPercentage;
+    }
 
-	public boolean isOnline() {
-		return SupernaturalsPlugin.instance.getServer().getPlayer(playername) != null;
-	}
+    public boolean isOnline() {
+        return SupernaturalsPlugin.instance.getServer().getPlayer(playername) != null;
+    }
 
-	public boolean isDead() {
-		return SupernaturalsPlugin.instance.getServer().getPlayer(playername).isDead();
-	}
+    public boolean isDead() {
+        return SupernaturalsPlugin.instance.getServer().getPlayer(playername)
+                .isDead();
+    }
 
-	@Override
-	public int hashCode() {
-		return playername.hashCode();
-	}
+    @Override
+    public int hashCode() {
+        return playername.hashCode();
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (obj instanceof SuperNPlayer) {
-			return playername.equals(((SuperNPlayer) obj).getName());
-		}
-		return false;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof SuperNPlayer) {
+            return playername.equals(((SuperNPlayer) obj).getName());
+        }
+        return false;
+    }
 
-	// -------------------------------------------- //
-	// Limiting value of double //
-	// -------------------------------------------- //
-	public double limitDouble(double d, double min, double max) {
-		if (d < min) {
-			return min;
-		}
-		if (d > max) {
-			return max;
-		}
-		return d;
-	}
+    // -------------------------------------------- //
+    // Limiting value of double //
+    // -------------------------------------------- //
+    public double limitDouble(double d, double min, double max) {
+        if (d < min) {
+            return min;
+        }
+        if (d > max) {
+            return max;
+        }
+        return d;
+    }
 
-	public double limitDouble(double d) {
-		return this.limitDouble(d, 0, 10000);
-	}
+    public double limitDouble(double d) {
+        return this.limitDouble(d, 0, 10000);
+    }
 }

@@ -22,7 +22,6 @@ package com.mmiillkkaa.supernaturals.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -34,161 +33,161 @@ import com.mmiillkkaa.supernaturals.util.TextUtil;
 
 public class SNCommandList extends SNCommand {
 
-	public SNCommandList() {
-		requiredParameters = new ArrayList<String>();
-		optionalParameters = new ArrayList<String>();
-		senderMustBePlayer = false;
-		permissions = "supernatural.command.list";
-		helpNameAndParams = "list";
-		helpDescription = "列出伺服器上的超自然生物.";
-	}
+    public SNCommandList() {
+        requiredParameters = new ArrayList<String>();
+        optionalParameters = new ArrayList<String>();
+        senderMustBePlayer = false;
+        permissions = "supernatural.command.list";
+        helpNameAndParams = "list";
+        helpDescription = "列出伺服器上的超自然生物.";
+    }
 
-	@Override
-	public void perform() {
-		if (!(sender instanceof Player)) {
-			List<String> vampires = new ArrayList<String>();
-			List<String> werewolves = new ArrayList<String>();
-			List<String> ghouls = new ArrayList<String>();
-			List<String> priests = new ArrayList<String>();
-			List<String> hunters = new ArrayList<String>();
-			List<String> demons = new ArrayList<String>();
-			List<String> angels = new ArrayList<String>();
+    @Override
+    public void perform() {
+        if (!(sender instanceof Player)) {
+            List<String> vampires = new ArrayList<String>();
+            List<String> werewolves = new ArrayList<String>();
+            List<String> ghouls = new ArrayList<String>();
+            List<String> priests = new ArrayList<String>();
+            List<String> hunters = new ArrayList<String>();
+            List<String> demons = new ArrayList<String>();
+            List<String> angels = new ArrayList<String>();
 
-			for (SuperNPlayer snplayer : SuperNManager.findAllOnline()) {
-				if (snplayer.isVampire()) {
-					vampires.add(snplayer.getName());
-				} else if (snplayer.isPriest()) {
-					priests.add(snplayer.getName());
-				} else if (snplayer.isWere()) {
-					werewolves.add(snplayer.getName());
-				} else if (snplayer.isGhoul()) {
-					ghouls.add(snplayer.getName());
-				} else if (snplayer.isHunter()) {
-					hunters.add(snplayer.getName());
-				} else if (snplayer.isDemon()) {
-					demons.add(snplayer.getName());
-				} else if (snplayer.isAngel()) {
-					angels.add(snplayer.getName());
-				}
-			}
+            for (SuperNPlayer snplayer : SuperNManager.findAllOnline()) {
+                if (snplayer.isVampire()) {
+                    vampires.add(snplayer.getName());
+                } else if (snplayer.isPriest()) {
+                    priests.add(snplayer.getName());
+                } else if (snplayer.isWere()) {
+                    werewolves.add(snplayer.getName());
+                } else if (snplayer.isGhoul()) {
+                    ghouls.add(snplayer.getName());
+                } else if (snplayer.isHunter()) {
+                    hunters.add(snplayer.getName());
+                } else if (snplayer.isDemon()) {
+                    demons.add(snplayer.getName());
+                } else if (snplayer.isAngel()) {
+                    angels.add(snplayer.getName());
+                }
+            }
 
-			// Create Messages
-			List<String> messages = new ArrayList<String>();
-			List<String> messagesSpanish = new ArrayList<String>();
-			messages.add("*** " + ChatColor.WHITE
-					+ "線上的 Supernatural 玩家" + ChatColor.RED + "***");
-			messages.add("吸血鬼(Vampires): " + ChatColor.WHITE
-					+ TextUtil.implode(vampires, ", "));
-			messages.add("狼人(Werewolves): " + ChatColor.WHITE
-					+ TextUtil.implode(werewolves, ", "));
-			messages.add("食屍鬼(Ghouls): " + ChatColor.WHITE
-					+ TextUtil.implode(ghouls, ", "));
-			messages.add("牧師(Priests): " + ChatColor.WHITE
-					+ TextUtil.implode(priests, ", "));
-			messages.add("女巫獵人(WitchHunters): " + ChatColor.WHITE
-					+ TextUtil.implode(hunters, ", "));
-			messages.add("惡魔(Demons): " + ChatColor.WHITE
-					+ TextUtil.implode(demons, ", "));
-			messages.add("天使(Angels): " + ChatColor.WHITE
-					+ TextUtil.implode(angels, ", "));
-			messagesSpanish.add("*** " + ChatColor.WHITE
-					+ "Seres Místicos. conectados: " + ChatColor.RED + "***");
-			messagesSpanish.add("Vampiros: " + ChatColor.WHITE
-					+ TextUtil.implode(vampires, ", "));
-			messagesSpanish.add("Hombres Lobos: " + ChatColor.WHITE
-					+ TextUtil.implode(werewolves, ", "));
-			messagesSpanish.add("Muertos Vivientes: " + ChatColor.WHITE
-					+ TextUtil.implode(ghouls, ", "));
-			messagesSpanish.add("Sacerdotes: " + ChatColor.WHITE
-					+ TextUtil.implode(priests, ", "));
-			messagesSpanish.add("Cazadores de Brujas: " + ChatColor.WHITE
-					+ TextUtil.implode(hunters, ", "));
-			messagesSpanish.add("Demonios: " + ChatColor.WHITE
-					+ TextUtil.implode(demons, ", "));
+            // Create Messages
+            List<String> messages = new ArrayList<String>();
+            List<String> messagesSpanish = new ArrayList<String>();
+            messages.add("*** " + ChatColor.WHITE + "線上的 Supernatural 玩家"
+                    + ChatColor.RED + "***");
+            messages.add("吸血鬼(Vampires): " + ChatColor.WHITE
+                    + TextUtil.implode(vampires, ", "));
+            messages.add("狼人(Werewolves): " + ChatColor.WHITE
+                    + TextUtil.implode(werewolves, ", "));
+            messages.add("食屍鬼(Ghouls): " + ChatColor.WHITE
+                    + TextUtil.implode(ghouls, ", "));
+            messages.add("牧師(Priests): " + ChatColor.WHITE
+                    + TextUtil.implode(priests, ", "));
+            messages.add("女巫獵人(WitchHunters): " + ChatColor.WHITE
+                    + TextUtil.implode(hunters, ", "));
+            messages.add("惡魔(Demons): " + ChatColor.WHITE
+                    + TextUtil.implode(demons, ", "));
+            messages.add("天使(Angels): " + ChatColor.WHITE
+                    + TextUtil.implode(angels, ", "));
+            messagesSpanish.add("*** " + ChatColor.WHITE
+                    + "Seres Místicos. conectados: " + ChatColor.RED + "***");
+            messagesSpanish.add("Vampiros: " + ChatColor.WHITE
+                    + TextUtil.implode(vampires, ", "));
+            messagesSpanish.add("Hombres Lobos: " + ChatColor.WHITE
+                    + TextUtil.implode(werewolves, ", "));
+            messagesSpanish.add("Muertos Vivientes: " + ChatColor.WHITE
+                    + TextUtil.implode(ghouls, ", "));
+            messagesSpanish.add("Sacerdotes: " + ChatColor.WHITE
+                    + TextUtil.implode(priests, ", "));
+            messagesSpanish.add("Cazadores de Brujas: " + ChatColor.WHITE
+                    + TextUtil.implode(hunters, ", "));
+            messagesSpanish.add("Demonios: " + ChatColor.WHITE
+                    + TextUtil.implode(demons, ", "));
 
-			// Send them
-			if (!SNConfigHandler.spanish) {
-				this.sendMessage(messages);
-			} else {
-				this.sendMessage(messagesSpanish);
-			}
-			return;
-		}
-		Player senderPlayer = (Player) sender;
-		if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
-			if (!SNConfigHandler.spanish) {
-				this.sendMessage("你沒有權限使用這個指令.");
-			} else {
-				this.sendMessage("No tienes permiso para este comando.");
-			}
-			return;
-		}
+            // Send them
+            if (!SNConfigHandler.spanish) {
+                this.sendMessage(messages);
+            } else {
+                this.sendMessage(messagesSpanish);
+            }
+            return;
+        }
+        Player senderPlayer = (Player) sender;
+        if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
+            if (!SNConfigHandler.spanish) {
+                this.sendMessage("你沒有權限使用這個指令.");
+            } else {
+                this.sendMessage("No tienes permiso para este comando.");
+            }
+            return;
+        }
 
-		List<String> vampires = new ArrayList<String>();
-		List<String> werewolves = new ArrayList<String>();
-		List<String> ghouls = new ArrayList<String>();
-		List<String> priests = new ArrayList<String>();
-		List<String> hunters = new ArrayList<String>();
-		List<String> demons = new ArrayList<String>();
-		List<String> angels = new ArrayList<String>();
+        List<String> vampires = new ArrayList<String>();
+        List<String> werewolves = new ArrayList<String>();
+        List<String> ghouls = new ArrayList<String>();
+        List<String> priests = new ArrayList<String>();
+        List<String> hunters = new ArrayList<String>();
+        List<String> demons = new ArrayList<String>();
+        List<String> angels = new ArrayList<String>();
 
-		for (SuperNPlayer snplayer : SuperNManager.findAllOnline()) {
-			if (snplayer.isVampire()) {
-				vampires.add(snplayer.getName());
-			} else if (snplayer.isPriest()) {
-				priests.add(snplayer.getName());
-			} else if (snplayer.isWere()) {
-				werewolves.add(snplayer.getName());
-			} else if (snplayer.isGhoul()) {
-				ghouls.add(snplayer.getName());
-			} else if (snplayer.isHunter()) {
-				hunters.add(snplayer.getName());
-			} else if (snplayer.isDemon()) {
-				demons.add(snplayer.getName());
-			} else if (snplayer.isAngel()) {
-				angels.add(snplayer.getName());
-			}
-		}
+        for (SuperNPlayer snplayer : SuperNManager.findAllOnline()) {
+            if (snplayer.isVampire()) {
+                vampires.add(snplayer.getName());
+            } else if (snplayer.isPriest()) {
+                priests.add(snplayer.getName());
+            } else if (snplayer.isWere()) {
+                werewolves.add(snplayer.getName());
+            } else if (snplayer.isGhoul()) {
+                ghouls.add(snplayer.getName());
+            } else if (snplayer.isHunter()) {
+                hunters.add(snplayer.getName());
+            } else if (snplayer.isDemon()) {
+                demons.add(snplayer.getName());
+            } else if (snplayer.isAngel()) {
+                angels.add(snplayer.getName());
+            }
+        }
 
-		// Create Messages
-		List<String> messages = new ArrayList<String>();
-		List<String> messagesSpanish = new ArrayList<String>();
-		messages.add("*** " + ChatColor.WHITE + "線上的 Supernatural 玩家"
-				+ ChatColor.RED + "***");
-		messages.add("吸血鬼(Vampires): " + ChatColor.WHITE
-				+ TextUtil.implode(vampires, ", "));
-		messages.add("狼人(Werewolves): " + ChatColor.WHITE
-				+ TextUtil.implode(werewolves, ", "));
-		messages.add("食屍鬼(Ghouls): " + ChatColor.WHITE
-				+ TextUtil.implode(ghouls, ", "));
-		messages.add("牧師(Priests): " + ChatColor.WHITE
-				+ TextUtil.implode(priests, ", "));
-		messages.add("女巫獵人(WitchHunters): " + ChatColor.WHITE
-				+ TextUtil.implode(hunters, ", "));
-		messages.add("惡魔(Demons): " + ChatColor.WHITE
-				+ TextUtil.implode(demons, ", "));
-		messages.add("天使(Angels): " + ChatColor.WHITE
-				+ TextUtil.implode(angels, ", "));
-		messagesSpanish.add("*** " + ChatColor.WHITE
-				+ "Seres Místicos. conectados: " + ChatColor.RED + "***");
-		messagesSpanish.add("Vampiros: " + ChatColor.WHITE
-				+ TextUtil.implode(vampires, ", "));
-		messagesSpanish.add("Hombres Lobos: " + ChatColor.WHITE
-				+ TextUtil.implode(werewolves, ", "));
-		messagesSpanish.add("Muertos Vivientes: " + ChatColor.WHITE
-				+ TextUtil.implode(ghouls, ", "));
-		messagesSpanish.add("Sacerdotes: " + ChatColor.WHITE
-				+ TextUtil.implode(priests, ", "));
-		messagesSpanish.add("Cazadores de Brujas: " + ChatColor.WHITE
-				+ TextUtil.implode(hunters, ", "));
-		messagesSpanish.add("Demonios: " + ChatColor.WHITE
-				+ TextUtil.implode(demons, ", "));
+        // Create Messages
+        List<String> messages = new ArrayList<String>();
+        List<String> messagesSpanish = new ArrayList<String>();
+        messages.add("*** " + ChatColor.WHITE + "線上的 Supernatural 玩家"
+                + ChatColor.RED + "***");
+        messages.add("吸血鬼(Vampires): " + ChatColor.WHITE
+                + TextUtil.implode(vampires, ", "));
+        messages.add("狼人(Werewolves): " + ChatColor.WHITE
+                + TextUtil.implode(werewolves, ", "));
+        messages.add("食屍鬼(Ghouls): " + ChatColor.WHITE
+                + TextUtil.implode(ghouls, ", "));
+        messages.add("牧師(Priests): " + ChatColor.WHITE
+                + TextUtil.implode(priests, ", "));
+        messages.add("女巫獵人(WitchHunters): " + ChatColor.WHITE
+                + TextUtil.implode(hunters, ", "));
+        messages.add("惡魔(Demons): " + ChatColor.WHITE
+                + TextUtil.implode(demons, ", "));
+        messages.add("天使(Angels): " + ChatColor.WHITE
+                + TextUtil.implode(angels, ", "));
+        messagesSpanish.add("*** " + ChatColor.WHITE
+                + "Seres Místicos. conectados: " + ChatColor.RED + "***");
+        messagesSpanish.add("Vampiros: " + ChatColor.WHITE
+                + TextUtil.implode(vampires, ", "));
+        messagesSpanish.add("Hombres Lobos: " + ChatColor.WHITE
+                + TextUtil.implode(werewolves, ", "));
+        messagesSpanish.add("Muertos Vivientes: " + ChatColor.WHITE
+                + TextUtil.implode(ghouls, ", "));
+        messagesSpanish.add("Sacerdotes: " + ChatColor.WHITE
+                + TextUtil.implode(priests, ", "));
+        messagesSpanish.add("Cazadores de Brujas: " + ChatColor.WHITE
+                + TextUtil.implode(hunters, ", "));
+        messagesSpanish.add("Demonios: " + ChatColor.WHITE
+                + TextUtil.implode(demons, ", "));
 
-		// Send them
-		if (!SNConfigHandler.spanish) {
-			this.sendMessage(messages);
-		} else {
-			this.sendMessage(messagesSpanish);
-		}
-	}
+        // Send them
+        if (!SNConfigHandler.spanish) {
+            this.sendMessage(messages);
+        } else {
+            this.sendMessage(messagesSpanish);
+        }
+    }
 }

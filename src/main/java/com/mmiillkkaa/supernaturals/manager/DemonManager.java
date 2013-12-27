@@ -47,537 +47,528 @@ import com.mmiillkkaa.supernaturals.io.SNConfigHandler;
 
 public class DemonManager extends ClassManager {
 
-	public DemonManager(SupernaturalsPlugin plugin) {
-		super();
-		this.plugin = plugin;
-	}
+    public DemonManager(SupernaturalsPlugin plugin) {
+        super();
+        this.plugin = plugin;
+    }
 
-	private ArrayList<Location> hallDoors = new ArrayList<Location>();
-	private HashMap<Block, Location> webMap = new HashMap<Block, Location>();
-	private ArrayList<Player> demonApps = new ArrayList<Player>();
-	private List<Player> demons = new ArrayList<Player>();
-	private SupernaturalsPlugin plugin;
+    private ArrayList<Location> hallDoors = new ArrayList<Location>();
+    private HashMap<Block, Location> webMap = new HashMap<Block, Location>();
+    private ArrayList<Player> demonApps = new ArrayList<Player>();
+    private List<Player> demons = new ArrayList<Player>();
+    private SupernaturalsPlugin plugin;
 
-	// -------------------------------------------- //
-	// Damage Events //
-	// -------------------------------------------- //
+    // -------------------------------------------- //
+    // Damage Events //
+    // -------------------------------------------- //
 
-	@Override
-	public double victimEvent(EntityDamageEvent event, double damage) {
-		Player victim = (Player) event.getEntity();
-		SuperNPlayer snVictim = SuperNManager.get(victim);
+    @Override
+    public double victimEvent(EntityDamageEvent event, double damage) {
+        Player victim = (Player) event.getEntity();
+        SuperNPlayer snVictim = SuperNManager.get(victim);
 
-		if (event.getCause().equals(DamageCause.FIRE)
-				|| event.getCause().equals(DamageCause.BLOCK_EXPLOSION)
-				|| event.getCause().equals(DamageCause.ENTITY_EXPLOSION)
-				|| event.getCause().equals(DamageCause.FIRE_TICK)) {
-			victim.setFireTicks(0);
-			event.setCancelled(true);
-			return 0;
-		} else if (event.getCause().equals(DamageCause.FALL)) {
-			event.setCancelled(true);
-			return 0;
-		} else if (event.getCause().equals(DamageCause.LAVA)) {
-			final Player dPlayer = victim;
-			if (!demons.contains(dPlayer)) {
-				demons.add(dPlayer);
-				heal(victim);
-				SuperNManager.alterPower(snVictim,
-						SNConfigHandler.demonPowerGain, "岩漿!");
-				SupernaturalsPlugin.instance
-						.getServer()
-						.getScheduler()
-						.scheduleSyncDelayedTask(SupernaturalsPlugin.instance,
-								new Runnable() {
-									@Override
-									public void run() {
-										demons.remove(dPlayer);
-									}
-								}, 41);
-			}
-			victim.setFireTicks(0);
-			event.setCancelled(true);
-			return 0;
-		}
-		return damage;
-	}
+        if (event.getCause().equals(DamageCause.FIRE)
+                || event.getCause().equals(DamageCause.BLOCK_EXPLOSION)
+                || event.getCause().equals(DamageCause.ENTITY_EXPLOSION)
+                || event.getCause().equals(DamageCause.FIRE_TICK)) {
+            victim.setFireTicks(0);
+            event.setCancelled(true);
+            return 0;
+        } else if (event.getCause().equals(DamageCause.FALL)) {
+            event.setCancelled(true);
+            return 0;
+        } else if (event.getCause().equals(DamageCause.LAVA)) {
+            final Player dPlayer = victim;
+            if (!demons.contains(dPlayer)) {
+                demons.add(dPlayer);
+                heal(victim);
+                SuperNManager.alterPower(snVictim,
+                        SNConfigHandler.demonPowerGain, "岩漿!");
+                SupernaturalsPlugin.instance
+                        .getServer()
+                        .getScheduler()
+                        .scheduleSyncDelayedTask(SupernaturalsPlugin.instance,
+                                new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        demons.remove(dPlayer);
+                                    }
+                                }, 41);
+            }
+            victim.setFireTicks(0);
+            event.setCancelled(true);
+            return 0;
+        }
+        return damage;
+    }
 
-	@Override
-	public double damagerEvent(EntityDamageByEntityEvent event, double damage) {
-		Entity damager = event.getDamager();
-		Player pDamager = (Player) damager;
-		Entity victim = event.getEntity();
-		SuperNPlayer snDamager = SuperNManager.get(pDamager);
-		ItemStack item = pDamager.getItemInHand();
+    @Override
+    public double damagerEvent(EntityDamageByEntityEvent event, double damage) {
+        Entity damager = event.getDamager();
+        Player pDamager = (Player) damager;
+        Entity victim = event.getEntity();
+        SuperNPlayer snDamager = SuperNManager.get(pDamager);
+        ItemStack item = pDamager.getItemInHand();
 
-		if (item != null)
-			if (SNConfigHandler.demonWeapons.contains(item.getType())) {
-				SuperNManager.sendMessage(snDamager,
-						"惡魔(Demons)無法使用武器!");
-				damage = 0;
-			}
-		if (victim instanceof Player) {
-			if (plugin.getPvP(pDamager)) {
-				Player pVictim = (Player) victim;
-				double random = Math.random();
-				if (random < 0.35) {
-					pVictim.setFireTicks(SNConfigHandler.demonFireTicks);
-				}
-			}
-			return damage;
-		}
-		return damage;
-	}
+        if (item != null)
+            if (SNConfigHandler.demonWeapons.contains(item.getType())) {
+                SuperNManager.sendMessage(snDamager, "惡魔(Demons)無法使用武器!");
+                damage = 0;
+            }
+        if (victim instanceof Player) {
+            if (plugin.getPvP(pDamager)) {
+                Player pVictim = (Player) victim;
+                double random = Math.random();
+                if (random < 0.35) {
+                    pVictim.setFireTicks(SNConfigHandler.demonFireTicks);
+                }
+            }
+            return damage;
+        }
+        return damage;
+    }
 
-	@Override
-	public void deathEvent(Player player) {
-		SuperNPlayer snplayer = SuperNManager.get(player);
-		EntityDamageEvent e = player.getLastDamageCause();
+    @Override
+    public void deathEvent(Player player) {
+        SuperNPlayer snplayer = SuperNManager.get(player);
+        EntityDamageEvent e = player.getLastDamageCause();
 
-		SuperNManager.alterPower(snplayer,
-				-SNConfigHandler.demonDeathPowerPenalty, "你死了!");
+        SuperNManager.alterPower(snplayer,
+                -SNConfigHandler.demonDeathPowerPenalty, "你死了!");
 
-		if (e == null) {
-			return;
-		}
-		if (e.getCause().equals(DamageCause.DROWNING)) {
-			int pLocX = player.getLocation().getBlockX();
-			int pLocY = player.getLocation().getBlockZ();
-			Biome pBiome = player.getWorld().getBiome(pLocX, pLocY);
-			if (snplayer.isDemon()) {
-				if (pBiome == Biome.TAIGA || pBiome == Biome.FROZEN_OCEAN
-						|| pBiome == Biome.FROZEN_RIVER
-						|| pBiome == Biome.ICE_MOUNTAINS
-						|| pBiome == Biome.ICE_PLAINS) {
-					if (player.getInventory().contains(Material.SNOW_BALL,
-							SNConfigHandler.demonSnowballAmount)) {
-						SuperNManager
-								.sendMessage(snplayer,
-										"你冰冷的死亡冷卻了在你身體裡肆虐的地獄火.");
-						SuperNManager.cure(snplayer);
-					}
-				}
-			}
-		}
-	}
+        if (e == null) {
+            return;
+        }
+        if (e.getCause().equals(DamageCause.DROWNING)) {
+            int pLocX = player.getLocation().getBlockX();
+            int pLocY = player.getLocation().getBlockZ();
+            Biome pBiome = player.getWorld().getBiome(pLocX, pLocY);
+            if (snplayer.isDemon()) {
+                if (pBiome == Biome.TAIGA || pBiome == Biome.FROZEN_OCEAN
+                        || pBiome == Biome.FROZEN_RIVER
+                        || pBiome == Biome.ICE_MOUNTAINS
+                        || pBiome == Biome.ICE_PLAINS) {
+                    if (player.getInventory().contains(Material.SNOW_BALL,
+                            SNConfigHandler.demonSnowballAmount)) {
+                        SuperNManager.sendMessage(snplayer,
+                                "你冰冷的死亡冷卻了在你身體裡肆虐的地獄火.");
+                        SuperNManager.cure(snplayer);
+                    }
+                }
+            }
+        }
+    }
 
-	@Override
-	public void killEvent(Player pDamager, SuperNPlayer damager,
-			SuperNPlayer victim) {
-		if (victim == null) {
-			SuperNManager.alterPower(damager,
-					SNConfigHandler.demonKillPowerCreatureGain,
-					"擊殺生物!");
-		} else {
-			if (victim.getPower() > SNConfigHandler.demonKillPowerPlayerGain) {
-				SuperNManager.alterPower(damager,
-						SNConfigHandler.demonKillPowerPlayerGain,
-						"擊殺玩家!");
-			} else {
-				SuperNManager
-						.sendMessage(damager,
-								"你無法從沒有能量的玩家身上獲得能量.");
-			}
-		}
-	}
+    @Override
+    public void killEvent(Player pDamager, SuperNPlayer damager,
+            SuperNPlayer victim) {
+        if (victim == null) {
+            SuperNManager.alterPower(damager,
+                    SNConfigHandler.demonKillPowerCreatureGain, "擊殺生物!");
+        } else {
+            if (victim.getPower() > SNConfigHandler.demonKillPowerPlayerGain) {
+                SuperNManager.alterPower(damager,
+                        SNConfigHandler.demonKillPowerPlayerGain, "擊殺玩家!");
+            } else {
+                SuperNManager.sendMessage(damager, "你無法從沒有能量的玩家身上獲得能量.");
+            }
+        }
+    }
 
-	// -------------------------------------------- //
-	// Interact //
-	// -------------------------------------------- //
+    // -------------------------------------------- //
+    // Interact //
+    // -------------------------------------------- //
 
-	@Override
-	public boolean playerInteract(PlayerInteractEvent event) {
+    @Override
+    public boolean playerInteract(PlayerInteractEvent event) {
 
-		Action action = event.getAction();
-		Player player = event.getPlayer();
+        Action action = event.getAction();
+        Player player = event.getPlayer();
 
-		Material itemMaterial = player.getItemInHand().getType();
+        Material itemMaterial = player.getItemInHand().getType();
 
-		boolean cancelled = false;
+        boolean cancelled = false;
 
-		if (player.getItemInHand() == null) {
-			return false;
-		}
+        if (player.getItemInHand() == null) {
+            return false;
+        }
 
-		if (!(action.equals(Action.LEFT_CLICK_AIR) || action
-				.equals(Action.LEFT_CLICK_BLOCK))) {
-			return false;
-		}
+        if (!(action.equals(Action.LEFT_CLICK_AIR) || action
+                .equals(Action.LEFT_CLICK_BLOCK))) {
+            return false;
+        }
 
-		if (itemMaterial.toString().equalsIgnoreCase(
-				SNConfigHandler.demonMaterial)) {
-			cancelled = fireball(player);
-			if (!event.isCancelled() && cancelled) {
-				event.setCancelled(true);
-			}
-			return true;
-		} else if (itemMaterial.toString().equalsIgnoreCase(
-				SNConfigHandler.demonSnareMaterial)) {
-			Player target = SupernaturalsPlugin.instance.getSuperManager()
-					.getTarget(player);
-			cancelled = snare(player, target);
-			if (!event.isCancelled() && cancelled) {
-				event.setCancelled(true);
-			}
-			return true;
-		}
-		return false;
-	}
+        if (itemMaterial.toString().equalsIgnoreCase(
+                SNConfigHandler.demonMaterial)) {
+            cancelled = fireball(player);
+            if (!event.isCancelled() && cancelled) {
+                event.setCancelled(true);
+            }
+            return true;
+        } else if (itemMaterial.toString().equalsIgnoreCase(
+                SNConfigHandler.demonSnareMaterial)) {
+            Player target = SupernaturalsPlugin.instance.getSuperManager()
+                    .getTarget(player);
+            cancelled = snare(player, target);
+            if (!event.isCancelled() && cancelled) {
+                event.setCancelled(true);
+            }
+            return true;
+        }
+        return false;
+    }
 
-	// -------------------------------------------- //
-	// Armor //
-	// -------------------------------------------- //
+    // -------------------------------------------- //
+    // Armor //
+    // -------------------------------------------- //
 
-	@Override
-	public void armorCheck(Player player) {
-		if (!player.hasPermission("supernatural.player.ignorearmor")) {
-			PlayerInventory inv = player.getInventory();
-			ItemStack helmet = inv.getHelmet();
-			ItemStack chest = inv.getChestplate();
-			ItemStack leggings = inv.getLeggings();
-			ItemStack boots = inv.getBoots();
+    @Override
+    public void armorCheck(Player player) {
+        if (!player.hasPermission("supernatural.player.ignorearmor")) {
+            PlayerInventory inv = player.getInventory();
+            ItemStack helmet = inv.getHelmet();
+            ItemStack chest = inv.getChestplate();
+            ItemStack leggings = inv.getLeggings();
+            ItemStack boots = inv.getBoots();
 
-			if (helmet != null) {
-				if (!SNConfigHandler.demonArmor.contains(helmet.getType())
-						&& !helmet.getType().equals(Material.WOOL)) {
-					inv.setHelmet(null);
-					dropItem(player, helmet);
-				}
-			}
-			if (chest != null) {
-				if (!SNConfigHandler.demonArmor.contains(chest.getType())) {
-					inv.setChestplate(null);
-					dropItem(player, chest);
-				}
-			}
-			if (leggings != null) {
-				if (!SNConfigHandler.demonArmor.contains(leggings.getType())) {
-					inv.setLeggings(null);
-					dropItem(player, leggings);
-				}
-			}
-			if (boots != null) {
-				if (!SNConfigHandler.demonArmor.contains(boots.getType())) {
-					inv.setBoots(null);
-					dropItem(player, boots);
-				}
-			}
-		}
-	}
+            if (helmet != null) {
+                if (!SNConfigHandler.demonArmor.contains(helmet.getType())
+                        && !helmet.getType().equals(Material.WOOL)) {
+                    inv.setHelmet(null);
+                    dropItem(player, helmet);
+                }
+            }
+            if (chest != null) {
+                if (!SNConfigHandler.demonArmor.contains(chest.getType())) {
+                    inv.setChestplate(null);
+                    dropItem(player, chest);
+                }
+            }
+            if (leggings != null) {
+                if (!SNConfigHandler.demonArmor.contains(leggings.getType())) {
+                    inv.setLeggings(null);
+                    dropItem(player, leggings);
+                }
+            }
+            if (boots != null) {
+                if (!SNConfigHandler.demonArmor.contains(boots.getType())) {
+                    inv.setBoots(null);
+                    dropItem(player, boots);
+                }
+            }
+        }
+    }
 
-	// -------------------------------------------- //
-	// Demon Applications //
-	// -------------------------------------------- //
+    // -------------------------------------------- //
+    // Demon Applications //
+    // -------------------------------------------- //
 
-	public boolean checkInventory(Player player) {
-		PlayerInventory inv = player.getInventory();
-		ItemStack helmet = inv.getHelmet();
-		ItemStack chestplate = inv.getChestplate();
-		ItemStack leggings = inv.getLeggings();
-		ItemStack boots = inv.getBoots();
-		if (helmet != null && chestplate != null && leggings != null
-				&& boots != null) {
-			if (helmet.getType().equals(Material.LEATHER_HELMET)
-					&& chestplate.getType().equals(Material.LEATHER_CHESTPLATE)
-					&& leggings.getType().equals(Material.LEATHER_LEGGINGS)
-					&& boots.getType().equals(Material.LEATHER_BOOTS)) {
-				demonApps.add(player);
-				return true;
-			}
-		}
-		return false;
-	}
+    public boolean checkInventory(Player player) {
+        PlayerInventory inv = player.getInventory();
+        ItemStack helmet = inv.getHelmet();
+        ItemStack chestplate = inv.getChestplate();
+        ItemStack leggings = inv.getLeggings();
+        ItemStack boots = inv.getBoots();
+        if (helmet != null && chestplate != null && leggings != null
+                && boots != null) {
+            if (helmet.getType().equals(Material.LEATHER_HELMET)
+                    && chestplate.getType().equals(Material.LEATHER_CHESTPLATE)
+                    && leggings.getType().equals(Material.LEATHER_LEGGINGS)
+                    && boots.getType().equals(Material.LEATHER_BOOTS)) {
+                demonApps.add(player);
+                return true;
+            }
+        }
+        return false;
+    }
 
-	public boolean checkPlayerApp(Player player) {
-		if (demonApps.contains(player)) {
-			demonApps.remove(player);
-			return true;
-		}
-		return false;
-	}
+    public boolean checkPlayerApp(Player player) {
+        if (demonApps.contains(player)) {
+            demonApps.remove(player);
+            return true;
+        }
+        return false;
+    }
 
-	// -------------------------------------------- //
-	// WebMap //
-	// -------------------------------------------- //
+    // -------------------------------------------- //
+    // WebMap //
+    // -------------------------------------------- //
 
-	public HashMap<Block, Location> getWebs() {
-		return webMap;
-	}
+    public HashMap<Block, Location> getWebs() {
+        return webMap;
+    }
 
-	public void removeWeb(Block block) {
-		webMap.remove(block);
-	}
+    public void removeWeb(Block block) {
+        webMap.remove(block);
+    }
 
-	public void removeAllWebs() {
-		for (Block block : webMap.keySet()) {
-			block.setType(Material.AIR);
-		}
-	}
+    public void removeAllWebs() {
+        for (Block block : webMap.keySet()) {
+            block.setType(Material.AIR);
+        }
+    }
 
-	// -------------------------------------------- //
-	// Power Loss //
-	// -------------------------------------------- //
+    // -------------------------------------------- //
+    // Power Loss //
+    // -------------------------------------------- //
 
-	public void powerAdvanceTime(Player player, int seconds) {
-		if (!player.getWorld().getEnvironment().equals(Environment.NETHER)) {
-			if (player.getLocation().getBlock().getType().equals(Material.FIRE)
-					|| player.getLocation().getBlock().getType()
-							.equals(Material.LAVA)) {
-				return;
-			}
-			SuperNPlayer snplayer = SuperNManager.get(player);
-			SuperNManager.alterPower(snplayer,
-					-(SNConfigHandler.demonPowerLoss * seconds));
-		}
-	}
+    public void powerAdvanceTime(Player player, int seconds) {
+        if (!player.getWorld().getEnvironment().equals(Environment.NETHER)) {
+            if (player.getLocation().getBlock().getType().equals(Material.FIRE)
+                    || player.getLocation().getBlock().getType()
+                            .equals(Material.LAVA)) {
+                return;
+            }
+            SuperNPlayer snplayer = SuperNManager.get(player);
+            SuperNManager.alterPower(snplayer,
+                    -(SNConfigHandler.demonPowerLoss * seconds));
+        }
+    }
 
-	// -------------------------------------------- //
-	// Healing //
-	// -------------------------------------------- //
+    // -------------------------------------------- //
+    // Healing //
+    // -------------------------------------------- //
 
-	public void heal(Player player) {
-		if (player.isDead() || player.getHealth() == 20) {
-			return;
-		}
+    public void heal(Player player) {
+        if (player.isDead() || player.getHealth() == 20) {
+            return;
+        }
 
-		double health = player.getHealth();
-		health += SNConfigHandler.demonHealing;
-		if (health > player.getMaxHealth()) {
-			health = player.getMaxHealth();
-		}
-		player.setHealth(health);
-	}
+        double health = player.getHealth();
+        health += SNConfigHandler.demonHealing;
+        if (health > player.getMaxHealth()) {
+            health = player.getMaxHealth();
+        }
+        player.setHealth(health);
+    }
 
-	// -------------------------------------------- //
-	// Spells //
-	// -------------------------------------------- //
+    // -------------------------------------------- //
+    // Spells //
+    // -------------------------------------------- //
 
-	@Override
-	public void spellEvent(EntityDamageByEntityEvent event, Player target) {
-		Player player = (Player) event.getDamager();
-		Material itemMaterial = player.getItemInHand().getType();
+    @Override
+    public void spellEvent(EntityDamageByEntityEvent event, Player target) {
+        Player player = (Player) event.getDamager();
+        Material itemMaterial = player.getItemInHand().getType();
 
-		boolean cancelled = false;
+        boolean cancelled = false;
 
-		if (player.getItemInHand() == null) {
-			return;
-		}
+        if (player.getItemInHand() == null) {
+            return;
+        }
 
-		if (itemMaterial.equals(Material.NETHERRACK)) {
-			cancelled = convert(player, target);
-			if (!event.isCancelled()) {
-				event.setCancelled(cancelled);
-			}
-		}
-	}
+        if (itemMaterial.equals(Material.NETHERRACK)) {
+            cancelled = convert(player, target);
+            if (!event.isCancelled()) {
+                event.setCancelled(cancelled);
+            }
+        }
+    }
 
-	public boolean fireball(Player player) {
-		SuperNPlayer snplayer = SuperNManager.get(player);
-		if (!SupernaturalsPlugin.instance.getPvP(player)) {
-			SuperNManager.sendMessage(snplayer,
-					"你無法在禁止戰鬥的地方施展火球術(Fireball)");
-			return false;
-		}
-		if (snplayer.getPower() < SNConfigHandler.demonPowerFireball) {
-			SuperNManager.sendMessage(snplayer,
-					"沒有足夠的能量施展火球術(Fireball)!");
-			return false;
-		}
-		Location loc = player
-				.getEyeLocation()
-				.toVector()
-				.add(player.getLocation().getDirection().multiply(2))
-				.toLocation(player.getWorld(), player.getLocation().getYaw(),
-						player.getLocation().getPitch());
-		Fireball fireball = player.getWorld().spawn(loc, Fireball.class);
-		fireball.setShooter(player);
-		fireball.setYield(0);
-		SuperNManager.alterPower(SuperNManager.get(player),
-				-SNConfigHandler.demonPowerFireball, "火球術(Fireball)!");
-		ItemStack item = player.getItemInHand();
-		if (item.getAmount() == 1) {
-			player.setItemInHand(null);
-		} else {
-			item.setAmount(player.getItemInHand().getAmount() - 1);
-		}
-		return true;
-	}
+    public boolean fireball(Player player) {
+        SuperNPlayer snplayer = SuperNManager.get(player);
+        if (!SupernaturalsPlugin.instance.getPvP(player)) {
+            SuperNManager.sendMessage(snplayer, "你無法在禁止戰鬥的地方施展火球術(Fireball)");
+            return false;
+        }
+        if (snplayer.getPower() < SNConfigHandler.demonPowerFireball) {
+            SuperNManager.sendMessage(snplayer, "沒有足夠的能量施展火球術(Fireball)!");
+            return false;
+        }
+        Location loc = player
+                .getEyeLocation()
+                .toVector()
+                .add(player.getLocation().getDirection().multiply(2))
+                .toLocation(player.getWorld(), player.getLocation().getYaw(),
+                        player.getLocation().getPitch());
+        Fireball fireball = player.getWorld().spawn(loc, Fireball.class);
+        fireball.setShooter(player);
+        fireball.setYield(0);
+        SuperNManager.alterPower(SuperNManager.get(player),
+                -SNConfigHandler.demonPowerFireball, "火球術(Fireball)!");
+        ItemStack item = player.getItemInHand();
+        if (item.getAmount() == 1) {
+            player.setItemInHand(null);
+        } else {
+            item.setAmount(player.getItemInHand().getAmount() - 1);
+        }
+        return true;
+    }
 
-	public boolean convert(Player player, Player target) {
-		SuperNPlayer snplayer = SuperNManager.get(player);
-		SuperNPlayer snvictim = SuperNManager.get(target);
-		if (snplayer.getPower() < SNConfigHandler.demonConvertPower) {
-			SuperNManager.sendMessage(snplayer, "沒有足夠的能量轉換!");
-			return false;
-		}
-		if (target.getItemInHand().getType().equals(Material.NETHERRACK)) {
-			SuperNManager.alterPower(snplayer,
-					-SNConfigHandler.demonConvertPower,
-					"轉換了" + target.getName());
-			SuperNManager.convert(snvictim, "demon");
-			SuperNManager.sendMessage(snvictim, ChatColor.RED
-					+ "熱量在你的體內開始累積...");
-			SuperNManager.sendMessage(snvictim,
-					ChatColor.RED + "你被 " + player.getName() + " 轉換為惡魔(Demon)");
-			return true;
-		}
-		return false;
-	}
+    public boolean convert(Player player, Player target) {
+        SuperNPlayer snplayer = SuperNManager.get(player);
+        SuperNPlayer snvictim = SuperNManager.get(target);
+        if (snplayer.getPower() < SNConfigHandler.demonConvertPower) {
+            SuperNManager.sendMessage(snplayer, "沒有足夠的能量轉換!");
+            return false;
+        }
+        if (target.getItemInHand().getType().equals(Material.NETHERRACK)) {
+            SuperNManager.alterPower(snplayer,
+                    -SNConfigHandler.demonConvertPower,
+                    "轉換了" + target.getName());
+            SuperNManager.convert(snvictim, "demon");
+            SuperNManager.sendMessage(snvictim, ChatColor.RED
+                    + "熱量在你的體內開始累積...");
+            SuperNManager.sendMessage(snvictim,
+                    ChatColor.RED + "你被 " + player.getName() + " 轉換為惡魔(Demon)");
+            return true;
+        }
+        return false;
+    }
 
-	public boolean snare(Player player, Player target) {
-		SuperNPlayer snplayer = SuperNManager.get(player);
-		if (snplayer.getPower() < SNConfigHandler.demonPowerSnare) {
-			SuperNManager.sendMessage(snplayer,
-					"沒有足夠的能量施展牢籠(Snare)!");
-			return false;
-		}
-		Block block;
+    public boolean snare(Player player, Player target) {
+        SuperNPlayer snplayer = SuperNManager.get(player);
+        if (snplayer.getPower() < SNConfigHandler.demonPowerSnare) {
+            SuperNManager.sendMessage(snplayer, "沒有足夠的能量施展牢籠(Snare)!");
+            return false;
+        }
+        Block block;
 
-		if (target == null) {
-			block = player.getTargetBlock(null, 20);
-		} else {
-			block = target.getLocation().getBlock();
-		}
+        if (target == null) {
+            block = player.getTargetBlock(null, 20);
+        } else {
+            block = target.getLocation().getBlock();
+        }
 
-		final Location loc = block.getLocation();
+        final Location loc = block.getLocation();
 
-		for (int x = loc.getBlockX() - 1; x < loc.getBlockX() + 2; x++) {
-			for (int y = loc.getBlockY() - 1; y < loc.getBlockY() + 2; y++) {
-				for (int z = loc.getBlockZ() - 1; z < loc.getBlockZ() + 2; z++) {
-					Location newLoc = new Location(block.getWorld(), x, y, z);
-					Block newBlock = newLoc.getBlock();
-					if (newBlock.getTypeId() == 0) {
-						newBlock.setType(Material.WEB);
-						webMap.put(newBlock, loc);
-					}
-				}
-			}
-		}
+        for (int x = loc.getBlockX() - 1; x < loc.getBlockX() + 2; x++) {
+            for (int y = loc.getBlockY() - 1; y < loc.getBlockY() + 2; y++) {
+                for (int z = loc.getBlockZ() - 1; z < loc.getBlockZ() + 2; z++) {
+                    Location newLoc = new Location(block.getWorld(), x, y, z);
+                    Block newBlock = newLoc.getBlock();
+                    if (newBlock.getTypeId() == 0) {
+                        newBlock.setType(Material.WEB);
+                        webMap.put(newBlock, loc);
+                    }
+                }
+            }
+        }
 
-		SupernaturalsPlugin.instance
-				.getServer()
-				.getScheduler()
-				.scheduleSyncDelayedTask(SupernaturalsPlugin.instance,
-						new Runnable() {
-							@Override
-							public void run() {
-								List<Block> blocks = new ArrayList<Block>();
-								for (Block block : webMap.keySet()) {
-									if (webMap.get(block).equals(loc)) {
-										block.setType(Material.AIR);
-										blocks.add(block);
-									}
-								}
-								for (Block block : blocks) {
-									webMap.remove(block);
-								}
-							}
-						}, SNConfigHandler.demonSnareDuration / 50);
+        SupernaturalsPlugin.instance
+                .getServer()
+                .getScheduler()
+                .scheduleSyncDelayedTask(SupernaturalsPlugin.instance,
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                List<Block> blocks = new ArrayList<Block>();
+                                for (Block block : webMap.keySet()) {
+                                    if (webMap.get(block).equals(loc)) {
+                                        block.setType(Material.AIR);
+                                        blocks.add(block);
+                                    }
+                                }
+                                for (Block block : blocks) {
+                                    webMap.remove(block);
+                                }
+                            }
+                        }, SNConfigHandler.demonSnareDuration / 50);
 
-		ItemStack item = player.getItemInHand();
-		if (item.getAmount() == 1) {
-			player.setItemInHand(null);
-		} else {
-			item.setAmount(player.getItemInHand().getAmount() - 1);
-		}
+        ItemStack item = player.getItemInHand();
+        if (item.getAmount() == 1) {
+            player.setItemInHand(null);
+        } else {
+            item.setAmount(player.getItemInHand().getAmount() - 1);
+        }
 
-		SuperNManager.alterPower(SuperNManager.get(player),
-				-SNConfigHandler.demonPowerSnare, "牢籠(Snare)!");
-		return true;
-	}
+        SuperNManager.alterPower(SuperNManager.get(player),
+                -SNConfigHandler.demonPowerSnare, "牢籠(Snare)!");
+        return true;
+    }
 
-	private void addDoorLocation(Location location) {
-		if (!hallDoors.contains(location)) {
-			hallDoors.add(location);
-		}
-	}
+    private void addDoorLocation(Location location) {
+        if (!hallDoors.contains(location)) {
+            hallDoors.add(location);
+        }
+    }
 
-	private void removeDoorLocation(Location location) {
-		hallDoors.remove(location);
-	}
+    private void removeDoorLocation(Location location) {
+        hallDoors.remove(location);
+    }
 
-	public boolean doorIsOpening(Location location) {
-		if (hallDoors.contains(location)) {
-			return true;
-		}
-		return false;
-	}
+    public boolean doorIsOpening(Location location) {
+        if (hallDoors.contains(location)) {
+            return true;
+        }
+        return false;
+    }
 
-	public boolean doorEvent(Player player, Block block, Door door) {
-		if (door.isOpen()) {
-			return true;
-		}
+    public boolean doorEvent(Player player, Block block, Door door) {
+        if (door.isOpen()) {
+            return true;
+        }
 
-		SuperNPlayer snplayer = SuperNManager.get(player);
+        SuperNPlayer snplayer = SuperNManager.get(player);
 
-		final Location loc = block.getLocation();
-		Location newLoc;
-		Block newBlock;
+        final Location loc = block.getLocation();
+        Location newLoc;
+        Block newBlock;
 
-		if (snplayer.isDemon()) {
-			if (door.isTopHalf()) {
-				newLoc = new Location(loc.getWorld(), loc.getBlockX(),
-						loc.getBlockY() - 1, loc.getBlockZ());
-				newBlock = newLoc.getBlock();
-				block.setTypeIdAndData(71, (byte) (block.getData() + 4), false);
-				newBlock.setTypeIdAndData(71, (byte) (newBlock.getData() + 4),
-						false);
-			} else {
-				newLoc = new Location(loc.getWorld(), loc.getBlockX(),
-						loc.getBlockY() + 1, loc.getBlockZ());
-				newBlock = newLoc.getBlock();
-				block.setTypeIdAndData(71, (byte) (block.getData() + 4), false);
-				newBlock.setTypeIdAndData(71, (byte) (newBlock.getData() + 4),
-						false);
-			}
+        if (snplayer.isDemon()) {
+            if (door.isTopHalf()) {
+                newLoc = new Location(loc.getWorld(), loc.getBlockX(),
+                        loc.getBlockY() - 1, loc.getBlockZ());
+                newBlock = newLoc.getBlock();
+                block.setTypeIdAndData(71, (byte) (block.getData() + 4), false);
+                newBlock.setTypeIdAndData(71, (byte) (newBlock.getData() + 4),
+                        false);
+            } else {
+                newLoc = new Location(loc.getWorld(), loc.getBlockX(),
+                        loc.getBlockY() + 1, loc.getBlockZ());
+                newBlock = newLoc.getBlock();
+                block.setTypeIdAndData(71, (byte) (block.getData() + 4), false);
+                newBlock.setTypeIdAndData(71, (byte) (newBlock.getData() + 4),
+                        false);
+            }
 
-			addDoorLocation(loc);
-			addDoorLocation(newLoc);
+            addDoorLocation(loc);
+            addDoorLocation(newLoc);
 
-			SupernaturalsPlugin.instance
-					.getServer()
-					.getScheduler()
-					.scheduleSyncDelayedTask(SupernaturalsPlugin.instance,
-							new Runnable() {
-								@Override
-								public void run() {
-									closeDoor(loc);
-								}
-							}, 20);
-			return true;
-		}
-		SuperNManager.sendMessage(snplayer, "惡魔(Demons)專用!");
-		return true;
-	}
+            SupernaturalsPlugin.instance
+                    .getServer()
+                    .getScheduler()
+                    .scheduleSyncDelayedTask(SupernaturalsPlugin.instance,
+                            new Runnable() {
+                                @Override
+                                public void run() {
+                                    closeDoor(loc);
+                                }
+                            }, 20);
+            return true;
+        }
+        SuperNManager.sendMessage(snplayer, "惡魔(Demons)專用!");
+        return true;
+    }
 
-	private void closeDoor(Location loc) {
-		Block block = loc.getBlock();
-		Door door = (Door) block.getState().getData();
-		if (!door.isOpen()) {
-			return;
-		}
+    private void closeDoor(Location loc) {
+        Block block = loc.getBlock();
+        Door door = (Door) block.getState().getData();
+        if (!door.isOpen()) {
+            return;
+        }
 
-		Location newLoc;
-		Block newBlock;
+        Location newLoc;
+        Block newBlock;
 
-		if (door.isTopHalf()) {
-			newLoc = new Location(loc.getWorld(), loc.getBlockX(),
-					loc.getBlockY() - 1, loc.getBlockZ());
-			newBlock = newLoc.getBlock();
-			block.setTypeIdAndData(71, (byte) (block.getData() - 4), false);
-			newBlock.setTypeIdAndData(71, (byte) (newBlock.getData() - 4),
-					false);
-		} else {
-			newLoc = new Location(loc.getWorld(), loc.getBlockX(),
-					loc.getBlockY() + 1, loc.getBlockZ());
-			newBlock = newLoc.getBlock();
-			block.setTypeIdAndData(71, (byte) (block.getData() - 4), false);
-			newBlock.setTypeIdAndData(71, (byte) (newBlock.getData() - 4),
-					false);
-		}
+        if (door.isTopHalf()) {
+            newLoc = new Location(loc.getWorld(), loc.getBlockX(),
+                    loc.getBlockY() - 1, loc.getBlockZ());
+            newBlock = newLoc.getBlock();
+            block.setTypeIdAndData(71, (byte) (block.getData() - 4), false);
+            newBlock.setTypeIdAndData(71, (byte) (newBlock.getData() - 4),
+                    false);
+        } else {
+            newLoc = new Location(loc.getWorld(), loc.getBlockX(),
+                    loc.getBlockY() + 1, loc.getBlockZ());
+            newBlock = newLoc.getBlock();
+            block.setTypeIdAndData(71, (byte) (block.getData() - 4), false);
+            newBlock.setTypeIdAndData(71, (byte) (newBlock.getData() - 4),
+                    false);
+        }
 
-		removeDoorLocation(loc);
-		removeDoorLocation(newLoc);
-	}
+        removeDoorLocation(loc);
+        removeDoorLocation(newLoc);
+    }
 
 }

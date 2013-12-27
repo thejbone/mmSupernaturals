@@ -19,7 +19,6 @@
 
 package com.mmiillkkaa.supernaturals.commands;
 
-
 import org.bukkit.entity.Player;
 
 import com.mmiillkkaa.supernaturals.SupernaturalsPlugin;
@@ -27,34 +26,34 @@ import com.mmiillkkaa.supernaturals.io.SNConfigHandler;
 
 public class SNCommandSave extends SNCommandReload {
 
-	public SNCommandSave() {
-		senderMustBePlayer = false;
-		permissions = "supernatural.admin.command.save";
-		helpNameAndParams = "";
-		helpDescription = "儲存資料到硬碟.";
-	}
+    public SNCommandSave() {
+        senderMustBePlayer = false;
+        permissions = "supernatural.admin.command.save";
+        helpNameAndParams = "";
+        helpDescription = "儲存資料到硬碟.";
+    }
 
-	@Override
-	public void perform() {
-		if (!(sender instanceof Player)) {
-			SupernaturalsPlugin.saveAll();
-			this.sendMessage("所有的設定檔/玩家資料已儲存!");
-		}
-		Player senderPlayer = (Player) sender;
-		if (!SNConfigHandler.spanish) {
-			if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
-				this.sendMessage("你沒有權限使用這個指令.");
-				return;
-			}
-			SupernaturalsPlugin.saveAll();
-			this.sendMessage("所有的設定檔/玩家資料已儲存!");
-		} else {
-			if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
-				this.sendMessage("No tienes permiso para este comando.");
-				return;
-			}
-			SupernaturalsPlugin.saveAll();
-			this.sendMessage("Los datos y configuraciones han sido guardados!");
-		}
-	}
+    @Override
+    public void perform() {
+        if (!(sender instanceof Player)) {
+            SupernaturalsPlugin.saveAll();
+            this.sendMessage("所有的設定檔/玩家資料已儲存!");
+        }
+        Player senderPlayer = (Player) sender;
+        if (!SNConfigHandler.spanish) {
+            if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
+                this.sendMessage("你沒有權限使用這個指令.");
+                return;
+            }
+            SupernaturalsPlugin.saveAll();
+            this.sendMessage("所有的設定檔/玩家資料已儲存!");
+        } else {
+            if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
+                this.sendMessage("No tienes permiso para este comando.");
+                return;
+            }
+            SupernaturalsPlugin.saveAll();
+            this.sendMessage("Los datos y configuraciones han sido guardados!");
+        }
+    }
 }

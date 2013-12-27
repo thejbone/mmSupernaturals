@@ -26,249 +26,241 @@ import com.mmiillkkaa.supernaturals.io.SNConfigHandler;
 
 public class AngelManager extends ClassManager {
 
-	public AngelManager() {
-		super();
-	}
+    public AngelManager() {
+        super();
+    }
 
-	public HashMap<Wolf, SuperNPlayer> angelWolfMap = new HashMap<Wolf, SuperNPlayer>();
+    public HashMap<Wolf, SuperNPlayer> angelWolfMap = new HashMap<Wolf, SuperNPlayer>();
 
-	@Override
-	public void deathEvent(Player player) {
-		SuperNPlayer snplayer = SuperNManager.get(player);
-		if (player.getLastDamageCause().getCause().equals(DamageCause.LAVA)
-				|| player.getLastDamageCause().getCause()
-						.equals(DamageCause.FIRE)
-				|| player.getLastDamageCause().getCause()
-						.equals(DamageCause.FIRE_TICK)) {
-			SuperNManager.sendMessage(snplayer,
-					"岩漿去除了你的神聖力量!");
-			SuperNManager.cure(snplayer);
-		}
-	}
+    @Override
+    public void deathEvent(Player player) {
+        SuperNPlayer snplayer = SuperNManager.get(player);
+        if (player.getLastDamageCause().getCause().equals(DamageCause.LAVA)
+                || player.getLastDamageCause().getCause()
+                        .equals(DamageCause.FIRE)
+                || player.getLastDamageCause().getCause()
+                        .equals(DamageCause.FIRE_TICK)) {
+            SuperNManager.sendMessage(snplayer, "岩漿去除了你的神聖力量!");
+            SuperNManager.cure(snplayer);
+        }
+    }
 
-	@Override
-	public double damagerEvent(EntityDamageByEntityEvent event, double damage) {
-		Player player = (Player) event.getDamager();
-		SuperNPlayer snplayer = SuperNManager.get(player);
-		if (event.getEntity() instanceof Animals) {
-			if (player.getItemInHand().getType().equals(Material.DIAMOND_SWORD)) {
-				SuperNManager.sendMessage(snplayer,
-						"天使(Angels)無法用鑽石劍揮砍動物!");
-				event.setCancelled(true);
-				return 0;
-			}
-		}
-		if (SNConfigHandler.angelWeapons.contains(player.getItemInHand())) {
-			SuperNManager.sendMessage(snplayer,
-					"天使(Angels)無法使用這個武器!");
-			event.setCancelled(true);
-			return 0;
-		}
-		return damage;
-	}
+    @Override
+    public double damagerEvent(EntityDamageByEntityEvent event, double damage) {
+        Player player = (Player) event.getDamager();
+        SuperNPlayer snplayer = SuperNManager.get(player);
+        if (event.getEntity() instanceof Animals) {
+            if (player.getItemInHand().getType().equals(Material.DIAMOND_SWORD)) {
+                SuperNManager.sendMessage(snplayer, "天使(Angels)無法用鑽石劍揮砍動物!");
+                event.setCancelled(true);
+                return 0;
+            }
+        }
+        if (SNConfigHandler.angelWeapons.contains(player.getItemInHand())) {
+            SuperNManager.sendMessage(snplayer, "天使(Angels)無法使用這個武器!");
+            event.setCancelled(true);
+            return 0;
+        }
+        return damage;
+    }
 
-	@Override
-	public void spellEvent(EntityDamageByEntityEvent event, Player target) {
-		Player player = (Player) event.getDamager();
-		SuperNPlayer snplayer = SuperNManager.get(player);
-		SuperNPlayer sntarget = SuperNManager.get(target);
-		if (player.getItemInHand().getType().toString()
-				.equals(SNConfigHandler.angelHealMaterial)) {
-			if (snplayer.getPower() > SNConfigHandler.angelHealPowerCost) {
-				if (!(target.getHealth() + SNConfigHandler.angelHealHealthGain > target
-						.getMaxHealth())) {
-					target.setHealth(target.getHealth()
-							+ SNConfigHandler.angelHealHealthGain);
-				} else {
-					target.setHealth(target.getMaxHealth());
-				}
-				SuperNManager.alterPower(snplayer,
-						-SNConfigHandler.angelHealPowerCost, "治療 "
-								+ target.getName());
-				target.sendMessage(ChatColor.RED + player.getName() + "治療了你");
-			} else {
-				SuperNManager
-						.sendMessage(snplayer, "沒有足夠的能來施展治療術(Heal)!");
-			}
-		}
-		if (player.getItemInHand().getType().toString()
-				.equals(SNConfigHandler.angelCureMaterial)) {
-			if (snplayer.getPower() > SNConfigHandler.angelCurePowerCost) {
-				if (sntarget.isSuper()) {
-					SuperNManager.cure(sntarget);
-					target.sendMessage(ChatColor.RED + player.getName() + "治癒了你");
-					SuperNManager.alterPower(snplayer,
-							-SNConfigHandler.angelCurePowerCost, "治癒 "
-									+ target.getName());
-				} else {
-					SuperNManager.sendMessage(snplayer,
-							"這個玩家不是超自然生物!");
-				}
-			} else {
-				SuperNManager.sendMessage(snplayer, "能量不足!");
-			}
-		}
-	}
+    @Override
+    public void spellEvent(EntityDamageByEntityEvent event, Player target) {
+        Player player = (Player) event.getDamager();
+        SuperNPlayer snplayer = SuperNManager.get(player);
+        SuperNPlayer sntarget = SuperNManager.get(target);
+        if (player.getItemInHand().getType().toString()
+                .equals(SNConfigHandler.angelHealMaterial)) {
+            if (snplayer.getPower() > SNConfigHandler.angelHealPowerCost) {
+                if (!(target.getHealth() + SNConfigHandler.angelHealHealthGain > target
+                        .getMaxHealth())) {
+                    target.setHealth(target.getHealth()
+                            + SNConfigHandler.angelHealHealthGain);
+                } else {
+                    target.setHealth(target.getMaxHealth());
+                }
+                SuperNManager.alterPower(snplayer,
+                        -SNConfigHandler.angelHealPowerCost,
+                        "治療 " + target.getName());
+                target.sendMessage(ChatColor.RED + player.getName() + "治療了你");
+            } else {
+                SuperNManager.sendMessage(snplayer, "沒有足夠的能來施展治療術(Heal)!");
+            }
+        }
+        if (player.getItemInHand().getType().toString()
+                .equals(SNConfigHandler.angelCureMaterial)) {
+            if (snplayer.getPower() > SNConfigHandler.angelCurePowerCost) {
+                if (sntarget.isSuper()) {
+                    SuperNManager.cure(sntarget);
+                    target.sendMessage(ChatColor.RED + player.getName()
+                            + "治癒了你");
+                    SuperNManager.alterPower(snplayer,
+                            -SNConfigHandler.angelCurePowerCost,
+                            "治癒 " + target.getName());
+                } else {
+                    SuperNManager.sendMessage(snplayer, "這個玩家不是超自然生物!");
+                }
+            } else {
+                SuperNManager.sendMessage(snplayer, "能量不足!");
+            }
+        }
+    }
 
-	@Override
-	public boolean playerInteract(PlayerInteractEvent event) {
-		Player player = event.getPlayer();
-		Action action = event.getAction();
-		Material itemInHandMaterial = player.getItemInHand().getType();
-		SuperNPlayer snplayer = SuperNManager.get(player);
-		if (action.equals(Action.LEFT_CLICK_AIR)
-				|| action.equals(Action.LEFT_CLICK_BLOCK)) {
-			if (itemInHandMaterial.toString().equals(
-					SNConfigHandler.angelJumpMaterial)) {
-				if (snplayer.getPower() > SNConfigHandler.angelJumpPowerCost) {
-					jump(player, SNConfigHandler.angelJumpDeltaSpeed);
-				} else {
-					SuperNManager.sendMessage(snplayer,
-							"沒有足夠的能量來作跳躍!");
-				}
-			}
-			Block targetBlock = player.getTargetBlock(null, 20);
-			Location targetBlockLocation = targetBlock.getLocation();
-			Location plusOne = new Location(targetBlockLocation.getWorld(),
-					targetBlockLocation.getBlockX(),
-					targetBlockLocation.getBlockY() + 1,
-					targetBlockLocation.getBlockZ());
-			if (itemInHandMaterial.equals(Material.RAW_BEEF)
-					|| itemInHandMaterial.equals(Material.BONE)
-					|| itemInHandMaterial.equals(Material.PORK)) {
-				if (snplayer.getPower() > SNConfigHandler.angelSummonPowerCost) {
-					if (itemInHandMaterial.toString().equals(
-							SNConfigHandler.angelSummonCowMaterial)) {
-						player.getWorld().spawnEntity(plusOne, EntityType.COW);
-						event.setCancelled(true);
-						SuperNManager.alterPower(snplayer,
-								-SNConfigHandler.angelSummonPowerCost,
-								"招換了牛.");
-						return true;
-					}
-					if (itemInHandMaterial.toString().equals(
-							SNConfigHandler.angelSummonWolfMaterial)) {
-						int wolves = 0;
-						for (Wolf wolf : angelWolfMap.keySet()) {
-							if (angelWolfMap.get(wolf).equals(snplayer)) {
-								wolves++;
-							}
-						}
-						if (wolves > 4) {
-							player.sendMessage(ChatColor.RED
-									+ "太多狼了, 空間不足! (招喚動作被中止!)");
-							return true;
-						}
-						Wolf spawnedWolf = (Wolf) player.getWorld()
-								.spawnEntity(plusOne, EntityType.WOLF);
-						spawnedWolf.setTamed(true);
-						spawnedWolf.setOwner(player);
-						spawnedWolf.setHealth(8);
-						event.setCancelled(true);
-						SuperNManager.alterPower(snplayer,
-								-SNConfigHandler.angelSummonPowerCost,
-								"招換了狼.");
-						return true;
-					}
-					if (itemInHandMaterial.toString().equals(
-							SNConfigHandler.angelSummonPigMaterial)) {
-						player.getWorld().spawnEntity(plusOne, EntityType.PIG);
-						event.setCancelled(true);
-						SuperNManager.alterPower(snplayer,
-								-SNConfigHandler.angelSummonPowerCost,
-								"招換了豬.");
-						return true;
-					}
-				}
-			}
-			return false;
-		}
-		return false;
-	}
+    @Override
+    public boolean playerInteract(PlayerInteractEvent event) {
+        Player player = event.getPlayer();
+        Action action = event.getAction();
+        Material itemInHandMaterial = player.getItemInHand().getType();
+        SuperNPlayer snplayer = SuperNManager.get(player);
+        if (action.equals(Action.LEFT_CLICK_AIR)
+                || action.equals(Action.LEFT_CLICK_BLOCK)) {
+            if (itemInHandMaterial.toString().equals(
+                    SNConfigHandler.angelJumpMaterial)) {
+                if (snplayer.getPower() > SNConfigHandler.angelJumpPowerCost) {
+                    jump(player, SNConfigHandler.angelJumpDeltaSpeed);
+                } else {
+                    SuperNManager.sendMessage(snplayer, "沒有足夠的能量來作跳躍!");
+                }
+            }
+            Block targetBlock = player.getTargetBlock(null, 20);
+            Location targetBlockLocation = targetBlock.getLocation();
+            Location plusOne = new Location(targetBlockLocation.getWorld(),
+                    targetBlockLocation.getBlockX(),
+                    targetBlockLocation.getBlockY() + 1,
+                    targetBlockLocation.getBlockZ());
+            if (itemInHandMaterial.equals(Material.RAW_BEEF)
+                    || itemInHandMaterial.equals(Material.BONE)
+                    || itemInHandMaterial.equals(Material.PORK)) {
+                if (snplayer.getPower() > SNConfigHandler.angelSummonPowerCost) {
+                    if (itemInHandMaterial.toString().equals(
+                            SNConfigHandler.angelSummonCowMaterial)) {
+                        player.getWorld().spawnEntity(plusOne, EntityType.COW);
+                        event.setCancelled(true);
+                        SuperNManager.alterPower(snplayer,
+                                -SNConfigHandler.angelSummonPowerCost, "招換了牛.");
+                        return true;
+                    }
+                    if (itemInHandMaterial.toString().equals(
+                            SNConfigHandler.angelSummonWolfMaterial)) {
+                        int wolves = 0;
+                        for (Wolf wolf : angelWolfMap.keySet()) {
+                            if (angelWolfMap.get(wolf).equals(snplayer)) {
+                                wolves++;
+                            }
+                        }
+                        if (wolves > 4) {
+                            player.sendMessage(ChatColor.RED
+                                    + "太多狼了, 空間不足! (招喚動作被中止!)");
+                            return true;
+                        }
+                        Wolf spawnedWolf = (Wolf) player.getWorld()
+                                .spawnEntity(plusOne, EntityType.WOLF);
+                        spawnedWolf.setTamed(true);
+                        spawnedWolf.setOwner(player);
+                        spawnedWolf.setHealth(8);
+                        event.setCancelled(true);
+                        SuperNManager.alterPower(snplayer,
+                                -SNConfigHandler.angelSummonPowerCost, "招換了狼.");
+                        return true;
+                    }
+                    if (itemInHandMaterial.toString().equals(
+                            SNConfigHandler.angelSummonPigMaterial)) {
+                        player.getWorld().spawnEntity(plusOne, EntityType.PIG);
+                        event.setCancelled(true);
+                        SuperNManager.alterPower(snplayer,
+                                -SNConfigHandler.angelSummonPowerCost, "招換了豬.");
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        return false;
+    }
 
-	@Override
-	public double victimEvent(EntityDamageEvent event, double damage) {
-		if (event.getCause().equals(DamageCause.FALL)) {
-			event.setCancelled(true);
-			return 0;
-		}
-		return damage;
-	}
+    @Override
+    public double victimEvent(EntityDamageEvent event, double damage) {
+        if (event.getCause().equals(DamageCause.FALL)) {
+            event.setCancelled(true);
+            return 0;
+        }
+        return damage;
+    }
 
-	public static boolean jump(Player player, double deltaSpeed) {
-		SuperNPlayer snplayer = SuperNManager.get(player);
+    public static boolean jump(Player player, double deltaSpeed) {
+        SuperNPlayer snplayer = SuperNManager.get(player);
 
-		if (snplayer.getPower() < SNConfigHandler.angelJumpPowerCost) {
-			SuperNManager.sendMessage(snplayer, "沒有足夠的能量來作跳躍.");
-			return false;
-		} else {
-			SuperNManager.alterPower(snplayer,
-					-SNConfigHandler.angelJumpPowerCost, "超級跳躍(SuperJump)!");
-		}
+        if (snplayer.getPower() < SNConfigHandler.angelJumpPowerCost) {
+            SuperNManager.sendMessage(snplayer, "沒有足夠的能量來作跳躍.");
+            return false;
+        } else {
+            SuperNManager.alterPower(snplayer,
+                    -SNConfigHandler.angelJumpPowerCost, "超級跳躍(SuperJump)!");
+        }
 
-		Vector vjadd;
-		vjadd = new Vector(0, 1, 0);
-		vjadd.multiply(deltaSpeed);
+        Vector vjadd;
+        vjadd = new Vector(0, 1, 0);
+        vjadd.multiply(deltaSpeed);
 
-		player.setVelocity(player.getVelocity().add(vjadd));
-		return true;
-	}
+        player.setVelocity(player.getVelocity().add(vjadd));
+        return true;
+    }
 
-	@Override
-	public void armorCheck(Player player) {
-		if (!player.hasPermission("supernatural.player.ignorearmor")) {
-			PlayerInventory inv = player.getInventory();
-			ItemStack helmet = inv.getHelmet();
-			ItemStack chest = inv.getChestplate();
-			ItemStack leggings = inv.getLeggings();
-			ItemStack boots = inv.getBoots();
+    @Override
+    public void armorCheck(Player player) {
+        if (!player.hasPermission("supernatural.player.ignorearmor")) {
+            PlayerInventory inv = player.getInventory();
+            ItemStack helmet = inv.getHelmet();
+            ItemStack chest = inv.getChestplate();
+            ItemStack leggings = inv.getLeggings();
+            ItemStack boots = inv.getBoots();
 
-			if (helmet != null) {
-				if (!SNConfigHandler.angelArmor.contains(helmet.getType())) {
-					inv.setHelmet(null);
-					dropItem(player, helmet);
-				}
-			}
-			if (chest != null) {
-				if (!SNConfigHandler.angelArmor.contains(chest.getType())) {
-					inv.setChestplate(null);
-					dropItem(player, chest);
-				}
-			}
-			if (leggings != null) {
-				if (!SNConfigHandler.angelArmor.contains(leggings.getType())) {
-					inv.setLeggings(null);
-					dropItem(player, leggings);
-				}
-			}
-			if (boots != null) {
-				if (!SNConfigHandler.angelArmor.contains(boots.getType())) {
-					inv.setBoots(null);
-					dropItem(player, boots);
-				}
-			}
-		}
-	}
+            if (helmet != null) {
+                if (!SNConfigHandler.angelArmor.contains(helmet.getType())) {
+                    inv.setHelmet(null);
+                    dropItem(player, helmet);
+                }
+            }
+            if (chest != null) {
+                if (!SNConfigHandler.angelArmor.contains(chest.getType())) {
+                    inv.setChestplate(null);
+                    dropItem(player, chest);
+                }
+            }
+            if (leggings != null) {
+                if (!SNConfigHandler.angelArmor.contains(leggings.getType())) {
+                    inv.setLeggings(null);
+                    dropItem(player, leggings);
+                }
+            }
+            if (boots != null) {
+                if (!SNConfigHandler.angelArmor.contains(boots.getType())) {
+                    inv.setBoots(null);
+                    dropItem(player, boots);
+                }
+            }
+        }
+    }
 
-	public void waterAdvanceTime(Player player) {
-		if (player.isDead()) {
-			return;
-		}
+    public void waterAdvanceTime(Player player) {
+        if (player.isDead()) {
+            return;
+        }
 
-		if (player.isInsideVehicle()) {
-			if (player.getVehicle() instanceof Boat) {
-				return;
-			}
-		}
+        if (player.isInsideVehicle()) {
+            if (player.getVehicle() instanceof Boat) {
+                return;
+            }
+        }
 
-		SuperNPlayer snplayer = SuperNManager.get(player);
+        SuperNPlayer snplayer = SuperNManager.get(player);
 
-		Material material = player.getLocation().getBlock().getType();
+        Material material = player.getLocation().getBlock().getType();
 
-		if (material == Material.STATIONARY_WATER || material == Material.WATER) {
-			SuperNManager.alterPower(snplayer,
-					SNConfigHandler.angelSwimPowerGain, "在水裡游泳");
-		}
-	}
+        if (material == Material.STATIONARY_WATER || material == Material.WATER) {
+            SuperNManager.alterPower(snplayer,
+                    SNConfigHandler.angelSwimPowerGain, "在水裡游泳");
+        }
+    }
 
 }

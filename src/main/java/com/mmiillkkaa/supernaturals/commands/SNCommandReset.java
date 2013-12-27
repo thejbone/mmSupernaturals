@@ -21,7 +21,6 @@ package com.mmiillkkaa.supernaturals.commands;
 
 import java.util.ArrayList;
 
-
 import org.bukkit.entity.Player;
 
 import com.mmiillkkaa.supernaturals.SuperNPlayer;
@@ -30,56 +29,57 @@ import com.mmiillkkaa.supernaturals.manager.SuperNManager;
 
 public class SNCommandReset extends SNCommand {
 
-	public SNCommandReset() {
-		requiredParameters = new ArrayList<String>();
-		optionalParameters = new ArrayList<String>();
-		senderMustBePlayer = false;
-		optionalParameters.add("playername");
-		permissions = "supernatural.admin.command.reset";
-		helpNameAndParams = "reset | reset [玩家名稱]";
-		helpDescription = "重置玩家的能量為零";
-	}
+    public SNCommandReset() {
+        requiredParameters = new ArrayList<String>();
+        optionalParameters = new ArrayList<String>();
+        senderMustBePlayer = false;
+        optionalParameters.add("playername");
+        permissions = "supernatural.admin.command.reset";
+        helpNameAndParams = "reset | reset [玩家名稱]";
+        helpDescription = "重置玩家的能量為零";
+    }
 
-	@Override
-	public void perform() {
-		if (!(sender instanceof Player)) {
-			if (parameters.isEmpty()) {
-				this.sendMessage("缺乏玩家名稱!");
-			} else {
-				String playername = parameters.get(0);
-				Player player = SupernaturalsPlugin.instance.getServer().getPlayer(playername);
+    @Override
+    public void perform() {
+        if (!(sender instanceof Player)) {
+            if (parameters.isEmpty()) {
+                this.sendMessage("缺乏玩家名稱!");
+            } else {
+                String playername = parameters.get(0);
+                Player player = SupernaturalsPlugin.instance.getServer()
+                        .getPlayer(playername);
 
-				if (player == null) {
-					this.sendMessage("沒有這個玩家!");
-					return;
-				}
-				SuperNPlayer snplayer = SuperNManager.get(player);
-				SuperNManager.alterPower(snplayer, -10000, "天神");
-				this.sendMessage("已重置玩家能量: "
-						+ snplayer.getName());
-			}
-			return;
-		}
+                if (player == null) {
+                    this.sendMessage("沒有這個玩家!");
+                    return;
+                }
+                SuperNPlayer snplayer = SuperNManager.get(player);
+                SuperNManager.alterPower(snplayer, -10000, "天神");
+                this.sendMessage("已重置玩家能量: " + snplayer.getName());
+            }
+            return;
+        }
 
-		Player senderPlayer = (Player) sender;
-		if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
-			this.sendMessage("你沒有權限使用這個指令.");
-			return;
-		}
-		if (parameters.isEmpty()) {
-			SuperNPlayer snplayer = SuperNManager.get(senderPlayer);
-			SuperNManager.alterPower(snplayer, -10000, "天神");
-		} else {
-			String playername = parameters.get(0);
-			Player player = SupernaturalsPlugin.instance.getServer().getPlayer(playername);
+        Player senderPlayer = (Player) sender;
+        if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
+            this.sendMessage("你沒有權限使用這個指令.");
+            return;
+        }
+        if (parameters.isEmpty()) {
+            SuperNPlayer snplayer = SuperNManager.get(senderPlayer);
+            SuperNManager.alterPower(snplayer, -10000, "天神");
+        } else {
+            String playername = parameters.get(0);
+            Player player = SupernaturalsPlugin.instance.getServer().getPlayer(
+                    playername);
 
-			if (player == null) {
-				this.sendMessage("沒有這個玩家!");
-				return;
-			}
-			SuperNPlayer snplayer = SuperNManager.get(player);
-			SuperNManager.alterPower(snplayer, -10000, "天神");
-			this.sendMessage("已重置玩家能量: " + snplayer.getName());
-		}
-	}
+            if (player == null) {
+                this.sendMessage("沒有這個玩家!");
+                return;
+            }
+            SuperNPlayer snplayer = SuperNManager.get(player);
+            SuperNManager.alterPower(snplayer, -10000, "天神");
+            this.sendMessage("已重置玩家能量: " + snplayer.getName());
+        }
+    }
 }

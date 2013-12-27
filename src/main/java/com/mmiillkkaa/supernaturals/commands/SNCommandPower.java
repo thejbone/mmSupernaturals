@@ -21,7 +21,6 @@ package com.mmiillkkaa.supernaturals.commands;
 
 import java.util.ArrayList;
 
-
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -32,137 +31,144 @@ import com.mmiillkkaa.supernaturals.manager.SuperNManager;
 
 public class SNCommandPower extends SNCommand {
 
-	public SNCommandPower() {
-		super();
-		requiredParameters = new ArrayList<String>();
-		optionalParameters = new ArrayList<String>();
-		senderMustBePlayer = true;
-		senderMustBeSupernatural = true;
-		permissions = "supernatural.command.power";
-		optionalParameters.add("playername");
-		optionalParameters.add("power");
-		helpNameAndParams = "power [數量] | power [玩家名稱] [數量]";
-		helpDescription = "檢視目前的能量等級";
-	}
+    public SNCommandPower() {
+        super();
+        requiredParameters = new ArrayList<String>();
+        optionalParameters = new ArrayList<String>();
+        senderMustBePlayer = true;
+        senderMustBeSupernatural = true;
+        permissions = "supernatural.command.power";
+        optionalParameters.add("playername");
+        optionalParameters.add("power");
+        helpNameAndParams = "power [數量] | power [玩家名稱] [數量]";
+        helpDescription = "檢視目前的能量等級";
+    }
 
-	@Override
-	public void perform() {
+    @Override
+    public void perform() {
 
-		Player senderPlayer = (Player) sender;
-		String permissions2 = "supernatural.admin.command.power";
+        Player senderPlayer = (Player) sender;
+        String permissions2 = "supernatural.admin.command.power";
 
-		if (SNConfigHandler.spanish) {
-			if (parameters.isEmpty()) {
-				if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
-					this.sendMessage("No tienes permiso para este comando.");
-					return;
-				}
-				SuperNPlayer snplayer = SuperNManager.get(senderPlayer);
+        if (SNConfigHandler.spanish) {
+            if (parameters.isEmpty()) {
+                if (!SupernaturalsPlugin.hasPermissions(senderPlayer,
+                        permissions)) {
+                    this.sendMessage("No tienes permiso para este comando.");
+                    return;
+                }
+                SuperNPlayer snplayer = SuperNManager.get(senderPlayer);
 
-				this.sendMessage("Tu eres un " + ChatColor.WHITE
-						+ snplayer.getType() + ChatColor.RED
-						+ " y tus Poderes actuales son: " + ChatColor.WHITE
-						+ (int) snplayer.getPower());
+                this.sendMessage("Tu eres un " + ChatColor.WHITE
+                        + snplayer.getType() + ChatColor.RED
+                        + " y tus Poderes actuales son: " + ChatColor.WHITE
+                        + (int) snplayer.getPower());
             } else {
-				if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions2)) {
-					this.sendMessage("No tienes permiso para usar este comando.");
-					return;
-				}
-				if (parameters.size() == 1) {
-					double powerGain;
+                if (!SupernaturalsPlugin.hasPermissions(senderPlayer,
+                        permissions2)) {
+                    this.sendMessage("No tienes permiso para usar este comando.");
+                    return;
+                }
+                if (parameters.size() == 1) {
+                    double powerGain;
 
-					try {
-						powerGain = Double.parseDouble(parameters.get(0));
-					} catch (NumberFormatException e) {
-						this.sendMessage("N�mero invalido.");
-						return;
-					}
-					if (powerGain >= 10000D) {
-						powerGain = 9999;
-					}
+                    try {
+                        powerGain = Double.parseDouble(parameters.get(0));
+                    } catch (NumberFormatException e) {
+                        this.sendMessage("N�mero invalido.");
+                        return;
+                    }
+                    if (powerGain >= 10000D) {
+                        powerGain = 9999;
+                    }
 
-					SuperNPlayer snplayer = SuperNManager.get(senderPlayer);
-					SuperNManager.alterPower(snplayer, powerGain, "Admin boost!");
-				} else {
-					String playername = parameters.get(0);
-					Player player = SupernaturalsPlugin.instance.getServer().getPlayer(playername);
-					if (player == null) {
-						this.sendMessage("Jugador no encontrado!");
-						return;
-					}
-					double powerGain;
+                    SuperNPlayer snplayer = SuperNManager.get(senderPlayer);
+                    SuperNManager.alterPower(snplayer, powerGain,
+                            "Admin boost!");
+                } else {
+                    String playername = parameters.get(0);
+                    Player player = SupernaturalsPlugin.instance.getServer()
+                            .getPlayer(playername);
+                    if (player == null) {
+                        this.sendMessage("Jugador no encontrado!");
+                        return;
+                    }
+                    double powerGain;
 
-					try {
-						powerGain = Double.parseDouble(parameters.get(1));
-					} catch (NumberFormatException e) {
-						this.sendMessage("N�mero invalido.");
-						return;
-					}
-					if (powerGain >= 10000D) {
-						powerGain = 9999;
-					}
-					this.sendMessage(ChatColor.WHITE + player.getDisplayName()
-							+ ChatColor.RED + " ha sido aumentado de Poderes!");
-					SuperNPlayer snplayer = SuperNManager.get(player);
-					SuperNManager.alterPower(snplayer, powerGain, "Admin boost!");
-				}
-			}
-		} else {
-			if (parameters.isEmpty()) {
-				if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
-					this.sendMessage("你沒有權限使用這個指令.");
-					return;
-				}
-				SuperNPlayer snplayer = SuperNManager.get(senderPlayer);
+                    try {
+                        powerGain = Double.parseDouble(parameters.get(1));
+                    } catch (NumberFormatException e) {
+                        this.sendMessage("N�mero invalido.");
+                        return;
+                    }
+                    if (powerGain >= 10000D) {
+                        powerGain = 9999;
+                    }
+                    this.sendMessage(ChatColor.WHITE + player.getDisplayName()
+                            + ChatColor.RED + " ha sido aumentado de Poderes!");
+                    SuperNPlayer snplayer = SuperNManager.get(player);
+                    SuperNManager.alterPower(snplayer, powerGain,
+                            "Admin boost!");
+                }
+            }
+        } else {
+            if (parameters.isEmpty()) {
+                if (!SupernaturalsPlugin.hasPermissions(senderPlayer,
+                        permissions)) {
+                    this.sendMessage("你沒有權限使用這個指令.");
+                    return;
+                }
+                SuperNPlayer snplayer = SuperNManager.get(senderPlayer);
 
-				this.sendMessage("你是一個 " + ChatColor.WHITE
-						+ snplayer.getType() + ChatColor.RED
-						+ " 且你目前的能量等級為: "
-						+ ChatColor.WHITE + (int) snplayer.getPower());
+                this.sendMessage("你是一個 " + ChatColor.WHITE + snplayer.getType()
+                        + ChatColor.RED + " 且你目前的能量等級為: " + ChatColor.WHITE
+                        + (int) snplayer.getPower());
             } else {
-				if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions2)) {
-					this.sendMessage("你沒有權限使用這個指令.");
-					return;
-				}
-				if (parameters.size() == 1) {
-					double powerGain;
+                if (!SupernaturalsPlugin.hasPermissions(senderPlayer,
+                        permissions2)) {
+                    this.sendMessage("你沒有權限使用這個指令.");
+                    return;
+                }
+                if (parameters.size() == 1) {
+                    double powerGain;
 
-					try {
-						powerGain = Double.parseDouble(parameters.get(0));
-					} catch (NumberFormatException e) {
-						this.sendMessage("不正確的數字.");
-						return;
-					}
-					if (powerGain >= 10000D) {
-						powerGain = 9999;
-					}
+                    try {
+                        powerGain = Double.parseDouble(parameters.get(0));
+                    } catch (NumberFormatException e) {
+                        this.sendMessage("不正確的數字.");
+                        return;
+                    }
+                    if (powerGain >= 10000D) {
+                        powerGain = 9999;
+                    }
 
-					SuperNPlayer snplayer = SuperNManager.get(senderPlayer);
-					SuperNManager.alterPower(snplayer, powerGain, "天降神力!");
-				} else {
-					String playername = parameters.get(0);
-					Player player = SupernaturalsPlugin.instance.getServer().getPlayer(playername);
-					if (player == null) {
-						this.sendMessage("玩家不存在!");
-						return;
-					}
-					double powerGain;
+                    SuperNPlayer snplayer = SuperNManager.get(senderPlayer);
+                    SuperNManager.alterPower(snplayer, powerGain, "天降神力!");
+                } else {
+                    String playername = parameters.get(0);
+                    Player player = SupernaturalsPlugin.instance.getServer()
+                            .getPlayer(playername);
+                    if (player == null) {
+                        this.sendMessage("玩家不存在!");
+                        return;
+                    }
+                    double powerGain;
 
-					try {
-						powerGain = Double.parseDouble(parameters.get(1));
-					} catch (NumberFormatException e) {
-						this.sendMessage("不正確的數字.");
-						return;
-					}
-					if (powerGain >= 10000D) {
-						powerGain = 9999;
-					}
-					this.sendMessage(ChatColor.WHITE + player.getDisplayName()
-							+ ChatColor.RED + " 已被充能!");
-					SuperNPlayer snplayer = SuperNManager.get(player);
-					SuperNManager.alterPower(snplayer, powerGain, "天降神力!");
-				}
-			}
-		}
-	}
+                    try {
+                        powerGain = Double.parseDouble(parameters.get(1));
+                    } catch (NumberFormatException e) {
+                        this.sendMessage("不正確的數字.");
+                        return;
+                    }
+                    if (powerGain >= 10000D) {
+                        powerGain = 9999;
+                    }
+                    this.sendMessage(ChatColor.WHITE + player.getDisplayName()
+                            + ChatColor.RED + " 已被充能!");
+                    SuperNPlayer snplayer = SuperNManager.get(player);
+                    SuperNManager.alterPower(snplayer, powerGain, "天降神力!");
+                }
+            }
+        }
+    }
 }

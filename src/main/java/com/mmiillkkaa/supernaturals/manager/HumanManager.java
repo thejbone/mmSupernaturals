@@ -19,7 +19,6 @@
 
 package com.mmiillkkaa.supernaturals.manager;
 
-
 import org.bukkit.Material;
 import org.bukkit.World.Environment;
 import org.bukkit.entity.LivingEntity;
@@ -38,116 +37,123 @@ import com.mmiillkkaa.supernaturals.io.SNConfigHandler;
 
 public class HumanManager extends ClassManager {
 
-	public HumanManager(SupernaturalsPlugin instance) {
-		super();
-		plugin = instance;
-	}
+    public HumanManager(SupernaturalsPlugin instance) {
+        super();
+        plugin = instance;
+    }
 
-	public HumanManager() {
-		super();
-	}
+    public HumanManager() {
+        super();
+    }
 
-	private SupernaturalsPlugin plugin;
+    private SupernaturalsPlugin plugin;
 
-	// -------------------------------------------- //
-	// Damage Events //
-	// -------------------------------------------- //
+    // -------------------------------------------- //
+    // Damage Events //
+    // -------------------------------------------- //
 
-	@Override
-	public double victimEvent(EntityDamageEvent event, double damage) {
-		return damage;
-	}
+    @Override
+    public double victimEvent(EntityDamageEvent event, double damage) {
+        return damage;
+    }
 
-	@Override
-	public double damagerEvent(EntityDamageByEntityEvent event, double damage) {
-		return damage;
-	}
+    @Override
+    public double damagerEvent(EntityDamageByEntityEvent event, double damage) {
+        return damage;
+    }
 
-	@Override
-	public void deathEvent(Player player) {
-		if(player == null) {
-			return;
-		}
+    @Override
+    public void deathEvent(Player player) {
+        if (player == null) {
+            return;
+        }
 
-		SuperNPlayer snplayer = SuperNManager.get(player);
-		LivingEntity lDamager = null;
-		EntityDamageEvent e = player.getLastDamageCause();
+        SuperNPlayer snplayer = SuperNManager.get(player);
+        LivingEntity lDamager = null;
+        EntityDamageEvent e = player.getLastDamageCause();
 
-		if(snplayer == null) {
-			return;
-		}
+        if (snplayer == null) {
+            return;
+        }
 
-		if (plugin.getDataHandler().getApps().containsKey(snplayer)) {
-			plugin.getDataHandler().removePlayerApp(snplayer);
-		}
+        if (plugin.getDataHandler().getApps().containsKey(snplayer)) {
+            plugin.getDataHandler().removePlayerApp(snplayer);
+        }
 
-		if (e == null) {
-			return;
-		}
+        if (e == null) {
+            return;
+        }
 
-		if (e.getCause().equals(DamageCause.FALL)) {
-			if (player.getItemInHand().getType().equals(Material.FEATHER)) {
-				SuperNManager.sendMessage(snplayer, "你感到靈魂被解放");
-				SuperNManager.convert(snplayer, "angel", SNConfigHandler.angelPowerStart);
-			}
-		}
+        if (e.getCause().equals(DamageCause.FALL)) {
+            if (player.getItemInHand().getType().equals(Material.FEATHER)) {
+                SuperNManager.sendMessage(snplayer, "你感到靈魂被解放");
+                SuperNManager.convert(snplayer, "angel",
+                        SNConfigHandler.angelPowerStart);
+            }
+        }
 
-		if (e.getCause().equals(DamageCause.LAVA)
-				|| e.getCause().equals(DamageCause.FIRE)
-				|| e.getCause().equals(DamageCause.FIRE_TICK)) {
-			if (player.getWorld().getEnvironment().equals(Environment.NETHER)) {
-				if (plugin.getDemonManager().checkPlayerApp(player)
-						|| plugin.getDemonManager().checkInventory(player)) {
-					SuperNManager.sendMessage(snplayer, "地獄火快速的流過你的靜眽!");
-					SuperNManager.convert(snplayer, "demon", SNConfigHandler.demonPowerStart);
-				}
-			}
-		}
+        if (e.getCause().equals(DamageCause.LAVA)
+                || e.getCause().equals(DamageCause.FIRE)
+                || e.getCause().equals(DamageCause.FIRE_TICK)) {
+            if (player.getWorld().getEnvironment().equals(Environment.NETHER)) {
+                if (plugin.getDemonManager().checkPlayerApp(player)
+                        || plugin.getDemonManager().checkInventory(player)) {
+                    SuperNManager.sendMessage(snplayer, "地獄火快速的流過你的靜眽!");
+                    SuperNManager.convert(snplayer, "demon",
+                            SNConfigHandler.demonPowerStart);
+                }
+            }
+        }
 
-		if (e instanceof EntityDamageByEntityEvent) {
-			if (((EntityDamageByEntityEvent) e).getDamager() instanceof LivingEntity) {
-				lDamager = (LivingEntity) ((EntityDamageByEntityEvent) e).getDamager();
-			} else if (((EntityDamageByEntityEvent) e).getDamager() instanceof Projectile) {
-				lDamager = ((Projectile) ((EntityDamageByEntityEvent) e).getDamager()).getShooter();
-			}
-		}
+        if (e instanceof EntityDamageByEntityEvent) {
+            if (((EntityDamageByEntityEvent) e).getDamager() instanceof LivingEntity) {
+                lDamager = (LivingEntity) ((EntityDamageByEntityEvent) e)
+                        .getDamager();
+            } else if (((EntityDamageByEntityEvent) e).getDamager() instanceof Projectile) {
+                lDamager = ((Projectile) ((EntityDamageByEntityEvent) e)
+                        .getDamager()).getShooter();
+            }
+        }
 
-		if (lDamager != null) {
-			if (player.getWorld().getEnvironment().equals(Environment.NETHER)) {
-				if (lDamager instanceof PigZombie) {
-					SuperNManager.convert(snplayer, "ghoul", SNConfigHandler.ghoulPowerStart);
-					SuperNManager.sendMessage(snplayer, "你已被轉化為食屍鬼(Ghoul)!");
-				}
-			}
-			if (lDamager instanceof Wolf) {
-				if (!((Wolf) lDamager).isTamed()
-						&& SuperNManager.worldTimeIsNight(player)) {
-					SuperNManager.convert(snplayer, "werewolf", SNConfigHandler.werePowerStart);
-					SuperNManager.sendMessage(snplayer, "你突變成為狼人(Werewolf)!");
-				}
-			}
-		}
-	}
+        if (lDamager != null) {
+            if (player.getWorld().getEnvironment().equals(Environment.NETHER)) {
+                if (lDamager instanceof PigZombie) {
+                    SuperNManager.convert(snplayer, "ghoul",
+                            SNConfigHandler.ghoulPowerStart);
+                    SuperNManager.sendMessage(snplayer, "你已被轉化為食屍鬼(Ghoul)!");
+                }
+            }
+            if (lDamager instanceof Wolf) {
+                if (!((Wolf) lDamager).isTamed()
+                        && SuperNManager.worldTimeIsNight(player)) {
+                    SuperNManager.convert(snplayer, "werewolf",
+                            SNConfigHandler.werePowerStart);
+                    SuperNManager.sendMessage(snplayer, "你突變成為狼人(Werewolf)!");
+                }
+            }
+        }
+    }
 
-	@Override
-	public void killEvent(Player pDamager, SuperNPlayer damager, SuperNPlayer victim) {
-	}
+    @Override
+    public void killEvent(Player pDamager, SuperNPlayer damager,
+            SuperNPlayer victim) {
+    }
 
-	// -------------------------------------------- //
-	// Interact //
-	// -------------------------------------------- //
+    // -------------------------------------------- //
+    // Interact //
+    // -------------------------------------------- //
 
-	@Override
-	public boolean playerInteract(PlayerInteractEvent event) {
-		return false;
-	}
+    @Override
+    public boolean playerInteract(PlayerInteractEvent event) {
+        return false;
+    }
 
-	// -------------------------------------------- //
-	// Armor //
-	// -------------------------------------------- //
+    // -------------------------------------------- //
+    // Armor //
+    // -------------------------------------------- //
 
-	@Override
-	public void armorCheck(Player player) {
-	}
+    @Override
+    public void armorCheck(Player player) {
+    }
 
 }

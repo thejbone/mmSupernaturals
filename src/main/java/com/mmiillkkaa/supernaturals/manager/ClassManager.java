@@ -31,46 +31,45 @@ import com.mmiillkkaa.supernaturals.SuperNPlayer;
 
 public abstract class ClassManager {
 
-	public ClassManager() {
-	}
+    public ClassManager() {
+    }
 
-	public double damagerEvent(EntityDamageByEntityEvent event, double damage) {
-		return damage;
-	}
+    public double damagerEvent(EntityDamageByEntityEvent event, double damage) {
+        return damage;
+    }
 
-	public boolean shootArrow(Player shooter, EntityShootBowEvent event) {
-		return false;
-	}
+    public boolean shootArrow(Player shooter, EntityShootBowEvent event) {
+        return false;
+    }
 
-	public void spellEvent(EntityDamageByEntityEvent event, Player target) {
-	}
+    public void spellEvent(EntityDamageByEntityEvent event, Player target) {
+    }
 
-	public double victimEvent(EntityDamageEvent event, double damage) {
-		return damage;
-	}
+    public double victimEvent(EntityDamageEvent event, double damage) {
+        return damage;
+    }
 
-	public void deathEvent(Player player) {
-	}
+    public void deathEvent(Player player) {
+    }
 
-	public void killEvent(Player pDamager, SuperNPlayer damager,
-			SuperNPlayer victim) {
-	}
+    public void killEvent(Player pDamager, SuperNPlayer damager,
+            SuperNPlayer victim) {
+    }
 
-	public boolean playerInteract(PlayerInteractEvent event) {
-		return false;
-	}
+    public boolean playerInteract(PlayerInteractEvent event) {
+        return false;
+    }
 
-	public void armorCheck(Player player) {
-	}
+    public void armorCheck(Player player) {
+    }
 
-	public void dropItem(Player player, ItemStack item) {
-		if (!player.hasPermission("supernatural.player.ignorearmor")) {
-			SuperNPlayer snplayer = SuperNManager.get(player);
-			SuperNManager.sendMessage(snplayer,
-					"你的種族/職業無法穿戴這種類型的盔甲!");
-			Item newItem = player.getWorld().dropItem(player.getLocation(),
-					item);
-			newItem.setItemStack(item);
-		}
-	}
+    public void dropItem(Player player, ItemStack item) {
+        if (!player.hasPermission("supernatural.player.ignorearmor")) {
+            SuperNPlayer snplayer = SuperNManager.get(player);
+            SuperNManager.sendMessage(snplayer, "你的種族/職業無法穿戴這種類型的盔甲!");
+            Item newItem = player.getWorld().dropItem(player.getLocation(),
+                    item);
+            newItem.setItemStack(item);
+        }
+    }
 }

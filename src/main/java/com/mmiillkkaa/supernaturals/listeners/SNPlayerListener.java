@@ -19,7 +19,6 @@
 
 package com.mmiillkkaa.supernaturals.listeners;
 
-
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -40,141 +39,169 @@ import com.mmiillkkaa.supernaturals.manager.SuperNManager;
 
 public class SNPlayerListener implements Listener {
 
-	public SupernaturalsPlugin plugin;
-	private String worldPermission = "supernatural.world.enabled";
+    public SupernaturalsPlugin plugin;
+    private String worldPermission = "supernatural.world.enabled";
 
-	public SNPlayerListener(SupernaturalsPlugin instance) {
-		plugin = instance;
-	}
+    public SNPlayerListener(SupernaturalsPlugin instance) {
+        plugin = instance;
+    }
 
-	// @Override
-	// public void onPlayerToggleSneak(PlayerToggleSneakEvent event){
-	// Player player = event.getPlayer();
-	// SuperNPlayer snplayer = SupernaturalManager.get(player);
-	// if(snplayer.isHunter()){
-	// player.setSneaking(true);
-	// event.setCancelled(true);
-	// }
-	// }
+    // @Override
+    // public void onPlayerToggleSneak(PlayerToggleSneakEvent event){
+    // Player player = event.getPlayer();
+    // SuperNPlayer snplayer = SupernaturalManager.get(player);
+    // if(snplayer.isHunter()){
+    // player.setSneaking(true);
+    // event.setCancelled(true);
+    // }
+    // }
 
-	@EventHandler(priority = EventPriority.LOW)
-	public void onPlayerInteract(PlayerInteractEvent event) {
-		Action action = event.getAction();
-		Player player = event.getPlayer();
-		SuperNPlayer snplayer = SuperNManager.get(player);
+    @EventHandler(priority = EventPriority.LOW)
+    public void onPlayerInteract(PlayerInteractEvent event) {
+        Action action = event.getAction();
+        Player player = event.getPlayer();
+        SuperNPlayer snplayer = SuperNManager.get(player);
 
-		if (!(action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.LEFT_CLICK_AIR))
-				&& event.isCancelled()) {
-			return;
-		}
+        if (!(action.equals(Action.RIGHT_CLICK_AIR) || action
+                .equals(Action.LEFT_CLICK_AIR)) && event.isCancelled()) {
+            return;
+        }
 
-		if (!SupernaturalsPlugin.hasPermissions(player, worldPermission)
-				&& SNConfigHandler.multiworld) {
-			return;
-		}
+        if (!SupernaturalsPlugin.hasPermissions(player, worldPermission)
+                && SNConfigHandler.multiworld) {
+            return;
+        }
 
-		Location blockLoc;
-		Block block = event.getClickedBlock();
-		if (action.equals(Action.RIGHT_CLICK_BLOCK)
-				|| action.equals(Action.LEFT_CLICK_BLOCK)) {
-			try {
-				blockLoc = block.getLocation();
-			} catch (NullPointerException e) {
-				SupernaturalsPlugin.log("Door trying to close.");
-				event.setCancelled(true);
-				return;
-			}
+        Location blockLoc;
+        Block block = event.getClickedBlock();
+        if (action.equals(Action.RIGHT_CLICK_BLOCK)
+                || action.equals(Action.LEFT_CLICK_BLOCK)) {
+            try {
+                blockLoc = block.getLocation();
+            } catch (NullPointerException e) {
+                SupernaturalsPlugin.log("Door trying to close.");
+                event.setCancelled(true);
+                return;
+            }
 
-			if (block.getType().equals(Material.IRON_DOOR_BLOCK)) {
-				for (int x = blockLoc.getBlockX() - 2; x < blockLoc.getBlockX() + 3; x++) {
-					for (int y = blockLoc.getBlockY() - 2; y < blockLoc.getBlockY() + 3; y++) {
-						for (int z = blockLoc.getBlockZ() - 2; z < blockLoc.getBlockZ() + 3; z++) {
-							Location newLoc = new Location(block.getWorld(), x, y, z);
-							Block newBlock = newLoc.getBlock();
-							if (newBlock.getType().equals(Material.SIGN)
-									|| newBlock.getType().equals(Material.WALL_SIGN)) {
-								Sign sign = (Sign) newBlock.getState();
-								String[] text = sign.getLines();
-								for (int i = 0; i < text.length; i++) {
-									if (text[i].contains(SNConfigHandler.hunterHallMessage)) {
-										if (plugin.getHunterManager().doorIsOpening(blockLoc)) {
-											event.setCancelled(true);
-											return;
-										}
-										Door door = (Door) block.getState().getData();
-										boolean open = plugin.getHunterManager().doorEvent(player, block, door);
-										event.setCancelled(open);
-										return;
-									}
-									if (text[i].contains(SNConfigHandler.demonHallMessage)) {
-										if (plugin.getHunterManager().doorIsOpening(blockLoc)) {
-											event.setCancelled(true);
-											return;
-										}
-										Door door = (Door) block.getState().getData();
-										boolean open = plugin.getDemonManager().doorEvent(player, block, door);
-										event.setCancelled(open);
-										return;
-									}
-									if (text[i].contains(SNConfigHandler.vampireHallMessage)) {
-										if (plugin.getHunterManager().doorIsOpening(blockLoc)) {
-											event.setCancelled(true);
-											return;
-										}
-										Door door = (Door) block.getState().getData();
-										boolean open = plugin.getVampireManager().doorEvent(player, block, door);
-										event.setCancelled(open);
-										return;
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
+            if (block.getType().equals(Material.IRON_DOOR_BLOCK)) {
+                for (int x = blockLoc.getBlockX() - 2; x < blockLoc.getBlockX() + 3; x++) {
+                    for (int y = blockLoc.getBlockY() - 2; y < blockLoc
+                            .getBlockY() + 3; y++) {
+                        for (int z = blockLoc.getBlockZ() - 2; z < blockLoc
+                                .getBlockZ() + 3; z++) {
+                            Location newLoc = new Location(block.getWorld(), x,
+                                    y, z);
+                            Block newBlock = newLoc.getBlock();
+                            if (newBlock.getType().equals(Material.SIGN)
+                                    || newBlock.getType().equals(
+                                            Material.WALL_SIGN)) {
+                                Sign sign = (Sign) newBlock.getState();
+                                String[] text = sign.getLines();
+                                for (int i = 0; i < text.length; i++) {
+                                    if (text[i]
+                                            .contains(SNConfigHandler.hunterHallMessage)) {
+                                        if (plugin.getHunterManager()
+                                                .doorIsOpening(blockLoc)) {
+                                            event.setCancelled(true);
+                                            return;
+                                        }
+                                        Door door = (Door) block.getState()
+                                                .getData();
+                                        boolean open = plugin
+                                                .getHunterManager().doorEvent(
+                                                        player, block, door);
+                                        event.setCancelled(open);
+                                        return;
+                                    }
+                                    if (text[i]
+                                            .contains(SNConfigHandler.demonHallMessage)) {
+                                        if (plugin.getHunterManager()
+                                                .doorIsOpening(blockLoc)) {
+                                            event.setCancelled(true);
+                                            return;
+                                        }
+                                        Door door = (Door) block.getState()
+                                                .getData();
+                                        boolean open = plugin.getDemonManager()
+                                                .doorEvent(player, block, door);
+                                        event.setCancelled(open);
+                                        return;
+                                    }
+                                    if (text[i]
+                                            .contains(SNConfigHandler.vampireHallMessage)) {
+                                        if (plugin.getHunterManager()
+                                                .doorIsOpening(blockLoc)) {
+                                            event.setCancelled(true);
+                                            return;
+                                        }
+                                        Door door = (Door) block.getState()
+                                                .getData();
+                                        boolean open = plugin
+                                                .getVampireManager().doorEvent(
+                                                        player, block, door);
+                                        event.setCancelled(open);
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
-		boolean cancelled = false;
+        boolean cancelled = false;
 
-		cancelled = plugin.getClassManager(player).playerInteract(event);
+        cancelled = plugin.getClassManager(player).playerInteract(event);
 
-		if (cancelled) {
-			return;
-		}
+        if (cancelled) {
+            return;
+        }
 
-		if (!action.equals(Action.RIGHT_CLICK_BLOCK)) {
-			return;
-		}
+        if (!action.equals(Action.RIGHT_CLICK_BLOCK)) {
+            return;
+        }
 
-		Material blockMaterial = event.getClickedBlock().getType();
+        Material blockMaterial = event.getClickedBlock().getType();
 
-		if (blockMaterial == Material.getMaterial(SNConfigHandler.vampireAltarInfectMaterial)) {
-			plugin.getVampireManager().useAltarInfect(player, event.getClickedBlock());
-		} else if (blockMaterial == Material.getMaterial(SNConfigHandler.vampireAltarCureMaterial)) {
-			plugin.getVampireManager().useAltarCure(player, event.getClickedBlock());
-		} else if (blockMaterial == Material.getMaterial(SNConfigHandler.priestAltarMaterial)) {
-			plugin.getPriestManager().useAltar(player);
-		}
-	}
+        if (blockMaterial == Material
+                .getMaterial(SNConfigHandler.vampireAltarInfectMaterial)) {
+            plugin.getVampireManager().useAltarInfect(player,
+                    event.getClickedBlock());
+        } else if (blockMaterial == Material
+                .getMaterial(SNConfigHandler.vampireAltarCureMaterial)) {
+            plugin.getVampireManager().useAltarCure(player,
+                    event.getClickedBlock());
+        } else if (blockMaterial == Material
+                .getMaterial(SNConfigHandler.priestAltarMaterial)) {
+            plugin.getPriestManager().useAltar(player);
+        }
+    }
 
-	@EventHandler(priority = EventPriority.LOW)
-	public void onPlayerKick(PlayerKickEvent event) {
-		if (event.isCancelled()) {
-			return;
-		}
+    @EventHandler(priority = EventPriority.LOW)
+    public void onPlayerKick(PlayerKickEvent event) {
+        if (event.isCancelled()) {
+            return;
+        }
 
-		if (!SupernaturalsPlugin.hasPermissions(event.getPlayer(), worldPermission)
-				&& SNConfigHandler.multiworld) {
-			return;
-		}
+        if (!SupernaturalsPlugin.hasPermissions(event.getPlayer(),
+                worldPermission) && SNConfigHandler.multiworld) {
+            return;
+        }
 
-		if (event.getLeaveMessage().contains("Flying")
-				|| event.getReason().contains("Flying")) {
-			SuperNPlayer snplayer = SuperNManager.get(event.getPlayer());
-			if (snplayer.isVampire()
-					&& event.getPlayer().getItemInHand().getType().toString().equalsIgnoreCase(SNConfigHandler.vampireJumpMaterial)) {
-				event.setCancelled(true);
-			}
-		}
-	}
+        if (event.getLeaveMessage().contains("Flying")
+                || event.getReason().contains("Flying")) {
+            SuperNPlayer snplayer = SuperNManager.get(event.getPlayer());
+            if (snplayer.isVampire()
+                    && event.getPlayer()
+                            .getItemInHand()
+                            .getType()
+                            .toString()
+                            .equalsIgnoreCase(
+                                    SNConfigHandler.vampireJumpMaterial)) {
+                event.setCancelled(true);
+            }
+        }
+    }
 }

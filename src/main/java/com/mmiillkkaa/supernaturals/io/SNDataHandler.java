@@ -32,121 +32,126 @@ import com.mmiillkkaa.supernaturals.SuperNPlayer;
 import com.mmiillkkaa.supernaturals.SupernaturalsPlugin;
 import com.mmiillkkaa.supernaturals.util.Location;
 
-
 public class SNDataHandler implements Serializable {
 
-	/**
-	 * Auto-Generated serialVersionUID
-	 */
-	private static final long serialVersionUID = 2266551481298554973L;
+    /**
+     * Auto-Generated serialVersionUID
+     */
+    private static final long serialVersionUID = 2266551481298554973L;
 
-	private HashMap<SuperNPlayer, Location> teleportLocations = new HashMap<SuperNPlayer, Location>();
-	private HashMap<SuperNPlayer, SuperNPlayer> angels = new HashMap<SuperNPlayer, SuperNPlayer>();
-	private HashMap<SuperNPlayer, ArrayList<String>> hunterApps = new HashMap<SuperNPlayer, ArrayList<String>>();
+    private HashMap<SuperNPlayer, Location> teleportLocations = new HashMap<SuperNPlayer, Location>();
+    private HashMap<SuperNPlayer, SuperNPlayer> angels = new HashMap<SuperNPlayer, SuperNPlayer>();
+    private HashMap<SuperNPlayer, ArrayList<String>> hunterApps = new HashMap<SuperNPlayer, ArrayList<String>>();
 
-	private static String path = "plugins/mmSupernaturals/storage.dat";
+    private static String path = "plugins/mmSupernaturals/storage.dat";
 
-	// -------------------------------------------- //
-	// Read/Write //
-	// -------------------------------------------- //
+    // -------------------------------------------- //
+    // Read/Write //
+    // -------------------------------------------- //
 
-	public void write() {
-		try {
-			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path));
-			oos.writeObject(this);
-			oos.flush();
-			oos.close();
-		} catch (Exception e) {
-			SupernaturalsPlugin.log(Level.WARNING, "Storage Data could not be written!");
-			e.printStackTrace();
-		}
-	}
+    public void write() {
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(
+                    new FileOutputStream(path));
+            oos.writeObject(this);
+            oos.flush();
+            oos.close();
+        } catch (Exception e) {
+            SupernaturalsPlugin.log(Level.WARNING,
+                    "Storage Data could not be written!");
+            e.printStackTrace();
+        }
+    }
 
-	public static SNDataHandler read() {
-		SNDataHandler handler = null;
-		try {
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path));
-			handler = (SNDataHandler) ois.readObject();
-			ois.close();
-		} catch (Exception e) {
-			SupernaturalsPlugin.log(Level.WARNING, "Storage Data not found.");
-		}
-		return handler;
-	}
+    public static SNDataHandler read() {
+        SNDataHandler handler = null;
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(
+                    path));
+            handler = (SNDataHandler) ois.readObject();
+            ois.close();
+        } catch (Exception e) {
+            SupernaturalsPlugin.log(Level.WARNING, "Storage Data not found.");
+        }
+        return handler;
+    }
 
-	// -------------------------------------------- //
-	// Teleportation //
-	// -------------------------------------------- //
+    // -------------------------------------------- //
+    // Teleportation //
+    // -------------------------------------------- //
 
-	public void addTeleport(SuperNPlayer player) {
-		teleportLocations.put(player, new Location(SupernaturalsPlugin.instance.getServer().getPlayer(player.getName()).getLocation()));
-	}
+    public void addTeleport(SuperNPlayer player) {
+        teleportLocations.put(player, new Location(SupernaturalsPlugin.instance
+                .getServer().getPlayer(player.getName()).getLocation()));
+    }
 
-	public boolean checkPlayer(SuperNPlayer player) {
-		if (teleportLocations.containsKey(player)) {
-			return true;
-		}
-		return false;
-	}
+    public boolean checkPlayer(SuperNPlayer player) {
+        if (teleportLocations.containsKey(player)) {
+            return true;
+        }
+        return false;
+    }
 
-	public org.bukkit.Location getTeleport(SuperNPlayer player) {
-		Location location = teleportLocations.get(player);
-		org.bukkit.Location bLocation = new org.bukkit.Location(location.getWorld(), location.getX(), location.getY(), location.getZ());
-		return bLocation;
-	}
+    public org.bukkit.Location getTeleport(SuperNPlayer player) {
+        Location location = teleportLocations.get(player);
+        org.bukkit.Location bLocation = new org.bukkit.Location(
+                location.getWorld(), location.getX(), location.getY(),
+                location.getZ());
+        return bLocation;
+    }
 
-	// -------------------------------------------- //
-	// Guardian Angels //
-	// -------------------------------------------- //
+    // -------------------------------------------- //
+    // Guardian Angels //
+    // -------------------------------------------- //
 
-	public boolean hasAngel(SuperNPlayer snplayer) {
-		if (angels.containsValue(snplayer)) {
-			return true;
-		}
-		return false;
-	}
+    public boolean hasAngel(SuperNPlayer snplayer) {
+        if (angels.containsValue(snplayer)) {
+            return true;
+        }
+        return false;
+    }
 
-	public void removeAngel(SuperNPlayer snplayer) {
-		for (SuperNPlayer player : angels.keySet()) {
-			if (angels.get(player).equals(snplayer)) {
-				angels.remove(player);
-			}
-		}
-	}
+    public void removeAngel(SuperNPlayer snplayer) {
+        for (SuperNPlayer player : angels.keySet()) {
+            if (angels.get(player).equals(snplayer)) {
+                angels.remove(player);
+            }
+        }
+    }
 
-	public SuperNPlayer getAngelPlayer(SuperNPlayer snplayer) {
-		return angels.get(snplayer);
-	}
+    public SuperNPlayer getAngelPlayer(SuperNPlayer snplayer) {
+        return angels.get(snplayer);
+    }
 
-	public void addAngel(SuperNPlayer snplayer, SuperNPlayer sntarget) {
-		angels.put(snplayer, sntarget);
-	}
+    public void addAngel(SuperNPlayer snplayer, SuperNPlayer sntarget) {
+        angels.put(snplayer, sntarget);
+    }
 
-	// -------------------------------------------- //
-	// WitchHunter Apps //
-	// -------------------------------------------- //
+    // -------------------------------------------- //
+    // WitchHunter Apps //
+    // -------------------------------------------- //
 
-	public ArrayList<String> getPlayerApp(SuperNPlayer player) {
-		return hunterApps.get(player);
-	}
+    public ArrayList<String> getPlayerApp(SuperNPlayer player) {
+        return hunterApps.get(player);
+    }
 
-	public void addPlayerApp(SuperNPlayer player, ArrayList<String> kills) {
-		hunterApps.put(player, kills);
-	}
+    public void addPlayerApp(SuperNPlayer player, ArrayList<String> kills) {
+        hunterApps.put(player, kills);
+    }
 
-	public boolean playerHasApp(SuperNPlayer player) {
-		if (hunterApps.containsKey(player)) {
-			return true;
-		}
-		return false;
-	}
+    public boolean playerHasApp(SuperNPlayer player) {
+        if (hunterApps.containsKey(player)) {
+            return true;
+        }
+        return false;
+    }
 
-	public void removePlayerApp(SuperNPlayer player) {
-		hunterApps.remove(player);
-	}
+    public void removePlayerApp(SuperNPlayer player) {
+        hunterApps.remove(player);
+    }
 
-	public HashMap<SuperNPlayer, ArrayList<String>> getApps() {
-		return hunterApps;
-	}
+    public HashMap<SuperNPlayer, ArrayList<String>> getApps() {
+        return hunterApps;
+    }
 
 }

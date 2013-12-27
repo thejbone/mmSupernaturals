@@ -21,7 +21,6 @@ package com.mmiillkkaa.supernaturals.commands;
 
 import java.util.ArrayList;
 
-
 import org.bukkit.entity.Player;
 
 import com.mmiillkkaa.supernaturals.SupernaturalsPlugin;
@@ -29,71 +28,80 @@ import com.mmiillkkaa.supernaturals.io.SNConfigHandler;
 
 public class SNCommandSetBanish extends SNCommand {
 
-	public SNCommandSetBanish() {
-		super();
-		requiredParameters = new ArrayList<String>();
-		optionalParameters = new ArrayList<String>();
-		senderMustBePlayer = true;
-		senderMustBeSupernatural = true;
-		permissions = "supernatural.admin.command.setbanish";
-		helpNameAndParams = "";
-		helpDescription = "將目前的位置設定為放逐點";
-	}
+    public SNCommandSetBanish() {
+        super();
+        requiredParameters = new ArrayList<String>();
+        optionalParameters = new ArrayList<String>();
+        senderMustBePlayer = true;
+        senderMustBeSupernatural = true;
+        permissions = "supernatural.admin.command.setbanish";
+        helpNameAndParams = "";
+        helpDescription = "將目前的位置設定為放逐點";
+    }
 
-	@Override
-	public void perform() {
+    @Override
+    public void perform() {
 
-		Player senderPlayer = (Player) sender;
-		if (SNConfigHandler.spanish) {
-			if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
-				this.sendMessage("No tienes permiso para usar este comando.");
-				return;
-			}
+        Player senderPlayer = (Player) sender;
+        if (SNConfigHandler.spanish) {
+            if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
+                this.sendMessage("No tienes permiso para usar este comando.");
+                return;
+            }
 
-			double currentX = senderPlayer.getLocation().getX();
-			double currentY = senderPlayer.getLocation().getY();
-			double currentZ = senderPlayer.getLocation().getZ();
+            double currentX = senderPlayer.getLocation().getX();
+            double currentY = senderPlayer.getLocation().getY();
+            double currentZ = senderPlayer.getLocation().getZ();
 
-			SNConfigHandler.priestBanishWorld = senderPlayer.getWorld().getName();
-			SNConfigHandler.priestBanishLocationX = (int) currentX;
-			SNConfigHandler.priestBanishLocationY = (int) currentY;
-			SNConfigHandler.priestBanishLocationZ = (int) currentZ;
+            SNConfigHandler.priestBanishWorld = senderPlayer.getWorld()
+                    .getName();
+            SNConfigHandler.priestBanishLocationX = (int) currentX;
+            SNConfigHandler.priestBanishLocationY = (int) currentY;
+            SNConfigHandler.priestBanishLocationZ = (int) currentZ;
 
-			SNConfigHandler.priestBanishLocation = senderPlayer.getLocation();
+            SNConfigHandler.priestBanishLocation = senderPlayer.getLocation();
 
-			SNConfigHandler.getConfig().set("Priest.Banish.World", SNConfigHandler.priestBanishWorld);
-			SNConfigHandler.getConfig().set("Priest.Banish.Location.X", SNConfigHandler.priestBanishLocationX);
-			SNConfigHandler.getConfig().set("Priest.Banish.Location.Y", SNConfigHandler.priestBanishLocationY);
-			SNConfigHandler.getConfig().set("Priest.Banish.Location.Z", SNConfigHandler.priestBanishLocationZ);
+            SNConfigHandler.getConfig().set("Priest.Banish.World",
+                    SNConfigHandler.priestBanishWorld);
+            SNConfigHandler.getConfig().set("Priest.Banish.Location.X",
+                    SNConfigHandler.priestBanishLocationX);
+            SNConfigHandler.getConfig().set("Priest.Banish.Location.Y",
+                    SNConfigHandler.priestBanishLocationY);
+            SNConfigHandler.getConfig().set("Priest.Banish.Location.Z",
+                    SNConfigHandler.priestBanishLocationZ);
 
-			SNConfigHandler.saveConfig();
+            SNConfigHandler.saveConfig();
 
-			this.sendMessage("Lugar de teletransporte definido.");
-			return;
-		}
-		if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
-			this.sendMessage("你沒有權限使用這個指令.");
-			return;
-		}
+            this.sendMessage("Lugar de teletransporte definido.");
+            return;
+        }
+        if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
+            this.sendMessage("你沒有權限使用這個指令.");
+            return;
+        }
 
-		double currentX = senderPlayer.getLocation().getX();
-		double currentY = senderPlayer.getLocation().getY();
-		double currentZ = senderPlayer.getLocation().getZ();
+        double currentX = senderPlayer.getLocation().getX();
+        double currentY = senderPlayer.getLocation().getY();
+        double currentZ = senderPlayer.getLocation().getZ();
 
-		SNConfigHandler.priestBanishWorld = senderPlayer.getWorld().getName();
-		SNConfigHandler.priestBanishLocationX = (int) currentX;
-		SNConfigHandler.priestBanishLocationY = (int) currentY;
-		SNConfigHandler.priestBanishLocationZ = (int) currentZ;
+        SNConfigHandler.priestBanishWorld = senderPlayer.getWorld().getName();
+        SNConfigHandler.priestBanishLocationX = (int) currentX;
+        SNConfigHandler.priestBanishLocationY = (int) currentY;
+        SNConfigHandler.priestBanishLocationZ = (int) currentZ;
 
-		SNConfigHandler.priestBanishLocation = senderPlayer.getLocation();
+        SNConfigHandler.priestBanishLocation = senderPlayer.getLocation();
 
-		SNConfigHandler.getConfig().set("Priest.Banish.World", SNConfigHandler.priestBanishWorld);
-		SNConfigHandler.getConfig().set("Priest.Banish.Location.X", SNConfigHandler.priestBanishLocationX);
-		SNConfigHandler.getConfig().set("Priest.Banish.Location.Y", SNConfigHandler.priestBanishLocationY);
-		SNConfigHandler.getConfig().set("Priest.Banish.Location.Z", SNConfigHandler.priestBanishLocationZ);
+        SNConfigHandler.getConfig().set("Priest.Banish.World",
+                SNConfigHandler.priestBanishWorld);
+        SNConfigHandler.getConfig().set("Priest.Banish.Location.X",
+                SNConfigHandler.priestBanishLocationX);
+        SNConfigHandler.getConfig().set("Priest.Banish.Location.Y",
+                SNConfigHandler.priestBanishLocationY);
+        SNConfigHandler.getConfig().set("Priest.Banish.Location.Z",
+                SNConfigHandler.priestBanishLocationZ);
 
-		SNConfigHandler.saveConfig();
+        SNConfigHandler.saveConfig();
 
-		this.sendMessage("已設定放逐點.");
-	}
+        this.sendMessage("已設定放逐點.");
+    }
 }

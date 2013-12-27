@@ -23,20 +23,23 @@ import com.mmiillkkaa.supernaturals.SupernaturalsPlugin;
 import com.mmiillkkaa.supernaturals.manager.SuperNManager;
 
 public class SNTaskTimer implements Runnable {
-	private SupernaturalsPlugin plugin;
+    private SupernaturalsPlugin plugin;
 
-	public SNTaskTimer(SupernaturalsPlugin plugin) {
-		this.plugin = plugin;
-	}
+    public SNTaskTimer(SupernaturalsPlugin plugin) {
+        this.plugin = plugin;
+    }
 
-	@Override
-	public void run() {
-		//Do you REALLY need to make a new scheduler for EVERY player? Why not one for ALL players?
-		plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-			@Override
-			public void run() {
-				plugin.getSuperManager().advanceTime(SuperNManager.findAllOnline());
-			}
-		});
-	}
+    @Override
+    public void run() {
+        // Do you REALLY need to make a new scheduler for EVERY player? Why not
+        // one for ALL players?
+        plugin.getServer().getScheduler()
+                .scheduleSyncDelayedTask(plugin, new Runnable() {
+                    @Override
+                    public void run() {
+                        plugin.getSuperManager().advanceTime(
+                                SuperNManager.findAllOnline());
+                    }
+                });
+    }
 }
