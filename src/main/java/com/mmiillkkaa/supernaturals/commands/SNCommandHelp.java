@@ -43,7 +43,7 @@ public class SNCommandHelp extends SNCommand {
 
     static {
         helpMessagesSpanish.add("*** " + ChatColor.WHITE + "Supernatural Help "
-                + ChatColor.RED + "***");
+                + ChatColor.RED + " ***");
         helpMessagesSpanish.add("/sn Power " + ChatColor.WHITE
                 + "- Indica tus Poderes actuales.");
         helpMessagesSpanish.add("/sn List " + ChatColor.WHITE
