@@ -1,20 +1,20 @@
 /*
  * Supernatural Players Plugin for Bukkit
  * Copyright (C) 2011  Matt Walker <mmw167@gmail.com>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 
 package com.mmiillkkaa.supernaturals.manager;
@@ -41,6 +41,8 @@ import com.mmiillkkaa.supernaturals.SupernaturalsPlugin;
 import com.mmiillkkaa.supernaturals.io.SNConfigHandler;
 import com.mmiillkkaa.supernaturals.io.SNWhitelistHandler;
 import com.mmiillkkaa.supernaturals.util.EntityUtil;
+import com.mmiillkkaa.supernaturals.util.Language;
+import com.mmiillkkaa.supernaturals.util.LanguageTag;
 import com.mmiillkkaa.supernaturals.util.SNTaskTimer;
 
 public class SuperNManager {
@@ -117,13 +119,17 @@ public class SuperNManager {
             return;
         }
         if (!SNWhitelistHandler.isWhitelisted(snplayer) && !snplayer.isHuman()) {
-            SuperNManager.sendMessage(snplayer, "你還未使用 \"/sn join\" 指令!");
+            SuperNManager.sendMessage(snplayer,
+                    Language.SN_CMD_JOIN_NOT_USE.toString());
             return;
         }
         if (SNConfigHandler.convertNode) {
             if (SupernaturalsPlugin.hasPermissions(snplayer,
                     "supernatural.convert." + superType + ".allow")) {
-                SuperNManager.sendMessage(snplayer, "你沒有權限被轉換為 " + superType);
+                SuperNManager.sendMessage(
+                        snplayer,
+                        Language.SN_CMD_JOIN_NO_PREMISSION.toString().replace(
+                                LanguageTag.TYPE.toString(), superType));
                 return;
             }
         }
@@ -142,10 +148,10 @@ public class SuperNManager {
 
         snplayer.setTruce(true);
 
-        SuperNManager.sendMessage(snplayer, "你現在是一個 " + ChatColor.WHITE
-                + superType + ChatColor.RED + "!");
-        SupernaturalsPlugin.log(snplayer.getName() + " 轉換成 " + ChatColor.WHITE
-                + superType + ChatColor.RED + "!");
+        SuperNManager.sendMessage(snplayer, Language.SN_ADMIN_CMD_CURE_NOTICE
+                .toString().replace(LanguageTag.TYPE.toString(), superType));
+        SupernaturalsPlugin.log(snplayer.getName() + " turned into a "
+                + ChatColor.WHITE + superType + ChatColor.RED + "!");
 
         updateName(snplayer);
         HunterManager.updateBounties();
@@ -187,8 +193,10 @@ public class SuperNManager {
         SupernaturalsPlugin.instance.getGhoulManager().removeBond(snplayer);
         SupernaturalsPlugin.instance.getDataHandler().removeAngel(snplayer);
 
-        SuperNManager.sendMessage(snplayer, "你已重拾人性!");
-        SupernaturalsPlugin.log(snplayer.getName() + " 已重拾人性!");
+        SuperNManager.sendMessage(snplayer,
+                Language.SN_ADMIN_CMD_CURE_NOTICE.toString());
+        SupernaturalsPlugin.log(snplayer.getName()
+                + " was restored to humanity!");
         SupernaturalsPlugin.saveData();
     }
 
@@ -216,9 +224,10 @@ public class SuperNManager {
         SupernaturalsPlugin.instance.getGhoulManager().removeBond(snplayer);
         SupernaturalsPlugin.instance.getDataHandler().removeAngel(snplayer);
 
-        SuperNManager.sendMessage(snplayer, "你已被還原為之前的 " + ChatColor.WHITE
-                + oldType + ChatColor.RED + "!");
-        SupernaturalsPlugin.log(snplayer.getName() + " 已被還原為之前的 " + oldType
+        SuperNManager.sendMessage(snplayer, Language.SN_ADMIN_CMD_REVERT_NOTICE
+                .toString().replace(LanguageTag.TYPE.toString(), oldType));
+        SupernaturalsPlugin.log(snplayer.getName()
+                + " was reverted to the previous state of being a " + oldType
                 + "!");
         SupernaturalsPlugin.saveData();
 
@@ -249,11 +258,15 @@ public class SuperNManager {
             }
         }
         alterPower(snplayer, delta);
-        SuperNManager
-                .sendMessage(snplayer, "能量: " + ChatColor.WHITE
-                        + (int) snplayer.getPower() + ChatColor.RED + " ("
-                        + ChatColor.WHITE + (int) delta + ChatColor.RED + ") "
-                        + reason);
+        SuperNManager.sendMessage(
+                snplayer,
+                Language.SN_ADMIN_CMD_POWER_NOTICE
+                        .toString()
+                        .replace(LanguageTag.AMOUNT.toString(),
+                                Double.toString(snplayer.getPower()))
+                        .replace(LanguageTag.DELTA.toString(),
+                                Double.toString(delta))
+                        .replace(LanguageTag.REASON.toString(), reason));
     }
 
     // -------------------------------------------- //
@@ -265,19 +278,23 @@ public class SuperNManager {
 
         if (upOnly) {
             if (snplayer.getPower() - SNConfigHandler.jumpBloodCost <= 0) {
-                SuperNManager.sendMessage(snplayer, "沒有足夠的能量來跳躍.");
+                SuperNManager.sendMessage(snplayer,
+                        Language.NO_POWER.toString());
                 return false;
             } else {
                 SuperNManager.alterPower(snplayer,
-                        -SNConfigHandler.jumpBloodCost, "超級跳躍(SuperJump)!");
+                        -SNConfigHandler.jumpBloodCost,
+                        Language.ANGEL_SUPERJUMP_TRIGGER.toString());
             }
         } else {
             if (snplayer.getPower() - SNConfigHandler.dashBloodCost <= 0) {
-                SuperNManager.sendMessage(snplayer, "沒有足夠的能量來衝刺.");
+                SuperNManager.sendMessage(snplayer,
+                        Language.NO_POWER.toString());
                 return false;
             } else {
                 SuperNManager.alterPower(snplayer,
-                        -SNConfigHandler.dashBloodCost, "衝刺(Dash)!");
+                        -SNConfigHandler.dashBloodCost,
+                        Language.WERWWOLF_DASH_TRIGGER.toString());
             }
         }
 
@@ -309,14 +326,15 @@ public class SuperNManager {
             return;
         }
         if (snplayer.getTruce()) {
-            SuperNManager.sendMessage(snplayer, "你暫時打破了和怪物間的休戰契約!");
+            SuperNManager
+                    .sendMessage(snplayer, Language.TRUCE_BREAK.toString());
         }
         snplayer.setTruce(false);
         snplayer.setTruceTimer(SNConfigHandler.truceBreakTime);
     }
 
     public static void truceRestore(SuperNPlayer snplayer) {
-        SuperNManager.sendMessage(snplayer, "你和怪物間的休戰契約又恢復了!");
+        SuperNManager.sendMessage(snplayer, Language.TRUCE_RESTORE.toString());
         snplayer.setTruce(true);
         snplayer.setTruceTimer(0);
 
@@ -402,7 +420,8 @@ public class SuperNManager {
 
             deltaHeal = deltaSeconds * SNConfigHandler.vampireTimeHealthGained;
             SuperNManager.alterPower(snplayer,
-                    -SNConfigHandler.vampireHealthCost, "治療中!");
+                    -SNConfigHandler.vampireHealthCost,
+                    Language.HEALTH_REGEN.toString());
 
         } else if (snplayer.isGhoul()) {
             if (player.getWorld().hasStorm()

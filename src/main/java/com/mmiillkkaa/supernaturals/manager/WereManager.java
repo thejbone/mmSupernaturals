@@ -1,20 +1,20 @@
 /*
  * Supernatural Players Plugin for Bukkit
  * Copyright (C) 2011  Matt Walker <mmw167@gmail.com>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 
 package com.mmiillkkaa.supernaturals.manager;
@@ -40,6 +40,7 @@ import org.bukkit.inventory.PlayerInventory;
 import com.mmiillkkaa.supernaturals.SuperNPlayer;
 import com.mmiillkkaa.supernaturals.SupernaturalsPlugin;
 import com.mmiillkkaa.supernaturals.io.SNConfigHandler;
+import com.mmiillkkaa.supernaturals.util.Language;
 
 public class WereManager extends ClassManager {
 
@@ -73,7 +74,7 @@ public class WereManager extends ClassManager {
             if (item != null) {
                 if (SNConfigHandler.wereWeapons.contains(item.getType())) {
                     SuperNManager.sendMessage(snDamager,
-                            "狼人(Werewolve)無法在晚上使用武器!");
+                            Language.WEREWOLF_WEAPON_LIMIT.toString());
                     damage = 0;
                 } else {
                     damage += damage
@@ -89,7 +90,8 @@ public class WereManager extends ClassManager {
         SuperNPlayer snplayer = SuperNManager.get(player);
 
         SuperNManager.alterPower(snplayer,
-                -SNConfigHandler.wereDeathPowerPenalty, "你死了!");
+                -SNConfigHandler.wereDeathPowerPenalty,
+                Language.YOU_DIE.toString());
     }
 
     @Override
@@ -97,14 +99,17 @@ public class WereManager extends ClassManager {
             SuperNPlayer victim) {
         if (victim == null) {
             SuperNManager.alterPower(damager,
-                    SNConfigHandler.wereKillPowerCreatureGain, "擊殺生物!");
+                    SNConfigHandler.wereKillPowerCreatureGain,
+                    Language.KILL_CREATURE.toString());
         } else {
             double random = Math.random();
             if (victim.getPower() > SNConfigHandler.wereKillPowerPlayerGain) {
                 SuperNManager.alterPower(damager,
-                        SNConfigHandler.wereKillPowerPlayerGain, "擊殺玩家!");
+                        SNConfigHandler.wereKillPowerPlayerGain,
+                        Language.KILL_PLAYER.toString());
             } else {
-                SuperNManager.sendMessage(damager, "你無法從沒有能量的玩家身上獲得能量.");
+                SuperNManager.sendMessage(damager,
+                        Language.NO_POWER_GAIN.toString());
             }
             if (SNConfigHandler.wereKillSpreadCurse
                     && !victim.isSuper()
@@ -113,7 +118,7 @@ public class WereManager extends ClassManager {
                                     .getServer().getPlayer(victim.getName()))) {
                 if (random < SNConfigHandler.spreadChance) {
                     SuperNManager.sendMessage(victim,
-                            "你的天性已被改變... 你感受到內心的野獸覺醒了.");
+                            Language.WEREWOLF_DEATH.toString());
                     SuperNManager.convert(victim, "werewolf");
                 }
             }
@@ -147,7 +152,8 @@ public class WereManager extends ClassManager {
                     event.setCancelled(true);
                     return true;
                 } else {
-                    SuperNManager.sendMessage(snplayer, "無法在白天使用這個能力.");
+                    SuperNManager.sendMessage(snplayer,
+                            Language.WEREWOLF_ABILITY_LIMIT.toString());
                     return false;
                 }
             } else if (itemMaterial.toString().equalsIgnoreCase(
@@ -156,7 +162,8 @@ public class WereManager extends ClassManager {
                     return false;
                 }
                 if (SuperNManager.worldTimeIsNight(player)) {
-                    SuperNManager.sendMessage(snplayer, "無法在晚上解除狼人的狀態.");
+                    SuperNManager.sendMessage(snplayer,
+                            Language.WEREWOLF_CURE_LIMIT.toString());
                     return false;
                 } else {
                     wolfbane(player);
@@ -171,7 +178,8 @@ public class WereManager extends ClassManager {
                     event.setCancelled(true);
                     return true;
                 } else {
-                    SuperNManager.sendMessage(snplayer, "無法在白天使用這個能力.");
+                    SuperNManager.sendMessage(snplayer,
+                            Language.WEREWOLF_ABILITY_LIMIT.toString());
                     return false;
                 }
             }
@@ -188,11 +196,12 @@ public class WereManager extends ClassManager {
                     if (SNConfigHandler.foodMaterials.contains(itemMaterial)) {
                         if (itemMaterial.equals(Material.BREAD)) {
                             SuperNManager.sendMessage(snplayer,
-                                    "狼人(Werewolve)無法從麵包獲得能量.");
+                                    Language.WEREWOLF_EAT_LIMIT.toString());
                             return false;
                         } else {
                             SuperNManager.alterPower(snplayer,
-                                    SNConfigHandler.werePowerFood, "吃吧!");
+                                    SNConfigHandler.werePowerFood,
+                                    Language.WEREWOLF_EAT.toString());
                             player.setFoodLevel(player.getFoodLevel() + 6); // Hardcoded
                                                                             // value
                                                                             // :D
@@ -211,11 +220,12 @@ public class WereManager extends ClassManager {
                     }
                     if (itemMaterial.equals(Material.BREAD)) {
                         SuperNManager.sendMessage(snplayer,
-                                "狼人(Werewolve)無法從麵包獲得能量.");
+                                Language.WEREWOLF_EAT_LIMIT.toString());
                         return false;
                     } else {
                         SuperNManager.alterPower(snplayer,
-                                SNConfigHandler.werePowerFood, "吃吧!");
+                                SNConfigHandler.werePowerFood,
+                                Language.WEREWOLF_EAT.toString());
                         player.setFoodLevel(player.getFoodLevel() + 6); // Hardcoded
                                                                         // value
                                                                         // :D
@@ -278,8 +288,8 @@ public class WereManager extends ClassManager {
     public boolean wolfbane(Player player) {
         SuperNPlayer snplayer = SuperNManager.get(player);
         if (SNConfigHandler.wereWolfbaneRecipe.playerHasEnough(player)) {
-            SuperNManager
-                    .sendMessage(snplayer, "你創造了了狼人治癒藥水(wolfbane potion)!");
+            SuperNManager.sendMessage(snplayer,
+                    Language.WEREWOLF_POTION_NOTICE_SELF.toString());
             SuperNManager.sendMessage(snplayer,
                     SNConfigHandler.wereWolfbaneRecipe.getRecipeLine());
             SNConfigHandler.wereWolfbaneRecipe.removeFromPlayer(player);
@@ -287,7 +297,7 @@ public class WereManager extends ClassManager {
             return true;
         } else {
             SuperNManager.sendMessage(snplayer,
-                    "如果你沒有這些材料就不能製造狼人治癒藥水(Wolfbane potion): ");
+                    Language.WEREWOLF_POTION_NEED.toString());
             SuperNManager.sendMessage(snplayer,
                     SNConfigHandler.wereWolfbaneRecipe.getRecipeLine());
             return false;
@@ -302,7 +312,8 @@ public class WereManager extends ClassManager {
         SuperNPlayer snplayer = SuperNManager.get(player);
         ItemStack item = player.getItemInHand();
         if (!SupernaturalsPlugin.instance.getSpawn(player)) {
-            SuperNManager.sendMessage(snplayer, "你無法在這招喚(Summon).");
+            SuperNManager.sendMessage(snplayer,
+                    Language.WEREWOLF_SUMMON_NOT_ALLOW.toString());
             return false;
         }
         if (SuperNManager.worldTimeIsNight(player)) {
@@ -321,7 +332,8 @@ public class WereManager extends ClassManager {
                     wolf.setHealth(8);
                     wolvesMap.put(wolf, snplayer);
                     SuperNManager.alterPower(snplayer,
-                            -SNConfigHandler.werePowerSummonCost, "招喚野狼!");
+                            -SNConfigHandler.werePowerSummonCost,
+                            Language.WEREWOLF_SUMMON_WOLF.toString());
                     if (item.getAmount() == 1) {
                         player.setItemInHand(null);
                     } else {
@@ -329,15 +341,18 @@ public class WereManager extends ClassManager {
                     }
                     return true;
                 } else {
-                    SuperNManager.sendMessage(snplayer, "你已擁有所有你可控制的狼群了.");
+                    SuperNManager.sendMessage(snplayer,
+                            Language.WEREWOLF_SUMMON_TOO_MUCH_WOLF.toString());
                     return false;
                 }
             } else {
-                SuperNManager.sendMessage(snplayer, "沒有足夠的力量來招喚(Summon).");
+                SuperNManager.sendMessage(snplayer,
+                        Language.NO_POWER.toString());
                 return false;
             }
         } else {
-            SuperNManager.sendMessage(snplayer, "無法在白天使用狼人(Werewolf)能力!");
+            SuperNManager.sendMessage(snplayer,
+                    Language.WEREWOLF_ABILITY_LIMIT.toString());
             return false;
         }
     }

@@ -1,20 +1,20 @@
 /*
  * Supernatural Players Plugin for Bukkit
  * Copyright (C) 2011  Matt Walker <mmw167@gmail.com>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 
 package com.mmiillkkaa.supernaturals.manager;
@@ -28,6 +28,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import com.mmiillkkaa.supernaturals.SuperNPlayer;
+import com.mmiillkkaa.supernaturals.util.Language;
 
 public abstract class ClassManager {
 
@@ -66,7 +67,8 @@ public abstract class ClassManager {
     public void dropItem(Player player, ItemStack item) {
         if (!player.hasPermission("supernatural.player.ignorearmor")) {
             SuperNPlayer snplayer = SuperNManager.get(player);
-            SuperNManager.sendMessage(snplayer, "你的種族/職業無法穿戴這種類型的盔甲!");
+            SuperNManager.sendMessage(snplayer,
+                    Language.INVALID_ARMOR_TYPE.toString());
             Item newItem = player.getWorld().dropItem(player.getLocation(),
                     item);
             newItem.setItemStack(item);

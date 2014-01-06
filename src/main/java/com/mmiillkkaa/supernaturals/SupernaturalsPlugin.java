@@ -1,20 +1,20 @@
 /*
  * Supernatural Players Plugin for Bukkit
  * Copyright (C) 2011  Matt Walker <mmw167@gmail.com>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 
 package com.mmiillkkaa.supernaturals;
@@ -29,7 +29,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -57,6 +56,7 @@ import com.mmiillkkaa.supernaturals.commands.SNCommandSetBanish;
 import com.mmiillkkaa.supernaturals.commands.SNCommandSetChurch;
 import com.mmiillkkaa.supernaturals.commands.SNCommandSetup;
 import com.mmiillkkaa.supernaturals.io.SNConfigHandler;
+import com.mmiillkkaa.supernaturals.io.SNLanguageHandler;
 import com.mmiillkkaa.supernaturals.io.SNDataHandler;
 import com.mmiillkkaa.supernaturals.io.SNPlayerHandler;
 import com.mmiillkkaa.supernaturals.io.SNWhitelistHandler;
@@ -76,6 +76,8 @@ import com.mmiillkkaa.supernaturals.manager.PriestManager;
 import com.mmiillkkaa.supernaturals.manager.SuperNManager;
 import com.mmiillkkaa.supernaturals.manager.VampireManager;
 import com.mmiillkkaa.supernaturals.manager.WereManager;
+import com.mmiillkkaa.supernaturals.util.Language;
+import com.mmiillkkaa.supernaturals.util.LanguageTag;
 import com.mmiillkkaa.supernaturals.util.TextUtil;
 import com.sk89q.worldedit.Vector;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
@@ -87,6 +89,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
     public static SupernaturalsPlugin instance;
 
     private final SNConfigHandler snConfig = new SNConfigHandler(this);
+    private final SNLanguageHandler snLanguage = new SNLanguageHandler(this);
     private SNDataHandler snData = new SNDataHandler();
     private SNWhitelistHandler snWhitelist = new SNWhitelistHandler(this);
 
@@ -122,6 +125,10 @@ public class SupernaturalsPlugin extends JavaPlugin {
 
     public SNConfigHandler getConfigManager() {
         return snConfig;
+    }
+
+    public SNLanguageHandler getLanguageManager() {
+        return snLanguage;
     }
 
     public SNWhitelistHandler getWhitelistHandler() {
@@ -233,6 +240,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 
         dataFolder = getDataFolder();
         SNConfigHandler.getConfiguration();
+        SNLanguageHandler.getConfiguration();
 
         loadData();
         snData = SNDataHandler.read();
@@ -281,7 +289,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
                     return;
                 }
             }
-            sender.sendMessage(ChatColor.RED + "未知的指令. 請輸入 /sn help");
+            sender.sendMessage(Language.UNKNOW_COMMAND.toString());
             return;
         }
 
@@ -291,15 +299,16 @@ public class SupernaturalsPlugin extends JavaPlugin {
         for (SNCommand vampcommand : commands) {
             if (command.equals(vampcommand.getName())) {
                 if (!isPlayer && vampcommand.senderMustBePlayer) {
-                    sender.sendMessage("這個指令, sn " + command + ", 只能在遊戲內使用");
+                    sender.sendMessage(Language.ONLY_IN_GAME_COMMAND.toString()
+                            .replace(LanguageTag.CMD.toString(), command));
                 }
                 vampcommand.execute(sender, parameters);
                 return;
             }
         }
 
-        sender.sendMessage(ChatColor.RED + "未知的指令 \"" + command
-                + "\". 請輸入 /sn help");
+        sender.sendMessage(Language.NO_SUCH_COMMAND.toString().replace(
+                LanguageTag.CMD.toString(), command));
     }
 
     // -------------------------------------------- //
@@ -325,6 +334,7 @@ public class SupernaturalsPlugin extends JavaPlugin {
 
     public static void reConfig() {
         SNConfigHandler.reloadConfig();
+        SNLanguageHandler.reloadConfig();
     }
 
     public static void reloadData() {

@@ -23,6 +23,7 @@ import org.bukkit.entity.Player;
 
 import com.mmiillkkaa.supernaturals.SupernaturalsPlugin;
 import com.mmiillkkaa.supernaturals.io.SNConfigHandler;
+import com.mmiillkkaa.supernaturals.util.Language;
 
 public class SNCommandRestartTask extends SNCommandReload {
 
@@ -30,21 +31,17 @@ public class SNCommandRestartTask extends SNCommandReload {
         senderMustBePlayer = true;
         permissions = "supernatural.admin.command.task";
         helpNameAndParams = "";
-        helpDescription = "重置技能計時器.";
+        helpDescription = "Restarts the task timer.";
     }
 
     @Override
     public void perform() {
         Player senderPlayer = (Player) sender;
         if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
-            if (!SNConfigHandler.spanish) {
-                this.sendMessage("你沒有權限使用這個指令.");
-            } else {
-                this.sendMessage("No tienes permiso para este comando.");
-            }
+            this.sendMessage(Language.NO_PREMISSION.toString());
             return;
         }
         SupernaturalsPlugin.restartTask();
-        this.sendMessage("技能計時器已重新啟動.");
+        this.sendMessage(Language.TASK_TIMER_RESTART.toString());
     }
 }

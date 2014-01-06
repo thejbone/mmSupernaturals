@@ -1,20 +1,20 @@
 /*
  * Supernatural Players Plugin for Bukkit
  * Copyright (C) 2011  Matt Walker <mmw167@gmail.com>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 
 package com.mmiillkkaa.supernaturals.commands;
@@ -27,10 +27,10 @@ import org.bukkit.entity.Player;
 
 import com.mmiillkkaa.supernaturals.SupernaturalsPlugin;
 import com.mmiillkkaa.supernaturals.io.SNConfigHandler;
+import com.mmiillkkaa.supernaturals.util.Language;
 
 public class SNCommandHelp extends SNCommand {
     private static List<String> helpMessages = new ArrayList<String>();
-    private static List<String> helpMessagesSpanish = new ArrayList<String>();
 
     public SNCommandHelp() {
         super();
@@ -41,33 +41,22 @@ public class SNCommandHelp extends SNCommand {
         permissions = "supernatural.command.help";
     }
 
-    static {
-        helpMessagesSpanish.add("*** " + ChatColor.WHITE + "Supernatural Help "
-                + ChatColor.RED + " ***");
-        helpMessagesSpanish.add("/sn Power " + ChatColor.WHITE
-                + "- Indica tus Poderes actuales.");
-        helpMessagesSpanish.add("/sn List " + ChatColor.WHITE
-                + "- Lista de Seres Místicos. conectados.");
-        helpMessagesSpanish.add("/sn Classes " + ChatColor.WHITE
-                + "- Lista de Seres Místicos. disponibles.");
-        helpMessagesSpanish.add("/sn KillList " + ChatColor.WHITE
-                + "- Lista de objetivos para Cazadores de Brujas.");
-        helpMessages.add("*** " + ChatColor.WHITE + "Supernatural 說明文件 "
-                + ChatColor.RED + "***");
-        helpMessages.add("/sn Power " + ChatColor.WHITE + "- 顯示目前的能量等級.");
-        helpMessages.add("/sn List " + ChatColor.WHITE + "- 列出伺服器上的超自然生物.");
-        helpMessages.add("/sn Classes " + ChatColor.WHITE
-                + "- 顯示可用的超自然生物類型/職業.");
-        helpMessages.add("/sn KillList " + ChatColor.WHITE + "- 顯示目前女巫獵人獵殺清單.");
-    }
-
     @Override
     public void perform() {
+        helpMessages.add(String
+                .format("*** %s ***", Language.SUPERNATURAL_HELP));
+        helpMessages.add(String.format("/sn Power %s- %s", ChatColor.WHITE,
+                Language.SN_CMD_POWER));
+        helpMessages.add(String.format("/sn List %s- %s", ChatColor.WHITE,
+                Language.SN_CMD_LIST));
+        helpMessages.add(String.format("/sn Classes %s- %s", ChatColor.WHITE,
+                Language.SN_CMD_CLASSES));
+        helpMessages.add(String.format("/sn KillList %s- %s", ChatColor.WHITE,
+                Language.SN_CMD_KILLIST));
+
         if (!(sender instanceof Player)) {
-            if (helpMessages.size() == 5) {
-                helpMessages
-                        .add("/sn admin " + ChatColor.WHITE + "- 顯示管理員專用指令");
-            }
+            helpMessages.add(String.format("/sn admin %s- %s", ChatColor.WHITE,
+                    Language.SN_CMD_ADMIN));
             this.sendMessage(helpMessages);
             return;
         }
@@ -75,24 +64,14 @@ public class SNCommandHelp extends SNCommand {
         Player senderPlayer = (Player) sender;
 
         if (SupernaturalsPlugin.hasPermissions(senderPlayer, permissions2)) {
-            if (helpMessages.size() == 5) {
-                helpMessages
-                        .add("/sn admin " + ChatColor.WHITE + "- 顯示管理員專用指令");
-            }
+            helpMessages.add(String.format("/sn admin %s- %s", ChatColor.WHITE,
+                    Language.SN_CMD_ADMIN));
         }
 
         if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
-            if (!SNConfigHandler.spanish) {
-                this.sendMessage("你沒有權限使用這個指令.");
-            } else {
-                this.sendMessage("No tienes permiso para este comando.");
-            }
+            this.sendMessage(Language.NO_PREMISSION.toString());
             return;
         }
-        if (!SNConfigHandler.spanish) {
-            this.sendMessage(helpMessages);
-        } else {
-            this.sendMessage(helpMessagesSpanish);
-        }
+        this.sendMessage(helpMessages);
     }
 }

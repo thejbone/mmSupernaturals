@@ -1,20 +1,20 @@
 /*
  * Supernatural Players Plugin for Bukkit
  * Copyright (C) 2011  Matt Walker <mmw167@gmail.com>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 
 package com.mmiillkkaa.supernaturals.commands;
@@ -26,6 +26,8 @@ import org.bukkit.entity.Player;
 import com.mmiillkkaa.supernaturals.SuperNPlayer;
 import com.mmiillkkaa.supernaturals.SupernaturalsPlugin;
 import com.mmiillkkaa.supernaturals.manager.SuperNManager;
+import com.mmiillkkaa.supernaturals.util.Language;
+import com.mmiillkkaa.supernaturals.util.LanguageTag;
 
 public class SNCommandReset extends SNCommand {
 
@@ -35,51 +37,58 @@ public class SNCommandReset extends SNCommand {
         senderMustBePlayer = false;
         optionalParameters.add("playername");
         permissions = "supernatural.admin.command.reset";
-        helpNameAndParams = "reset | reset [玩家名稱]";
-        helpDescription = "重置玩家的能量為零";
+        helpNameAndParams = "reset | reset [playername]";
+        helpDescription = "Reset a player's power to zero";
     }
 
     @Override
     public void perform() {
         if (!(sender instanceof Player)) {
             if (parameters.isEmpty()) {
-                this.sendMessage("缺乏玩家名稱!");
+                this.sendMessage(Language.MISSING_PLAYER.toString());
             } else {
                 String playername = parameters.get(0);
                 Player player = SupernaturalsPlugin.instance.getServer()
                         .getPlayer(playername);
 
                 if (player == null) {
-                    this.sendMessage("沒有這個玩家!");
+                    this.sendMessage(Language.PLAYER_NOT_FOUND.toString());
                     return;
                 }
                 SuperNPlayer snplayer = SuperNManager.get(player);
-                SuperNManager.alterPower(snplayer, -10000, "天神");
-                this.sendMessage("已重置玩家能量: " + snplayer.getName());
+                SuperNManager.alterPower(snplayer, -10000,
+                        Language.BY_ADMIN.toString());
+                this.sendMessage(Language.PLAYER_POWER_RESET.toString()
+                        .replace(LanguageTag.PLAYER.toString(),
+                                snplayer.getName()));
             }
             return;
         }
 
         Player senderPlayer = (Player) sender;
         if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
-            this.sendMessage("你沒有權限使用這個指令.");
+            this.sendMessage(Language.NO_PREMISSION.toString());
             return;
         }
         if (parameters.isEmpty()) {
             SuperNPlayer snplayer = SuperNManager.get(senderPlayer);
-            SuperNManager.alterPower(snplayer, -10000, "天神");
+            SuperNManager.alterPower(snplayer, -10000,
+                    Language.BY_ADMIN.toString());
         } else {
             String playername = parameters.get(0);
             Player player = SupernaturalsPlugin.instance.getServer().getPlayer(
                     playername);
 
             if (player == null) {
-                this.sendMessage("沒有這個玩家!");
+                this.sendMessage(Language.PLAYER_NOT_FOUND.toString());
                 return;
             }
             SuperNPlayer snplayer = SuperNManager.get(player);
-            SuperNManager.alterPower(snplayer, -10000, "天神");
-            this.sendMessage("已重置玩家能量: " + snplayer.getName());
+            SuperNManager.alterPower(snplayer, -10000,
+                    Language.BY_ADMIN.toString());
+            this.sendMessage(Language.PLAYER_POWER_RESET.toString().replace(
+                    LanguageTag.PLAYER.toString(), snplayer.getName()));
+
         }
     }
 }

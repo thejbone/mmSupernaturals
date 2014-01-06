@@ -1,20 +1,20 @@
 /*
  * Supernatural Players Plugin for Bukkit
  * Copyright (C) 2011  Matt Walker <mmw167@gmail.com>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 
 package com.mmiillkkaa.supernaturals.manager;
@@ -34,6 +34,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import com.mmiillkkaa.supernaturals.SuperNPlayer;
 import com.mmiillkkaa.supernaturals.SupernaturalsPlugin;
 import com.mmiillkkaa.supernaturals.io.SNConfigHandler;
+import com.mmiillkkaa.supernaturals.util.Language;
 
 public class HumanManager extends ClassManager {
 
@@ -86,7 +87,8 @@ public class HumanManager extends ClassManager {
 
         if (e.getCause().equals(DamageCause.FALL)) {
             if (player.getItemInHand().getType().equals(Material.FEATHER)) {
-                SuperNManager.sendMessage(snplayer, "你感到靈魂被解放");
+                SuperNManager.sendMessage(snplayer,
+                        Language.HUMAN_TO_ANGEL.toString());
                 SuperNManager.convert(snplayer, "angel",
                         SNConfigHandler.angelPowerStart);
             }
@@ -98,7 +100,8 @@ public class HumanManager extends ClassManager {
             if (player.getWorld().getEnvironment().equals(Environment.NETHER)) {
                 if (plugin.getDemonManager().checkPlayerApp(player)
                         || plugin.getDemonManager().checkInventory(player)) {
-                    SuperNManager.sendMessage(snplayer, "地獄火快速的流過你的靜眽!");
+                    SuperNManager.sendMessage(snplayer,
+                            Language.HUMAN_TO_DAEMON.toString());
                     SuperNManager.convert(snplayer, "demon",
                             SNConfigHandler.demonPowerStart);
                 }
@@ -120,7 +123,8 @@ public class HumanManager extends ClassManager {
                 if (lDamager instanceof PigZombie) {
                     SuperNManager.convert(snplayer, "ghoul",
                             SNConfigHandler.ghoulPowerStart);
-                    SuperNManager.sendMessage(snplayer, "你已被轉化為食屍鬼(Ghoul)!");
+                    SuperNManager.sendMessage(snplayer,
+                            Language.HUMAN_TO_GHOUL.toString());
                 }
             }
             if (lDamager instanceof Wolf) {
@@ -128,7 +132,8 @@ public class HumanManager extends ClassManager {
                         && SuperNManager.worldTimeIsNight(player)) {
                     SuperNManager.convert(snplayer, "werewolf",
                             SNConfigHandler.werePowerStart);
-                    SuperNManager.sendMessage(snplayer, "你突變成為狼人(Werewolf)!");
+                    SuperNManager.sendMessage(snplayer,
+                            Language.HUMAN_TO_WEREWOLF.toString());
                 }
             }
         }

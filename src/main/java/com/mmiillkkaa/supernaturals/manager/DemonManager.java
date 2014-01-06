@@ -1,20 +1,20 @@
 /*
  * Supernatural Players Plugin for Bukkit
  * Copyright (C) 2011  Matt Walker <mmw167@gmail.com>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 
 package com.mmiillkkaa.supernaturals.manager;
@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World.Environment;
@@ -44,6 +43,8 @@ import org.bukkit.material.Door;
 import com.mmiillkkaa.supernaturals.SuperNPlayer;
 import com.mmiillkkaa.supernaturals.SupernaturalsPlugin;
 import com.mmiillkkaa.supernaturals.io.SNConfigHandler;
+import com.mmiillkkaa.supernaturals.util.Language;
+import com.mmiillkkaa.supernaturals.util.LanguageTag;
 
 public class DemonManager extends ClassManager {
 
@@ -83,7 +84,8 @@ public class DemonManager extends ClassManager {
                 demons.add(dPlayer);
                 heal(victim);
                 SuperNManager.alterPower(snVictim,
-                        SNConfigHandler.demonPowerGain, "岩漿!");
+                        SNConfigHandler.demonPowerGain,
+                        Language.DAEMON_LOVE_LAVA.toString());
                 SupernaturalsPlugin.instance
                         .getServer()
                         .getScheduler()
@@ -112,7 +114,8 @@ public class DemonManager extends ClassManager {
 
         if (item != null)
             if (SNConfigHandler.demonWeapons.contains(item.getType())) {
-                SuperNManager.sendMessage(snDamager, "惡魔(Demons)無法使用武器!");
+                SuperNManager.sendMessage(snDamager,
+                        Language.DAEMON_LIMIT_WEAPON.toString());
                 damage = 0;
             }
         if (victim instanceof Player) {
@@ -134,7 +137,8 @@ public class DemonManager extends ClassManager {
         EntityDamageEvent e = player.getLastDamageCause();
 
         SuperNManager.alterPower(snplayer,
-                -SNConfigHandler.demonDeathPowerPenalty, "你死了!");
+                -SNConfigHandler.demonDeathPowerPenalty,
+                Language.YOU_DIE.toString());
 
         if (e == null) {
             return;
@@ -151,7 +155,7 @@ public class DemonManager extends ClassManager {
                     if (player.getInventory().contains(Material.SNOW_BALL,
                             SNConfigHandler.demonSnowballAmount)) {
                         SuperNManager.sendMessage(snplayer,
-                                "你冰冷的死亡冷卻了在你身體裡肆虐的地獄火.");
+                                Language.DAEMON_DEATH.toString());
                         SuperNManager.cure(snplayer);
                     }
                 }
@@ -164,13 +168,16 @@ public class DemonManager extends ClassManager {
             SuperNPlayer victim) {
         if (victim == null) {
             SuperNManager.alterPower(damager,
-                    SNConfigHandler.demonKillPowerCreatureGain, "擊殺生物!");
+                    SNConfigHandler.demonKillPowerCreatureGain,
+                    Language.KILL_CREATURE.toString());
         } else {
             if (victim.getPower() > SNConfigHandler.demonKillPowerPlayerGain) {
                 SuperNManager.alterPower(damager,
-                        SNConfigHandler.demonKillPowerPlayerGain, "擊殺玩家!");
+                        SNConfigHandler.demonKillPowerPlayerGain,
+                        Language.KILL_PLAYER.toString());
             } else {
-                SuperNManager.sendMessage(damager, "你無法從沒有能量的玩家身上獲得能量.");
+                SuperNManager.sendMessage(damager,
+                        Language.NO_POWER_GAIN.toString());
             }
         }
     }
@@ -368,11 +375,12 @@ public class DemonManager extends ClassManager {
     public boolean fireball(Player player) {
         SuperNPlayer snplayer = SuperNManager.get(player);
         if (!SupernaturalsPlugin.instance.getPvP(player)) {
-            SuperNManager.sendMessage(snplayer, "你無法在禁止戰鬥的地方施展火球術(Fireball)");
+            SuperNManager.sendMessage(snplayer,
+                    Language.NOT_ALLOW_NONPVP.toString());
             return false;
         }
         if (snplayer.getPower() < SNConfigHandler.demonPowerFireball) {
-            SuperNManager.sendMessage(snplayer, "沒有足夠的能量施展火球術(Fireball)!");
+            SuperNManager.sendMessage(snplayer, Language.NO_POWER.toString());
             return false;
         }
         Location loc = player
@@ -385,7 +393,8 @@ public class DemonManager extends ClassManager {
         fireball.setShooter(player);
         fireball.setYield(0);
         SuperNManager.alterPower(SuperNManager.get(player),
-                -SNConfigHandler.demonPowerFireball, "火球術(Fireball)!");
+                -SNConfigHandler.demonPowerFireball,
+                Language.DAEMON_FIREBALL_NOTICE_SELF.toString());
         ItemStack item = player.getItemInHand();
         if (item.getAmount() == 1) {
             player.setItemInHand(null);
@@ -399,18 +408,22 @@ public class DemonManager extends ClassManager {
         SuperNPlayer snplayer = SuperNManager.get(player);
         SuperNPlayer snvictim = SuperNManager.get(target);
         if (snplayer.getPower() < SNConfigHandler.demonConvertPower) {
-            SuperNManager.sendMessage(snplayer, "沒有足夠的能量轉換!");
+            SuperNManager.sendMessage(snplayer, Language.NO_POWER.toString());
             return false;
         }
         if (target.getItemInHand().getType().equals(Material.NETHERRACK)) {
-            SuperNManager.alterPower(snplayer,
+            SuperNManager.alterPower(
+                    snplayer,
                     -SNConfigHandler.demonConvertPower,
-                    "轉換了" + target.getName());
+                    Language.DAEMON_CONVERT_NOTICE_SELF.toString().replace(
+                            LanguageTag.PLAYER.toString(), target.getName()));
             SuperNManager.convert(snvictim, "demon");
-            SuperNManager.sendMessage(snvictim, ChatColor.RED
-                    + "熱量在你的體內開始累積...");
             SuperNManager.sendMessage(snvictim,
-                    ChatColor.RED + "你被 " + player.getName() + " 轉換為惡魔(Demon)");
+                    Language.DAEMON_CONVERT_NOTICE_OTHER_DESC.toString());
+            SuperNManager.sendMessage(
+                    snvictim,
+                    Language.DAEMON_CONVERT_NOTICE_OTHER.toString().replace(
+                            LanguageTag.PLAYER.toString(), player.getName()));
             return true;
         }
         return false;
@@ -419,7 +432,7 @@ public class DemonManager extends ClassManager {
     public boolean snare(Player player, Player target) {
         SuperNPlayer snplayer = SuperNManager.get(player);
         if (snplayer.getPower() < SNConfigHandler.demonPowerSnare) {
-            SuperNManager.sendMessage(snplayer, "沒有足夠的能量施展牢籠(Snare)!");
+            SuperNManager.sendMessage(snplayer, Language.NO_POWER.toString());
             return false;
         }
         Block block;
@@ -473,7 +486,8 @@ public class DemonManager extends ClassManager {
         }
 
         SuperNManager.alterPower(SuperNManager.get(player),
-                -SNConfigHandler.demonPowerSnare, "牢籠(Snare)!");
+                -SNConfigHandler.demonPowerSnare,
+                Language.DAEMON_SNARE_NOTICE_SELF.toString());
         return true;
     }
 
@@ -537,7 +551,7 @@ public class DemonManager extends ClassManager {
                             }, 20);
             return true;
         }
-        SuperNManager.sendMessage(snplayer, "惡魔(Demons)專用!");
+        SuperNManager.sendMessage(snplayer, Language.DAEMON_ONLY.toString());
         return true;
     }
 

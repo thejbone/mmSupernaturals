@@ -1,25 +1,24 @@
 /*
  * Supernatural Players Plugin for Bukkit
  * Copyright (C) 2011  Matt Walker <mmw167@gmail.com>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 
 package com.mmiillkkaa.supernaturals.listeners;
 
-import org.bukkit.ChatColor;
 import org.bukkit.World.Environment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -34,6 +33,9 @@ import com.mmiillkkaa.supernaturals.SupernaturalsPlugin;
 import com.mmiillkkaa.supernaturals.io.SNConfigHandler;
 import com.mmiillkkaa.supernaturals.io.SNWhitelistHandler;
 import com.mmiillkkaa.supernaturals.manager.SuperNManager;
+import com.mmiillkkaa.supernaturals.util.Color;
+import com.mmiillkkaa.supernaturals.util.Language;
+import com.mmiillkkaa.supernaturals.util.LanguageTag;
 
 public class SNPlayerMonitor implements Listener {
 
@@ -60,21 +62,21 @@ public class SNPlayerMonitor implements Listener {
         SuperNPlayer snplayer = SuperNManager.get(player);
         String prefix;
         if (snplayer.isPriest()) {
-            prefix = ChatColor.GOLD + "Priest";
+            prefix = Color.PRIEST.prefix(Language.SN_PREIEST_NAME);
         } else if (snplayer.isVampire()) {
-            prefix = ChatColor.DARK_PURPLE + "Vampire";
+            prefix = Color.VAMPIRE.prefix(Language.SN_VAMPIRE_NAME);
         } else if (snplayer.isGhoul()) {
-            prefix = ChatColor.DARK_GRAY + "Ghoul";
+            prefix = Color.GHOUL.prefix(Language.SN_GHOUL_NAME);
         } else if (snplayer.isWere()) {
-            prefix = ChatColor.BLUE + "Werewolf";
+            prefix = Color.WEREWOLF.prefix(Language.SN_WEREWOLF_NAME);
         } else if (snplayer.isHunter()) {
-            prefix = ChatColor.GREEN + "WitchHunter";
+            prefix = Color.WITCHHUNTER.prefix(Language.SN_WITCHHUNTER_NAME);
         } else if (snplayer.isDemon()) {
-            prefix = ChatColor.RED + "Demon";
+            prefix = Color.DEMON.prefix(Language.SN_DEMON_NAME);
         } else if (snplayer.isAngel()) {
-            prefix = ChatColor.AQUA + "Angel";
+            prefix = Color.ANGEL.prefix(Language.SN_ANGEL_NAME);
         } else {
-            prefix = ChatColor.WHITE + "Human";
+            prefix = Color.HUMAN.prefix(Language.SN_HUMAN_NAME);
         }
 
         event.setFormat(event.getFormat().replace("[SN]", prefix));
@@ -114,8 +116,8 @@ public class SNPlayerMonitor implements Listener {
         }
         SuperNPlayer snplayer = SuperNManager.get(player);
         if (!SNWhitelistHandler.isWhitelisted(SuperNManager.get(player))) {
-            SuperNManager.sendMessage(snplayer,
-                    "你的職業已被重置, 因為你企圖閃避 mmSupernaturals 白名單.");
+            SuperNManager
+                    .sendMessage(snplayer, Language.CLASS_RESET.toString());
         }
 
         if (SupernaturalsPlugin.hasPermissions(player,
@@ -140,178 +142,95 @@ public class SNPlayerMonitor implements Listener {
         }
 
         if (SNConfigHandler.enableColors) {
-            if (SNConfigHandler.spanish) {
-                if (snplayer.isHuman()) {
-                    player.setDisplayName(player
-                            .getDisplayName()
-                            .trim()
-                            .replace(player.getName(),
-                                    ChatColor.WHITE + player.getName()));
-                    plugin.getServer().broadcastMessage(
-                            ChatColor.WHITE + "El Humano " + player.getName()
-                                    + ChatColor.GOLD + " ha entrado al juego.");
-                } else if (snplayer.isVampire()) {
-                    player.setDisplayName(player
-                            .getDisplayName()
-                            .trim()
-                            .replace(player.getName(),
-                                    ChatColor.DARK_PURPLE + player.getName()));
-                    plugin.getServer().broadcastMessage(
-                            ChatColor.DARK_PURPLE + "El Vampiro "
-                                    + player.getName() + ChatColor.GOLD
-                                    + " ha entrado al juego.");
-                } else if (snplayer.isWere()) {
-                    player.setDisplayName(player
-                            .getDisplayName()
-                            .trim()
-                            .replace(player.getName(),
-                                    ChatColor.BLUE + player.getName()));
-                    plugin.getServer().broadcastMessage(
-                            ChatColor.BLUE + "El Hombre Lobo "
-                                    + player.getName() + ChatColor.GOLD
-                                    + " ha entrado al juego.");
-                } else if (snplayer.isGhoul()) {
-                    player.setDisplayName(player
-                            .getDisplayName()
-                            .trim()
-                            .replace(player.getName(),
-                                    ChatColor.DARK_GRAY + player.getName()));
-                    plugin.getServer().broadcastMessage(
-                            ChatColor.DARK_GRAY + "El Muerto Viviente "
-                                    + player.getName() + ChatColor.GOLD
-                                    + " ha entrado al juego.");
-                } else if (snplayer.isPriest()) {
-                    player.setDisplayName(player
-                            .getDisplayName()
-                            .trim()
-                            .replace(player.getName(),
-                                    ChatColor.GOLD + player.getName()));
-                    plugin.getServer().broadcastMessage(
-                            ChatColor.GOLD + "El Sacerdote " + player.getName()
-                                    + ChatColor.GOLD + " ha entrado al juego.");
-                } else if (snplayer.isHunter()) {
-                    // player.setSneaking(true);
-                    player.setDisplayName(player
-                            .getDisplayName()
-                            .trim()
-                            .replace(player.getName(),
-                                    ChatColor.GREEN + player.getName()));
-                    plugin.getServer().broadcastMessage(
-                            ChatColor.GREEN + "El Cazador de Brujas "
-                                    + player.getName() + ChatColor.GOLD
-                                    + " ha entrado al juego.");
-                } else if (snplayer.isDemon()) {
-                    player.setDisplayName(player
-                            .getDisplayName()
-                            .trim()
-                            .replace(player.getName(),
-                                    ChatColor.RED + player.getName()));
-                    plugin.getServer().broadcastMessage(
-                            ChatColor.RED + "El Demonio " + player.getName()
-                                    + ChatColor.GOLD + " ha entrado al juego.");
-                } else if (snplayer.isAngel()) {
-                    player.setDisplayName(player
-                            .getDisplayName()
-                            .trim()
-                            .replace(player.getName(),
-                                    ChatColor.AQUA + player.getName()));
-                    plugin.getServer().broadcastMessage(
-                            ChatColor.AQUA + "El Angel " + player.getName()
-                                    + ChatColor.GOLD + " ha entrado al juego.");
-                }
-                return;
-            }
             if (snplayer.isHuman()) {
                 player.setDisplayName(player
                         .getDisplayName()
                         .trim()
-                        .replace(
-                                player.getName(),
-                                ChatColor.WHITE + player.getName()
-                                        + ChatColor.WHITE));
+                        .replace(player.getName(),
+                                Color.HUMAN.name(player.getName())));
                 plugin.getServer().broadcastMessage(
-                        ChatColor.WHITE + "人類(Human) " + player.getName()
-                                + ChatColor.GOLD + " 加入了伺服器.");
+                        Color.HUMAN.name(Language.SN_HUMAN_NAME)
+                                + Language.CLASS_JOIN_SERVER.toString()
+                                        .replace(LanguageTag.PLAYER.toString(),
+                                                player.getName()));
             } else if (snplayer.isVampire()) {
                 player.setDisplayName(player
                         .getDisplayName()
                         .trim()
-                        .replace(
-                                player.getName(),
-                                ChatColor.DARK_PURPLE + player.getName()
-                                        + ChatColor.WHITE));
+                        .replace(player.getName(),
+                                Color.VAMPIRE.name(player.getName())));
                 plugin.getServer().broadcastMessage(
-                        ChatColor.DARK_PURPLE + "吸血鬼(Vampire) "
-                                + player.getName() + ChatColor.GOLD
-                                + " 加入了伺服器.");
+                        Color.VAMPIRE.name(Language.SN_VAMPIRE_NAME)
+                                + Language.CLASS_JOIN_SERVER.toString()
+                                        .replace(LanguageTag.PLAYER.toString(),
+                                                player.getName()));
             } else if (snplayer.isWere()) {
                 player.setDisplayName(player
                         .getDisplayName()
                         .trim()
-                        .replace(
-                                player.getName(),
-                                ChatColor.BLUE + player.getName()
-                                        + ChatColor.WHITE));
+                        .replace(player.getName(),
+                                Color.WEREWOLF.name(player.getName())));
                 plugin.getServer().broadcastMessage(
-                        ChatColor.BLUE + "狼人(Werewolf) " + player.getName()
-                                + ChatColor.GOLD + " 加入了伺服器.");
+                        Color.WEREWOLF.name(Language.SN_WEREWOLF_NAME)
+                                + Language.CLASS_JOIN_SERVER.toString()
+                                        .replace(LanguageTag.PLAYER.toString(),
+                                                player.getName()));
             } else if (snplayer.isGhoul()) {
                 player.setDisplayName(player
                         .getDisplayName()
                         .trim()
-                        .replace(
-                                player.getName(),
-                                ChatColor.DARK_GRAY + player.getName()
-                                        + ChatColor.WHITE));
+                        .replace(player.getName(),
+                                Color.GHOUL.name(player.getName())));
                 plugin.getServer().broadcastMessage(
-                        ChatColor.DARK_GRAY + "食屍鬼(Ghoul) " + player.getName()
-                                + ChatColor.GOLD + " 加入了伺服器.");
+                        Color.GHOUL.name(Language.SN_GHOUL_NAME)
+                                + Language.CLASS_JOIN_SERVER.toString()
+                                        .replace(LanguageTag.PLAYER.toString(),
+                                                player.getName()));
             } else if (snplayer.isPriest()) {
                 player.setDisplayName(player
                         .getDisplayName()
                         .trim()
-                        .replace(
-                                player.getName(),
-                                ChatColor.GOLD + player.getName()
-                                        + ChatColor.WHITE));
+                        .replace(player.getName(),
+                                Color.PRIEST.name(player.getName())));
                 plugin.getServer().broadcastMessage(
-                        ChatColor.GOLD + "牧師(Priest) " + player.getName()
-                                + ChatColor.GOLD + " 加入了伺服器.");
+                        Color.PRIEST.name(Language.SN_PREIEST_NAME)
+                                + Language.CLASS_JOIN_SERVER.toString()
+                                        .replace(LanguageTag.PLAYER.toString(),
+                                                player.getName()));
             } else if (snplayer.isHunter()) {
                 // player.setSneaking(true);
                 player.setDisplayName(player
                         .getDisplayName()
                         .trim()
-                        .replace(
-                                player.getName(),
-                                ChatColor.GREEN + player.getName()
-                                        + ChatColor.WHITE));
+                        .replace(player.getName(),
+                                Color.WITCHHUNTER.name(player.getName())));
                 plugin.getServer().broadcastMessage(
-                        ChatColor.GREEN + "女巫獵人(WitchHunter) "
-                                + player.getName() + ChatColor.GOLD
-                                + " 加入了伺服器.");
+                        Color.WITCHHUNTER.name(Language.SN_WITCHHUNTER_NAME)
+                                + Language.CLASS_JOIN_SERVER.toString()
+                                        .replace(LanguageTag.PLAYER.toString(),
+                                                player.getName()));
             } else if (snplayer.isDemon()) {
                 player.setDisplayName(player
                         .getDisplayName()
                         .trim()
-                        .replace(
-                                player.getName(),
-                                ChatColor.RED + player.getName()
-                                        + ChatColor.WHITE));
+                        .replace(player.getName(),
+                                Color.DEMON.name(player.getName())));
                 plugin.getServer().broadcastMessage(
-                        ChatColor.RED + "惡魔(Demon) " + player.getName()
-                                + ChatColor.GOLD + " 加入了伺服器.");
+                        Color.DEMON.name(Language.SN_DEMON_NAME)
+                                + Language.CLASS_JOIN_SERVER.toString()
+                                        .replace(LanguageTag.PLAYER.toString(),
+                                                player.getName()));
             } else if (snplayer.isAngel()) {
                 player.setDisplayName(player
                         .getDisplayName()
                         .trim()
-                        .replace(
-                                player.getName(),
-                                ChatColor.AQUA + player.getName()
-                                        + ChatColor.WHITE));
+                        .replace(player.getName(),
+                                Color.ANGEL.name(player.getName())));
                 plugin.getServer().broadcastMessage(
-                        ChatColor.AQUA + "天使(Angel) " + player.getName()
-                                + ChatColor.GOLD + " 加入了伺服器.");
+                        Color.ANGEL.name(Language.SN_ANGEL_NAME)
+                                + Language.CLASS_JOIN_SERVER.toString()
+                                        .replace(LanguageTag.PLAYER.toString(),
+                                                player.getName()));
             }
         }
     }

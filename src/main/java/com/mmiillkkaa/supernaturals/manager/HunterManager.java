@@ -1,20 +1,20 @@
 /*
  * Supernatural Players Plugin for Bukkit
  * Copyright (C) 2011  Matt Walker <mmw167@gmail.com>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 
 package com.mmiillkkaa.supernaturals.manager;
@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -46,6 +45,8 @@ import org.bukkit.material.Door;
 import com.mmiillkkaa.supernaturals.SuperNPlayer;
 import com.mmiillkkaa.supernaturals.SupernaturalsPlugin;
 import com.mmiillkkaa.supernaturals.io.SNConfigHandler;
+import com.mmiillkkaa.supernaturals.util.Language;
+import com.mmiillkkaa.supernaturals.util.LanguageTag;
 
 public class HunterManager extends HumanManager {
 
@@ -116,7 +117,7 @@ public class HunterManager extends HumanManager {
             if (item != null) {
                 if (SNConfigHandler.hunterWeapons.contains(item.getType())) {
                     SuperNManager.sendMessage(snDamager,
-                            "女巫獵人(WitchHunter)無法使用這個武器!");
+                            Language.WITCHHUNTER_LIMIT_WEAPON.toString());
                     return 0;
                 }
             }
@@ -132,7 +133,8 @@ public class HunterManager extends HumanManager {
         super.deathEvent(player);
         SuperNPlayer snplayer = SuperNManager.get(player);
         SuperNManager.alterPower(snplayer,
-                -SNConfigHandler.hunterDeathPowerPenalty, "你死了!");
+                -SNConfigHandler.hunterDeathPowerPenalty,
+                Language.YOU_DIE.toString());
     }
 
     @Override
@@ -141,20 +143,24 @@ public class HunterManager extends HumanManager {
         if (victim == null) {
             if (SNConfigHandler.hunterKillPowerCreatureGain > 0) {
                 SuperNManager.alterPower(damager,
-                        SNConfigHandler.hunterKillPowerCreatureGain, "擊殺生物!");
+                        SNConfigHandler.hunterKillPowerCreatureGain,
+                        Language.KILL_CREATURE.toString());
             }
         } else {
             if (victim.getPower() > SNConfigHandler.hunterKillPowerPlayerGain) {
                 SuperNManager.alterPower(damager,
-                        SNConfigHandler.hunterKillPowerPlayerGain, "擊殺玩家!");
+                        SNConfigHandler.hunterKillPowerPlayerGain,
+                        Language.KILL_PLAYER.toString());
                 if (HunterManager.checkBounty(victim)) {
                     SuperNManager.alterPower(damager,
-                            SNConfigHandler.hunterBountyCompletion, "獲得賞金!");
+                            SNConfigHandler.hunterBountyCompletion,
+                            Language.WITCHHUNTER_BOUNTY_GET.toString());
                     HunterManager.removeBounty(victim);
                     HunterManager.addBounty();
                 }
             } else {
-                SuperNManager.sendMessage(damager, "你無法從沒有能量的玩家身上獲得能量.");
+                SuperNManager.sendMessage(damager,
+                        Language.NO_POWER_GAIN.toString());
             }
         }
     }
@@ -257,8 +263,9 @@ public class HunterManager extends HumanManager {
             if (!bountyList.contains(sntarget) && sntarget.isSuper()) {
                 bountyList.add(sntarget);
                 SupernaturalsPlugin.instance.getServer().broadcastMessage(
-                        ChatColor.WHITE + sntarget.getName() + ChatColor.RED
-                                + "已被加入女巫獵人(WitchHunter)的獵殺名單!");
+                        Language.WITCHHUNTER_BOUNTY_ADD.toString().replace(
+                                LanguageTag.PLAYER.toString(),
+                                sntarget.getName()));
                 bountyFound = true;
                 return;
             }
@@ -307,8 +314,9 @@ public class HunterManager extends HumanManager {
                 bountyList.add(sntarget);
                 numberFound++;
                 SupernaturalsPlugin.instance.getServer().broadcastMessage(
-                        ChatColor.WHITE + sntarget.getName() + ChatColor.RED
-                                + " 已被加入女巫獵人(WitchHunter)的獵殺名單!");
+                        Language.WITCHHUNTER_BOUNTY_ADD.toString().replace(
+                                LanguageTag.PLAYER.toString(),
+                                sntarget.getName()));
             }
             count++;
             if (count > 100) {
@@ -383,7 +391,8 @@ public class HunterManager extends HumanManager {
                             }, 20);
             return true;
         }
-        SuperNManager.sendMessage(snplayer, "女巫獵人(WitchHunter)專用!");
+        SuperNManager.sendMessage(snplayer,
+                Language.WITCHHUNTER_ONLY.toString());
         return true;
     }
 
@@ -430,9 +439,11 @@ public class HunterManager extends HumanManager {
                             @Override
                             public void run() {
                                 SuperNManager.sendMessage(snplayer,
-                                        "你已被邀請加入女巫獵人(WitchHunter)協會!");
+                                        Language.WITCHHUNTER_INVIT_GREETING
+                                                .toString());
                                 SuperNManager.sendMessage(snplayer,
-                                        "如果你願意加入的話, 請到女巫獵人(WitchHunter)大廳走一趟");
+                                        Language.WITCHHUNTER_INVIT_PROMPT
+                                                .toString());
                                 if (!playerInvites.contains(snplayer)) {
                                     playerInvites.add(snplayer);
                                 }
@@ -442,7 +453,8 @@ public class HunterManager extends HumanManager {
 
     public boolean join(SuperNPlayer snplayer) {
         if (playerInvites.contains(snplayer)) {
-            SuperNManager.sendMessage(snplayer, "歡迎加入女巫獵人(WitchHunter)協會!");
+            SuperNManager.sendMessage(snplayer,
+                    Language.WITCHHUNTER_INVIT_SUCCESS.toString());
             SuperNManager.convert(snplayer, "witchhunter",
                     SNConfigHandler.hunterPowerStart);
             return true;
@@ -475,8 +487,8 @@ public class HunterManager extends HumanManager {
         }
 
         hunterMap.put(snplayer, nextType);
-        SuperNManager.sendMessage(snplayer, "改變箭矢的類型為: " + ChatColor.WHITE
-                + nextType);
+        SuperNManager.sendMessage(snplayer, Language.WITCHHUNTER_ARROW_CHANGE
+                .toString().replace(LanguageTag.TYPE.toString(), nextType));
         return true;
     }
 
@@ -520,7 +532,8 @@ public class HunterManager extends HumanManager {
                 return false;
             }
             if (!arrowType.equalsIgnoreCase("normal")) {
-                SuperNManager.sendMessage(snplayer, "你無法在禁止戰鬥的地方使用特殊箭矢.");
+                SuperNManager.sendMessage(snplayer,
+                        Language.NOT_ALLOW_NONPVP.toString());
             }
             return false;
         }
@@ -529,7 +542,7 @@ public class HunterManager extends HumanManager {
             player.getWorld().dropItem(player.getLocation(),
                     new ItemStack(Material.ARROW, 1));
             SuperNManager.sendMessage(snplayer,
-                    "你仍然在等待強力射擊(Power Shot)的冷卻時間回復中.");
+                    Language.WITCHHUNTER_POWERARROW_COOLDOWN.toString());
             return true;
         }
 
@@ -542,22 +555,25 @@ public class HunterManager extends HumanManager {
             if (snplayer.getPower() > SNConfigHandler.hunterPowerArrowFire) {
                 SuperNManager.alterPower(snplayer,
                         -SNConfigHandler.hunterPowerArrowFire,
-                        "火焰箭矢(Fire Arrow)!");
+                        Language.WITCHHUNTER_FIREARROW_NOTICE_SELF.toString());
                 arrowMap.put(arrow, arrowType);
                 arrow.setFireTicks(SNConfigHandler.hunterFireArrowFireTicks);
                 return false;
             } else {
                 SuperNManager.sendMessage(snplayer,
-                        "沒有足夠的能量射出火焰箭矢(Fire Arrow)!");
-                SuperNManager.sendMessage(snplayer, "切換為一般箭矢.");
+                        Language.NO_POWER.toString());
+                SuperNManager.sendMessage(snplayer,
+                        Language.WITCHHUNTER_ARROW_SWITCH_NORMAL.toString());
                 hunterMap.put(snplayer, "normal");
                 return false;
             }
         } else if (arrowType.equalsIgnoreCase("triple")) {
             if (snplayer.getPower() > SNConfigHandler.hunterPowerArrowTriple) {
-                SuperNManager.alterPower(snplayer,
-                        -SNConfigHandler.hunterPowerArrowTriple,
-                        "三重箭矢(Triple Arrow)!");
+                SuperNManager
+                        .alterPower(snplayer,
+                                -SNConfigHandler.hunterPowerArrowTriple,
+                                Language.WITCHHUNTER_TRIPLEARROW_NOTICE_SELF
+                                        .toString());
                 arrowMap.put(arrow, arrowType);
                 SupernaturalsPlugin.instance
                         .getServer()
@@ -572,8 +588,9 @@ public class HunterManager extends HumanManager {
                 return false;
             } else {
                 SuperNManager.sendMessage(snplayer,
-                        "沒有足夠的能量射出三重箭矢(Triple Arrow)!");
-                SuperNManager.sendMessage(snplayer, "切換為一般箭矢.");
+                        Language.NO_POWER.toString());
+                SuperNManager.sendMessage(snplayer,
+                        Language.WITCHHUNTER_ARROW_SWITCH_NORMAL.toString());
                 hunterMap.put(snplayer, "normal");
                 return false;
             }
@@ -581,7 +598,7 @@ public class HunterManager extends HumanManager {
             if (snplayer.getPower() > SNConfigHandler.hunterPowerArrowPower) {
                 SuperNManager.alterPower(snplayer,
                         -SNConfigHandler.hunterPowerArrowPower,
-                        "能量箭矢(Power Arrow)!");
+                        Language.WITCHHUNTER_POWERARROW_NOTICE_SELF.toString());
                 arrowMap.put(arrow, arrowType);
                 drainedPlayers.add(player);
                 SupernaturalsPlugin.instance
@@ -593,8 +610,11 @@ public class HunterManager extends HumanManager {
                                     public void run() {
                                         drainedPlayers.remove(player);
                                         if (player.isOnline()) {
-                                            SuperNManager.sendMessage(snplayer,
-                                                    "你可以再次射擊!");
+                                            SuperNManager
+                                                    .sendMessage(
+                                                            snplayer,
+                                                            Language.WITCHHUNTER_POWERARROW_READY
+                                                                    .toString());
                                         }
                                         SupernaturalsPlugin.log(snplayer
                                                 .getName()
@@ -604,8 +624,9 @@ public class HunterManager extends HumanManager {
                 return false;
             } else {
                 SuperNManager.sendMessage(snplayer,
-                        "沒有足夠的能量射出能量箭矢(Power Arrow)!");
-                SuperNManager.sendMessage(snplayer, "切換為一般箭矢.");
+                        Language.NO_POWER.toString());
+                SuperNManager.sendMessage(snplayer,
+                        Language.WITCHHUNTER_ARROW_SWITCH_NORMAL.toString());
                 hunterMap.put(snplayer, "normal");
                 return false;
             }
@@ -613,13 +634,15 @@ public class HunterManager extends HumanManager {
             if (snplayer.getPower() > SNConfigHandler.hunterPowerArrowGrapple) {
                 SuperNManager.alterPower(snplayer,
                         -SNConfigHandler.hunterPowerArrowGrapple,
-                        "鉤子箭矢(Grapple Arrow)!");
+                        Language.WITCHHUNTER_GRAPPLEARROW_NOTICE_SELF
+                                .toString());
                 arrowMap.put(arrow, arrowType);
                 return false;
             } else {
                 SuperNManager.sendMessage(snplayer,
-                        "沒有足夠的能量射出鉤子箭矢(Grapple Arrow)!");
-                SuperNManager.sendMessage(snplayer, "切換為一般箭矢.");
+                        Language.NO_POWER.toString());
+                SuperNManager.sendMessage(snplayer,
+                        Language.WITCHHUNTER_ARROW_SWITCH_NORMAL.toString());
                 hunterMap.put(snplayer, "normal");
                 return false;
             }
@@ -651,20 +674,20 @@ public class HunterManager extends HumanManager {
     /*
      * Grappling broke. Will be fixed at a later time. public boolean
      * isGrappling(Player player) { return grapplingPlayers.contains(player); }
-     * 
+     *
      * public void startGrappling(Player player, Location targetLocation) { if
      * (isGrappling(player)) { return; } ArrowUtil gh = new ArrowUtil(player,
      * targetLocation); grapplingPlayers.add(player);
      * SupernaturalsPlugin.instance
      * .getServer().getScheduler().scheduleSyncDelayedTask
      * (SupernaturalsPlugin.instance, gh); }
-     * 
+     *
      * public void stopGrappling(final Player player) { if (isGrappling(player))
      * { Vector v = new Vector(0, 0, 0); player.setVelocity(v);
      * SupernaturalsPlugin
      * .instance.getServer().getScheduler().scheduleSyncDelayedTask
      * (SupernaturalsPlugin.instance, new Runnable() {
-     * 
+     *
      * @Override public void run() { grapplingPlayers.remove(player); } }, 20 *
      * 2); } }
      */

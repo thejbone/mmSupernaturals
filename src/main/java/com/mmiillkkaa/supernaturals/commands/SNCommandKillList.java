@@ -1,20 +1,20 @@
 /*
  * Supernatural Players Plugin for Bukkit
  * Copyright (C) 2011  Matt Walker <mmw167@gmail.com>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 
 package com.mmiillkkaa.supernaturals.commands;
@@ -30,6 +30,7 @@ import com.mmiillkkaa.supernaturals.SupernaturalsPlugin;
 import com.mmiillkkaa.supernaturals.io.SNConfigHandler;
 import com.mmiillkkaa.supernaturals.manager.HunterManager;
 import com.mmiillkkaa.supernaturals.manager.SuperNManager;
+import com.mmiillkkaa.supernaturals.util.Language;
 
 public class SNCommandKillList extends SNCommand {
 
@@ -38,61 +39,34 @@ public class SNCommandKillList extends SNCommand {
         optionalParameters = new ArrayList<String>();
         senderMustBePlayer = true;
         permissions = "supernatural.command.killlist";
-        helpNameAndParams = "convert [玩家名稱] [超自然生物類型]";
-        helpDescription = "立刻將一個玩家轉換為超自然生物.";
+        helpNameAndParams = "convert [playername] [supernaturalType]";
+        helpDescription = "Instantly turn a player into a supernatural.";
     }
 
     @Override
     public void perform() {
 
-        if (!SNConfigHandler.spanish) {
-            Player senderPlayer = (Player) sender;
-            SuperNPlayer snSender = SuperNManager.get(senderPlayer);
-            if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
-                if (!SNConfigHandler.spanish) {
-                    this.sendMessage("你沒有權限使用這個指令.");
-                } else {
-                    this.sendMessage("No tienes permiso para este comando.");
-                }
-                return;
-            }
-
-            if (!snSender.isHunter()) {
-                this.sendMessage("你並不是女巫獵人!");
-            }
-
-            ArrayList<SuperNPlayer> bountyList = HunterManager.getBountyList();
-
-            // Create Messages
-            List<String> messages = new ArrayList<String>();
-            messages.add("*** " + ChatColor.WHITE + "目前的女巫獵人目標 "
-                    + ChatColor.RED + "***");
-            for (SuperNPlayer snplayer : bountyList) {
-                messages.add(ChatColor.WHITE + snplayer.getName());
-            }
-
-            // Send them
-            this.sendMessage(messages);
-        } else {
-            Player senderPlayer = (Player) sender;
-            if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
-                this.sendMessage("No tienes permiso para este comando.");
-                return;
-            }
-
-            ArrayList<SuperNPlayer> bountyList = HunterManager.getBountyList();
-
-            // Create Messages
-            List<String> messages = new ArrayList<String>();
-            messages.add("*** " + ChatColor.WHITE
-                    + "Objetivos para Cazadores de Brujas: " + ChatColor.RED
-                    + "***");
-            for (SuperNPlayer snplayer : bountyList) {
-                messages.add(ChatColor.WHITE + snplayer.getName());
-            }
-
-            // Send them
-            this.sendMessage(messages);
+        Player senderPlayer = (Player) sender;
+        SuperNPlayer snSender = SuperNManager.get(senderPlayer);
+        if (!SupernaturalsPlugin.hasPermissions(senderPlayer, permissions)) {
+            this.sendMessage(Language.NO_PREMISSION.toString());
+            return;
         }
+
+        if (!snSender.isHunter()) {
+            this.sendMessage(Language.NOT_WITCHHUNTER.toString());
+        }
+
+        ArrayList<SuperNPlayer> bountyList = HunterManager.getBountyList();
+
+        // Create Messages
+        List<String> messages = new ArrayList<String>();
+        messages.add(String.format("*** %s ***", Language.NOT_WITCHHUNTER));
+        for (SuperNPlayer snplayer : bountyList) {
+            messages.add(ChatColor.WHITE + snplayer.getName());
+        }
+
+        // Send them
+        this.sendMessage(messages);
     }
 }

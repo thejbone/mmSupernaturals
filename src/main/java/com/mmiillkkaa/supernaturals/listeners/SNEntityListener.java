@@ -1,20 +1,20 @@
 /*
  * Supernatural Players Plugin for Bukkit
  * Copyright (C) 2011  Matt Walker <mmw167@gmail.com>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 
 package com.mmiillkkaa.supernaturals.listeners;
@@ -39,6 +39,7 @@ import com.mmiillkkaa.supernaturals.io.SNConfigHandler;
 import com.mmiillkkaa.supernaturals.manager.SuperNManager;
 import com.mmiillkkaa.supernaturals.util.Armor;
 import com.mmiillkkaa.supernaturals.util.EntityUtil;
+import com.mmiillkkaa.supernaturals.util.Language;
 
 public class SNEntityListener implements Listener {
 
@@ -162,7 +163,7 @@ public class SNEntityListener implements Listener {
                     gPlayer.setHealth(health);
                     SuperNManager.alterPower(ghoul,
                             -SNConfigHandler.ghoulPowerBond,
-                            "邪惡纏繞(Unholy Bond)!");
+                            Language.GHOUL_BOND_TRIGGER.toString());
                 }
             }
 
@@ -171,7 +172,7 @@ public class SNEntityListener implements Listener {
                         (int) Math.round(damage));
                 if (pVictim.getHealth() - damageAfterArmor <= 0) {
                     SuperNManager.sendMessage(snvictim,
-                            "施展守護天使(Guardian Angel)!");
+                            Language.PRIEST_GUARDANGEL_TRIGGER.toString());
                     plugin.getDataHandler().removeAngel(snvictim);
                     pVictim.setHealth(20);
                     event.setDamage(0);

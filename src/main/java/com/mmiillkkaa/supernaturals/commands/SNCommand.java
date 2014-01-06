@@ -1,20 +1,20 @@
 /*
  * Supernatural Players Plugin for Bukkit
  * Copyright (C) 2011  Matt Walker <mmw167@gmail.com>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 
 package com.mmiillkkaa.supernaturals.commands;
@@ -27,6 +27,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.mmiillkkaa.supernaturals.io.SNConfigHandler;
+import com.mmiillkkaa.supernaturals.util.Language;
 
 public class SNCommand {
     public List<String> requiredParameters;
@@ -45,8 +46,8 @@ public class SNCommand {
         permissions = "";
         senderMustBePlayer = false;
         senderMustBeSupernatural = false;
-        helpNameAndParams = "失敗!";
-        helpDescription = "沒有簡介";
+        helpNameAndParams = "fail!";
+        helpDescription = "no description";
     }
 
     public String getName() {
@@ -66,11 +67,7 @@ public class SNCommand {
         this.parameters = parameters;
 
         if (!validateCall()) {
-            if (!SNConfigHandler.spanish) {
-                sendMessage("請輸入 /sn help");
-            } else {
-                sendMessage("Escribe /sn help");
-            }
+            sendMessage(Language.TRY_HELP.toString());
             return;
         }
 
@@ -95,28 +92,20 @@ public class SNCommand {
     public boolean validateCall() {
 
         if (senderMustBePlayer && !(sender instanceof Player)) {
-            if (!SNConfigHandler.spanish) {
-                sendMessage("這個指令只能被遊戲內的玩家使用.");
-            } else {
-                sendMessage("Solo puedes usar este comando si estas dentro del juego.");
-            }
+            sendMessage(Language.ONLY_IN_GAME.toString());
             return false;
         }
 
         if (parameters.size() < requiredParameters.size()) {
             int missing = requiredParameters.size() - parameters.size();
-            if (SNConfigHandler.spanish) {
-                sendMessage("Par�metros incorrectos. Debes ingresar " + missing
-                        + " more.");
-            } else {
-                sendMessage("參數不足. 你必須輸入 " + missing + " 個以上.");
-            }
+            sendMessage(Language.MISSING_PARAMETERS.toString().replace(
+                    "<AMOUNT>", Integer.toString(missing)));
             return false;
         }
 
         if (parameters.size() > requiredParameters.size()
                 + optionalParameters.size()) {
-            sendMessage("太多參數.");
+            sendMessage(Language.TOO_MAY_PARAMETERS.toString());
             return false;
         }
 

@@ -1,20 +1,20 @@
 /*
  * Supernatural Players Plugin for Bukkit
  * Copyright (C) 2011  Matt Walker <mmw167@gmail.com>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 
 package com.mmiillkkaa.supernaturals.listeners;
@@ -46,6 +46,7 @@ import com.mmiillkkaa.supernaturals.io.SNConfigHandler;
 import com.mmiillkkaa.supernaturals.manager.SuperNManager;
 import com.mmiillkkaa.supernaturals.manager.WereManager;
 import com.mmiillkkaa.supernaturals.util.EntityUtil;
+import com.mmiillkkaa.supernaturals.util.Language;
 
 public class SNEntityMonitor implements Listener {
 
@@ -160,7 +161,8 @@ public class SNEntityMonitor implements Listener {
                 SuperNPlayer snplayer = SuperNManager.get(pDamager);
                 if (snplayer.isAngel()) {
                     SuperNManager.alterPower(snplayer,
-                            SNConfigHandler.angelKillMonsterPowerGain, "擊殺怪物");
+                            SNConfigHandler.angelKillMonsterPowerGain,
+                            Language.KILL_MONSTER.toString());
                 }
             }
         }
@@ -204,9 +206,10 @@ public class SNEntityMonitor implements Listener {
                 SuperNPlayer snDamager = SuperNManager.get(pDamager);
                 if (snplayer.isHunter()) {
                     if (snDamager.equals(snplayer)) {
-                        SuperNManager.sendMessage(snplayer, "你把自己殺死了!");
                         SuperNManager.sendMessage(snplayer,
-                                "這個動作, 不論你是否存心的, 都讓你失去了女巫獵人的身份.");
+                                Language.KILL_SELF.toString());
+                        SuperNManager.sendMessage(snplayer,
+                                Language.WITCHHUNTER_KILL_SELF.toString());
                         SuperNManager.cure(snplayer);
                     }
                 } else if (snDamager.isHuman()) {
