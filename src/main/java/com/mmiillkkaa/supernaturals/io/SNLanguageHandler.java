@@ -2,6 +2,7 @@ package com.mmiillkkaa.supernaturals.io;
 
 import java.io.File;
 import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.logging.Level;
 
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -52,9 +53,11 @@ public class SNLanguageHandler {
     public static void saveConfig() {
         try {
             //. backup first
-            File backupFile = new File(configFile.getAbsolutePath() + ".bak");
-            Files.copy(configFile.toPath(), backupFile.toPath());
-            //. write the new config 
+            if (Files.exists(configFile.toPath())) {
+                File backupFile = new File(configFile.getAbsolutePath() + ".bak");
+                Files.copy(configFile.toPath(), backupFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            }
+            //. write the new config
             config.save(configFile);
         } catch (Exception e) {
             SupernaturalsPlugin.log(Level.WARNING,
