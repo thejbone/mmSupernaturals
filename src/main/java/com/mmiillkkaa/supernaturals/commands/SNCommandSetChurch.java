@@ -69,6 +69,6 @@ public class SNCommandSetChurch extends SNCommand {
 
         SNConfigHandler.saveConfig();
 
-        this.sendMessage(Language.CHRUSH_SET.toString());
+        this.sendMessage(Language.SET_CHRUSH.toString());
     }
 }

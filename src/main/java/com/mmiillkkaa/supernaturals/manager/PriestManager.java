@@ -384,7 +384,7 @@ public class PriestManager extends HumanManager {
         SuperNPlayer snvictim = SuperNManager.get(victim);
         if (!SupernaturalsPlugin.instance.getPvP(victim)) {
             SuperNManager.sendMessage(snplayer,
-                    Language.NOT_ALLOW_NONPVP.toString());
+                    Language.NOT_ALLOW_PVP.toString());
             return false;
         }
         if (snplayer.getPower() > SNConfigHandler.priestPowerBanish) {
@@ -465,7 +465,7 @@ public class PriestManager extends HumanManager {
         SuperNPlayer snvictim = SuperNManager.get(victim);
         if (!SupernaturalsPlugin.instance.getPvP(victim)) {
             SuperNManager.sendMessage(snplayer,
-                    Language.NOT_ALLOW_NONPVP.toString());
+                    Language.NOT_ALLOW_PVP.toString());
             return false;
         }
         if (snplayer.getPower() > SNConfigHandler.priestPowerExorcise) {
@@ -558,7 +558,7 @@ public class PriestManager extends HumanManager {
         SuperNPlayer snvictim = SuperNManager.get(victim);
         if (!SupernaturalsPlugin.instance.getPvP(victim)) {
             SuperNManager.sendMessage(snplayer,
-                    Language.NOT_ALLOW_NONPVP.toString());
+                    Language.NOT_ALLOW_PVP.toString());
             return false;
         }
         if (snplayer.getPower() > SNConfigHandler.priestPowerDrain) {

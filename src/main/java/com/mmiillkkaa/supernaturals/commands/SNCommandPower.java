@@ -103,7 +103,7 @@ public class SNCommandPower extends SNCommand {
                 if (powerGain >= 10000D) {
                     powerGain = 9999;
                 }
-                this.sendMessage(Language.PLAYER_POWER_UP.toString());
+                this.sendMessage(Language.POWER_UP.toString());
                 SuperNPlayer snplayer = SuperNManager.get(player);
                 SuperNManager.alterPower(snplayer, powerGain,
                         Language.ADMIN_BOOST.toString());

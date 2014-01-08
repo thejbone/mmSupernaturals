@@ -58,7 +58,7 @@ public class SNCommandReset extends SNCommand {
                 SuperNPlayer snplayer = SuperNManager.get(player);
                 SuperNManager.alterPower(snplayer, -10000,
                         Language.BY_ADMIN.toString());
-                this.sendMessage(Language.PLAYER_POWER_RESET.toString()
+                this.sendMessage(Language.POWER_RESET.toString()
                         .replace(LanguageTag.PLAYER.toString(),
                                 snplayer.getName()));
             }
@@ -86,7 +86,7 @@ public class SNCommandReset extends SNCommand {
             SuperNPlayer snplayer = SuperNManager.get(player);
             SuperNManager.alterPower(snplayer, -10000,
                     Language.BY_ADMIN.toString());
-            this.sendMessage(Language.PLAYER_POWER_RESET.toString().replace(
+            this.sendMessage(Language.POWER_RESET.toString().replace(
                     LanguageTag.PLAYER.toString(), snplayer.getName()));
 
         }

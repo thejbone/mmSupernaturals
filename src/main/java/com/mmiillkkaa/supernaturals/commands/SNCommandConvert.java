@@ -70,20 +70,20 @@ public class SNCommandConvert extends SNCommand {
 
                 SuperNPlayer snplayer = SuperNManager.get(player);
                 if (snplayer.getType().equalsIgnoreCase(superType)) {
-                    this.sendMessage(Language.IS_ALREADY_A_TYPE
+                    this.sendMessage(Language.TYPE_ALREADY
                             .toString()
                             .replace(LanguageTag.PLAYER.toString(),
                                     player.getName())
                             .replace(LanguageTag.TYPE.toString(), superType));
                 } else if (snplayer.getOldType().equalsIgnoreCase(superType)) {
-                    this.sendMessage(Language.TURNED_BACK_INTO_A_TYPE
+                    this.sendMessage(Language.TYPE_TURN_BACK
                             .toString()
                             .replace(LanguageTag.PLAYER.toString(),
                                     player.getName())
                             .replace(LanguageTag.TYPE.toString(), superType));
                     SuperNManager.revert(snplayer);
                 } else {
-                    this.sendMessage(Language.TURNED_INTO_A_TYPE
+                    this.sendMessage(Language.TYPE_TURN
                             .toString()
                             .replace(LanguageTag.PLAYER.toString(),
                                     player.getName())
@@ -109,20 +109,20 @@ public class SNCommandConvert extends SNCommand {
 
             SuperNPlayer snplayer = SuperNManager.get(senderPlayer);
             if (snplayer.getType().equalsIgnoreCase(superType)) {
-                this.sendMessage(Language.IS_ALREADY_A_TYPE
+                this.sendMessage(Language.TYPE_ALREADY
                         .toString()
                         .replace(LanguageTag.PLAYER.toString(),
                                 senderPlayer.getName())
                         .replace(LanguageTag.TYPE.toString(), superType));
             } else if (snplayer.getOldType().equalsIgnoreCase(superType)) {
-                this.sendMessage(Language.TURNED_BACK_INTO_A_TYPE
+                this.sendMessage(Language.TYPE_TURN_BACK
                         .toString()
                         .replace(LanguageTag.PLAYER.toString(),
                                 senderPlayer.getName())
                         .replace(LanguageTag.TYPE.toString(), superType));
                 SuperNManager.revert(snplayer);
             } else {
-                this.sendMessage(Language.TURNED_INTO_A_TYPE
+                this.sendMessage(Language.TYPE_TURN
                         .toString()
                         .replace(LanguageTag.PLAYER.toString(),
                                 senderPlayer.getName())
@@ -152,20 +152,20 @@ public class SNCommandConvert extends SNCommand {
 
             SuperNPlayer snplayer = SuperNManager.get(player);
             if (snplayer.getType().equalsIgnoreCase(superType)) {
-                this.sendMessage(Language.IS_ALREADY_A_TYPE
+                this.sendMessage(Language.TYPE_ALREADY
                         .toString()
                         .replace(LanguageTag.PLAYER.toString(),
                                 player.getName())
                         .replace(LanguageTag.TYPE.toString(), superType));
             } else if (snplayer.getOldType().equalsIgnoreCase(superType)) {
-                this.sendMessage(Language.TURNED_BACK_INTO_A_TYPE
+                this.sendMessage(Language.TYPE_TURN_BACK
                         .toString()
                         .replace(LanguageTag.PLAYER.toString(),
                                 player.getName())
                         .replace(LanguageTag.TYPE.toString(), superType));
                 SuperNManager.revert(snplayer);
             } else {
-                this.sendMessage(Language.TURNED_INTO_A_TYPE
+                this.sendMessage(Language.TYPE_TURN
                         .toString()
                         .replace(LanguageTag.PLAYER.toString(),
                                 player.getName())

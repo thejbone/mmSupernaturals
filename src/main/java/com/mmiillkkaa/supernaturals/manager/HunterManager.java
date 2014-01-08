@@ -533,7 +533,7 @@ public class HunterManager extends HumanManager {
             }
             if (!arrowType.equalsIgnoreCase("normal")) {
                 SuperNManager.sendMessage(snplayer,
-                        Language.NOT_ALLOW_NONPVP.toString());
+                        Language.NOT_ALLOW_PVP.toString());
             }
             return false;
         }

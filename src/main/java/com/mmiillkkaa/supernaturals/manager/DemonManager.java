@@ -376,7 +376,7 @@ public class DemonManager extends ClassManager {
         SuperNPlayer snplayer = SuperNManager.get(player);
         if (!SupernaturalsPlugin.instance.getPvP(player)) {
             SuperNManager.sendMessage(snplayer,
-                    Language.NOT_ALLOW_NONPVP.toString());
+                    Language.NOT_ALLOW_PVP.toString());
             return false;
         }
         if (snplayer.getPower() < SNConfigHandler.demonPowerFireball) {

@@ -71,6 +71,6 @@ public class SNCommandSetBanish extends SNCommand {
 
         SNConfigHandler.saveConfig();
 
-        this.sendMessage(Language.BANISH_SET.toString());
+        this.sendMessage(Language.SET_BANISH.toString());
     }
 }

@@ -55,13 +55,13 @@ public class SNCommandRmTarget extends SNCommand {
                 }
 
                 if (HunterManager.removeBounty(snplayer)) {
-                    this.sendMessage(Language.PLAYER_REMOVE_FROM_TARGET_LIST
+                    this.sendMessage(Language.TARGET_REMOVE_NOTICE_SELF
                             .toString().replace(LanguageTag.PLAYER.toString(),
                                     snplayer.getName()));
                     HunterManager.addBounty();
                     return;
                 } else {
-                    this.sendMessage(Language.PLAYER_NOT_A_ACTIVE_TARGET
+                    this.sendMessage(Language.TARGET_NOT_ACTIVE_NOTICE_SELF
                             .toString().replace(LanguageTag.PLAYER.toString(),
                                     snplayer.getName()));
                     return;
@@ -78,10 +78,10 @@ public class SNCommandRmTarget extends SNCommand {
         if (parameters.isEmpty()) {
             SuperNPlayer snplayer = SuperNManager.get(senderPlayer);
             if (HunterManager.removeBounty(snplayer)) {
-                this.sendMessage(Language.NOTICE_REMOVE_FROM_TARGET_LIST
+                this.sendMessage(Language.TARGET_REMOVE_NOTICE_OTHER
                         .toString());
             } else {
-                this.sendMessage(Language.NOTICE_NOT_A_ACTIVE_TARGET.toString());
+                this.sendMessage(Language.TARGET_NOT_ACTIVE_NOTICE_OTHER.toString());
             }
         } else {
             String playername = parameters.get(0);
@@ -93,12 +93,12 @@ public class SNCommandRmTarget extends SNCommand {
             }
 
             if (HunterManager.removeBounty(snplayer)) {
-                this.sendMessage(Language.PLAYER_REMOVE_FROM_TARGET_LIST
+                this.sendMessage(Language.TARGET_REMOVE_NOTICE_SELF
                         .toString().replace(LanguageTag.PLAYER.toString(),
                                 snplayer.getName()));
                 HunterManager.addBounty();
             } else {
-                this.sendMessage(Language.PLAYER_NOT_A_ACTIVE_TARGET.toString()
+                this.sendMessage(Language.TARGET_NOT_ACTIVE_NOTICE_SELF.toString()
                         .replace(LanguageTag.PLAYER.toString(),
                                 snplayer.getName()));
             }

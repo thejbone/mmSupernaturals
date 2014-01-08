@@ -1,228 +1,228 @@
-no_premission: 你沒有權限使用這個指令.
-unknow_command: '&c未知的指令. 請輸入 /sn help'
-no_such_command: '&c未知的指令 "&f<CMD>&c". 請輸入 /sn help'
-only_in_game: 這個指令只能在遊戲內使用.
-only_in_game_command: 這個指令, sn <CMD>, 只能在遊戲內使用
-missing_parameters: 參數不足. 你必須輸入 <AMOUNT> 個以上.
-too_may_parameters: 太多參數.
-player_name: 玩家名稱
-power: 能量
-supernatural_type: 超自然生物
-sn_admin_help: '&fSupernatural 管理者指令&c'
-sn_admin_cmd_cure: 治療自己或玩家.
-sn_admin_cmd_convert: 將自己或玩家轉換為任意的超自然生物.
-sn_admin_cmd_reset: 重置自己或玩家的能量.
-sn_admin_cmd_power: 給自己或玩家能量.
-sn_admin_cmd_rmtarget: 將玩家從魔女獵人的獵殺名單移除.
-sn_admin_cmd_save: 儲存資料到硬碟.
-sn_admin_cmd_reload: 從硬碟讀取資料.
-sn_admin_cmd_restarttask: 重置技能計時器.
-sn_admin_cmd_setchrush: 將你目前的位置設定為牧師的教堂.
-sn_admin_cmd_setbanish: 將你目前的位置設定為牧師的放逐點.
-try_help: 請輸入 /sn help
-supernatural_class: '&fSupernatural 種族/職業&c'
-sn_human_name: 人類
-sn_preiest_name: 牧師
-sn_vampire_name: 吸血鬼
-sn_ghoul_name: 食屍鬼
-sn_werewolf_name: 狼人
-sn_witchhunter_name: 女巫獵人
-sn_demon_name: 惡魔
-sn_angel_name: 天使
-sn_human_desc: 不起眼的平凡人類.
-sn_priest_desc: 擁有不凡力量來對抗邪惡生物的人類.
-sn_vampire_desc: 它們並不會冒出火花!
-sn_ghoul_desc: 行動遲緩並且非常不容易死亡.
-sn_werewolf_desc: 在夜晚獲得強大的力量.
-sn_witchhunter_desc: 弓箭和潛行的專家.
-sn_demon_desc: 支配邪惡的生物與火焰.
-sn_angel_desc: 靈魂無法被束縛的人類.
-missing_player: 缺少玩家名稱!
-player_not_found: 沒有這個玩家!
-invalid_supernatural_type: 超自然生物類型錯誤!
-is_already_a_type: '&f<PLAYER>&c 已經是 &f<TYPE>&c!'
-turned_into_a_type: '&f<PLAYER>&c 被轉換為 &f<TYPE>&c!'
-turned_back_into_a_type: '&f<PLAYER>&c 被轉換回 &f<TYPE>&c!'
-full_cure: '&f<PLAYER>&c 已被完全治癒!'
-supernatural_help: '&fSupernatural 說明文件&c'
-sn_cmd_power: 顯示目前的能量等級.
-sn_cmd_list: 列出伺服器上的超自然生物.
-sn_cmd_classes: 顯示可用的超自然生物類型/職業.
-sn_cmd_killist: 顯示目前女巫獵人獵殺清單.
-sn_cmd_admin: 顯示管理員專用指令
-join_not_enable: 這個功能並沒有開放, 你已在體驗超自然生物的樂趣中!
-already_whitelisted: 你已在白名單內!
-not_witchhunter: 你並不是女巫獵人!
-current_witchhunter_tagests: '&f目前的女巫獵人目標&c'
-online_players: '&f線上的 Supernatural 玩家&c'
-invalid_number: 不合法的數字.
 admin_boost: 天降神力!
-power_info: '你是一個 &f<TYPE>&c 且你目前的能量等級為: &f<POWER>'
-player_power_up: '&f<PLAYER>&c 已被充能!'
-invalid_option: 不正確的選項.
-config_reload: 設定檔已重新讀取
-data_reload: 資料檔已重新讀取
-player_power_reset: '已重置玩家能量: <PLAYER>'
-by_admin: 管理員
-task_timer_restart: 技能計時器已重新啟動.
-player_not_a_active_target: '&f<PLAYER>&c 並不在目標中.'
-player_remove_from_target_list: '&f<PLAYER>&c 已從獵殺清單移除!'
-notice_not_a_active_target: 你並不在目標中.
-notice_remove_from_target_list: 你已從獵殺清單中移除!
 all_data_save: 所有的設定檔/玩家資料已儲存!
-banish_set: 已設定放逐點.
-chrush_set: 已設定教堂.
-sn_setup_greeting: 哈囉! 這個指令將會幫助你設定 mmSupernaturals!
-sn_setup_continue: 如果要繼續, 再次輸入 /sn setup.
-sn_setup_church_greeting: 首先, 我們要設定教堂.
-sn_setup_church_altar: 為了達到這個目的, 蓋一個祭壇, 並且放置一個  <MATERIAL> 祭壇中間.
-sn_setup_chursh_within_block: 在你祭壇的 <MATERIAL> 10 格內,
-sn_setup_chrush_cmd: 輸入指令 /sn setChurch 來允許玩家使用這個祭壇.
-sn_setup_chrush_usage: 玩家可以透過右鍵點擊 <MATERIAL> 來使用祭壇.
-sn_setup_hall_greeting: Okay, 接下來, 我們要設定女巫獵人的大廳.
-sn_setup_hall_sign: 在任意鐵門(Iron Door)的旁邊, 擺放一個告示排並在第2行輸入 <MSG> .
-sn_setup_finish: 設定完成! 恭喜!
-sn_admin_setup: 設定精靈讓你快速設定插件.
-no_power: 沒有足夠的能量完成這個動作!
-not_supernatural: P這個玩家不是超自然生物!
-angel_death: 岩漿去除了你的神聖力量!
-angel_limit_weapon: 天使無法使用這個武器!
-angel_limit_target: 天使無法用鑽石劍揮砍動物!
-angel_heal_notice_self: 治療 <PLAYER>
-angel_heal_notice_other: '&c<PLAYER> 治療了你'
-angel_cure_notice_self: 治癒 <PLAYER>
+already_whitelisted: 你已在白名單內!
 angel_cure_notice_other: '&c<PLAYER> 治癒了你'
+angel_cure_notice_self: 治癒 <PLAYER>
+angel_death: 岩漿去除了你的神聖力量!
+angel_heal_notice_other: '&c<PLAYER> 治療了你'
+angel_heal_notice_self: 治療 <PLAYER>
+angel_limit_target: 天使無法用鑽石劍揮砍動物!
+angel_limit_weapon: 天使無法使用這個武器!
 angel_summon_cow: 招換了牛.
-angel_summon_wolf: 招換了狼.
 angel_summon_pig: 招換了豬.
 angel_summon_too_much_wolf: '&c太多狼了, 空間不足! (招喚動作被中止!)'
+angel_summon_wolf: 招換了狼.
+angel_superjump_trigger: 超級跳躍!
 angel_superjump: 超級跳躍!
 angel_swim: 在水裡游泳
-invalid_armor_type: 你的種族/職業無法穿戴這種類型的盔甲!
-you_die: 你死了!
-kill_player: 擊殺玩家!
-kill_creature: 擊殺生物!
-no_power_gain: 你無法從沒有能量的玩家身上獲得能量.
-not_allow_nonpvp: 你無法在禁止戰鬥的地方這麼做
-daemon_love_lava: 岩漿好棒!
-daemon_limit_weapon: 惡魔無法使用武器!
-daemon_death: 你冰冷的死亡冷卻了在你身體裡肆虐的地獄火.
-daemon_fireball_notice_self: 火球術!
-daemon_convert_notice_self: 轉換了 <PLAYER>
+by_admin: 管理員
+class_join_server: ' <PLAYER> &6加入伺服器.'
+class_reset: 你的職業已被重置, 因為你企圖閃避 mmSupernaturals 白名單!
+config_reload: 設定檔已重新讀取
 daemon_convert_notice_other: '&c你被 <PLAYER> 轉換為惡魔'
 daemon_convert_notice_other_desc: '&c熱量在你的體內開始累積...'
-daemon_snare_notice_self: 牢籠!
+daemon_convert_notice_self: 轉換了 <PLAYER>
+daemon_death: 你冰冷的死亡冷卻了在你身體裡肆虐的地獄火.
+daemon_fireball_notice_self: 火球術!
+daemon_limit_weapon: 惡魔無法使用武器!
+daemon_love_lava: 岩漿好棒!
 daemon_only: 惡魔專用!
-ghoul_immune_weapon: 食屍鬼對武器免疫!
-ghoul_limit_weapon: 食屍鬼無法使用這個武器!
+daemon_snare_notice_self: 牢籠!
+data_reload: 資料檔已重新讀取
+full_cure: '&f<PLAYER>&c 已被完全治癒!'
+ghoul_bond_not_allow: 你無法在人類身上使用.
+ghoul_bond_notice_other: <PLAYER> 在你的身上施放了邪惡纏繞!
+ghoul_bond_notice_self: '你在 &f<PLAYER>&c 的身上施放了邪惡纏繞'
+ghoul_bond_remove_notice_other: 移除了邪惡纏繞!
+ghoul_bond_remove_notice_self: '&c從 &f<PLAYER>&c 的身上移除了邪惡纏繞'
+ghoul_bond_trigger: 邪惡纏繞!
 ghoul_death: 你的軀體死亡了... 你開始對生物充滿了仇恨.
 ghoul_hate_water: 食屍鬼將會在水中分解! 趕快出去!
-ghoul_bond_notice_self: '你在 &f<PLAYER>&c 的身上施放了邪惡纏繞'
-ghoul_bond_notice_other: <PLAYER> 在你的身上施放了邪惡纏繞!
-ghoul_bond_remove_notice_self: '&c從 &f<PLAYER>&c 的身上移除了邪惡纏繞'
-ghoul_bond_remove_notice_other: 移除了邪惡纏繞!
-ghoul_bond_not_allow: 你無法在人類身上使用.
+ghoul_immune_weapon: 食屍鬼對武器免疫!
+ghoul_limit_weapon: 食屍鬼無法使用這個武器!
 ghoul_summon_not_allow: 你無法在這招喚.
 ghoul_summon_notice_self: 招喚了殭屍!
+health_regen: 生命回復!
 human_to_angel: 你感到靈魂被解放
 human_to_daemon: 地獄火迅速的流過你的靜眽!
 human_to_ghoul: 你已被轉化為食屍鬼!
 human_to_werewolf: 你突變成為狼人!
-witchhunter_limit_weapon: 女巫獵人無法使用這個武器
-witchhunter_bounty_get: 獲得獎賞!
-witchhunter_bounty_add: '&f<PLAYER>&c 已被加入女巫獵人的獵殺名單!'
-witchhunter_only: 女巫獵人專用!
-witchhunter_invit_greeting: 你已被邀請加入女巫獵人協會!
-witchhunter_invit_prompt: 如果你願意加入的話, 請到女巫獵人大廳走一趟
-witchhunter_invit_success: 歡迎加入女巫獵人協會!
-witchhunter_arrow_change: '改變箭矢的類型為: &f<TYPE>'
-witchhunter_arrow_switch_normal: 切換為一般箭矢.
-witchhunter_firearrow_notice_self: 火焰箭矢!
-witchhunter_triplearrow_notice_self: 三重箭矢!
-witchhunter_powerarrow_cooldown: 你仍然在能量箭矢的冷卻時間中.
-witchhunter_powerarrow_notice_self: 能量箭矢!
-witchhunter_powerarrow_ready: 你可以再次射擊!
-witchhunter_grapplearrow_notice_self: 鉤子箭矢!
+invalid_armor_type: 你的種族/職業無法穿戴這種類型的盔甲!
+invalid_number: 不合法的數字.
+invalid_option: 不正確的選項.
+invalid_supernatural_type: 超自然生物類型錯誤!
+join_not_enable: 這個功能並沒有開放, 你已在體驗超自然生物的樂趣中!
+kill_creature: 擊殺生物!
+kill_monster: 擊殺怪物
+kill_player: 擊殺玩家!
+kill_self: 你把自己殺死了!
+missing_parameters: 參數不足. 你必須輸入 <AMOUNT> 個以上.
+missing_player: 缺少玩家名稱!
+no_power_gain: 你無法從沒有能量的玩家身上獲得能量.
+no_power: 沒有足夠的能量完成這個動作!
+no_premission: 你沒有權限使用這個指令.
+no_such_command: '&c未知的指令 "&f<CMD>&c". 請輸入 /sn help'
+not_allow_pvp: 你無法在禁止戰鬥的地方這麼做
+not_supernatural: P這個玩家不是超自然生物!
+not_witchhunter: 你並不是女巫獵人!
+online_players: '&f線上的 Supernatural 玩家&c'
+only_in_game_command: 這個指令, sn <CMD>, 只能在遊戲內使用
+only_in_game: 這個指令只能在遊戲內使用.
 only_on_player: 你無法在超自然生物上施展!
 only_on_supernatutal: 你無法在玩家身上施展!
-priest_limit_weapon: 牧師無法使用這個武器!
-priest_limit_target: 你不能傷害無辜的動物.
-priest_leave_crush: 你已被逐出教會!
+player_name: 玩家名稱
+player_not_found: 沒有這個玩家!
+power_info: '你是一個 &f<TYPE>&c 且你目前的能量等級為: &f<POWER>'
+power_reset: '已重置玩家能量: <PLAYER>'
+power_up: '&f<PLAYER>&c 已被充能!'
+power: 能量
+priest_altar_not_allow: 你無法使用牧師祭壇.
+priest_altar_power_human: 教會的祭壇散發著神聖力量.
+priest_altar_power_supernatural: 這股神聖的力量讓你哭得四分五裂!
+priest_banish_notice_other: '你已被 &f<PLAYER>&c 放逐!'
+priest_banish_notice_self: 放逐了 <PLAYER>
+priest_cure_not_hold: '&f<PLAYER>&c 沒有拿著 &f<MATERIAL>&c.'
+priest_cure_notice_other: '&f<PLAYER>&c 讓你重拾了人性'
+priest_cure_notice_self: 治癒了 <PLAYER>
 priest_donate_accept: 教會接受你盛情捐贈的麵包(Bread), 魚(Fish), 烤豬肉(Grilled Pork)和頻果(Apole).
-priest_donate_only: 教會只能接受麵包(Bread), 魚(Fish), 烤豬肉(Grilled)和蘋果(Applea)的捐獻.
-priest_donate_notice_self: 已捐贈!
-priest_donate_reward: 因為捐獻你而獲得了一些能量.
 priest_donate_confirm: '你捐贈這些物品給教會:'
 priest_donate_enought: 教會承認你神聖的靈魂並且賦予你牧師的身份.
 priest_donate_not_enoght: '教會認定你的捐獻不足. 你必須收集以下物品: '
-priest_altar_power_human: 教會的祭壇散發著神聖力量.
-priest_altar_power_supernatural: 這股神聖的力量讓你哭得四分五裂!
-priest_altar_not_allow: 你無法使用牧師祭壇.
-priest_banish_notice_self: 放逐了 <PLAYER>
-priest_banish_notice_other: '你已被 &f<PLAYER>&c 放逐!'
-priest_heal_notice_self: 治療了 <PLAYER>
-priest_heal_notice_other: '你被 &f<PLAYER>&c 治療了!'
-priest_exorise_notice_self: 淨化了 <PLAYER>
-priest_exorise_notice_other: '你被 &f<PLAYER>&c 淨化了!'
-priest_cure_notice_self: 治癒了 <PLAYER>
-priest_cure_notice_other: '&f<PLAYER>&c 讓你重拾了人性'
-priest_cure_not_hold: '&f<PLAYER>&c 沒有拿著 &f<MATERIAL>&c.'
-priest_drain_notice_self: 流失了 <PLAYER> 的能量!'
+priest_donate_notice_self: 已捐贈!
+priest_donate_only: 教會只能接受麵包(Bread), 魚(Fish), 烤豬肉(Grilled)和蘋果(Applea)的捐獻.
+priest_donate_reward: 因為捐獻你而獲得了一些能量.
 priest_drain_notice_other: 被 <PLAYER> 流失了能量
-priest_guardangel_remove_notice_self: '從 &f<PLAYER>&c 的身上移除了守護天使'
-priest_guardangel_remove_notice_other: 已移除守護天使!
-priest_guardangel_notice_self: '施展守護天使在 &f<PLAYER>&c 的身上!'
+priest_drain_notice_self: 流失了 <PLAYER> 的能量!'
+priest_exorise_notice_other: '你被 &f<PLAYER>&c 淨化了!'
+priest_exorise_notice_self: 淨化了 <PLAYER>
 priest_guardangel_notice_other: 一個守護天使出現在你的身旁!
-sn_cmd_join_not_use: '你還未使用 "/sn join" 指令!'
-sn_cmd_join_no_premission: 你沒有權限被轉換為 <TYPE>
+priest_guardangel_notice_self: '施展守護天使在 &f<PLAYER>&c 的身上!'
+priest_guardangel_remove_notice_other: 已移除守護天使!
+priest_guardangel_remove_notice_self: '從 &f<PLAYER>&c 的身上移除了守護天使'
+priest_guardangel_trigger: 守護天使已使用!
+priest_heal_notice_other: '你被 &f<PLAYER>&c 治療了!'
+priest_heal_notice_self: 治療了 <PLAYER>
+priest_leave_crush: 你已被逐出教會!
+priest_limit_target: 你不能傷害無辜的動物.
+priest_limit_weapon: 牧師無法使用這個武器!
+set_banish: 已設定放逐點.
+set_chrush: 已設定教堂.
 sn_admin_cmd_convert_notice: '你現在是一個 &f<TYPE>&c!'
+sn_admin_cmd_convert: 將自己或玩家轉換為任意的超自然生物.
 sn_admin_cmd_cure_notice: 你已重拾人性!
-sn_admin_cmd_revert_notice: '你已被還原為之前的 &f<TYPE>&c!'
+sn_admin_cmd_cure: 治療自己或玩家.
 sn_admin_cmd_power_notice: '能量: &f<AMOUNT>&c(&f<DELTA>&c) <REASON>'
-angel_superjump_trigger: 超級跳躍!
-werwwolf_dash_trigger: 衝刺!
+sn_admin_cmd_power: 給自己或玩家能量.
+sn_admin_cmd_reload: 從硬碟讀取資料.
+sn_admin_cmd_reset: 重置自己或玩家的能量.
+sn_admin_cmd_restarttask: 重置技能計時器.
+sn_admin_cmd_revert_notice: '你已被還原為之前的 &f<TYPE>&c!'
+sn_admin_cmd_rmtarget: 將玩家從魔女獵人的獵殺名單移除.
+sn_admin_cmd_save: 儲存資料到硬碟.
+sn_admin_cmd_setbanish: 將你目前的位置設定為牧師的放逐點.
+sn_admin_cmd_setchrush: 將你目前的位置設定為牧師的教堂.
+sn_admin_help: '&fSupernatural 管理者指令&c'
+sn_admin_setup: 設定精靈讓你快速設定插件.
+sn_angel_desc: 靈魂無法被束縛的人類.
+sn_angel_name: 天使
+sn_cmd_admin: 顯示管理員專用指令
+sn_cmd_classes: 顯示可用的超自然生物類型/職業.
+sn_cmd_join_no_premission: 你沒有權限被轉換為 <TYPE>
+sn_cmd_join_not_use: '你還未使用 "/sn join" 指令!'
+sn_cmd_killist: 顯示目前女巫獵人獵殺清單.
+sn_cmd_list: 列出伺服器上的超自然生物.
+sn_cmd_power: 顯示目前的能量等級.
+sn_demon_desc: 支配邪惡的生物與火焰.
+sn_demon_name: 惡魔
+sn_ghoul_desc: 行動遲緩並且非常不容易死亡.
+sn_ghoul_name: 食屍鬼
+sn_human_desc: 不起眼的平凡人類.
+sn_human_name: 人類
+sn_preiest_name: 牧師
+sn_priest_desc: 擁有不凡力量來對抗邪惡生物的人類.
+sn_setup_chrush_cmd: 輸入指令 /sn setChurch 來允許玩家使用這個祭壇.
+sn_setup_chrush_usage: 玩家可以透過右鍵點擊 <MATERIAL> 來使用祭壇.
+sn_setup_church_altar: 為了達到這個目的, 蓋一個祭壇, 並且放置一個  <MATERIAL> 祭壇中間.
+sn_setup_church_greeting: 首先, 我們要設定教堂.
+sn_setup_chursh_within_block: 在你祭壇的 <MATERIAL> 10 格內,
+sn_setup_continue: 如果要繼續, 再次輸入 /sn setup.
+sn_setup_finish: 設定完成! 恭喜!
+sn_setup_greeting: 哈囉! 這個指令將會幫助你設定 mmSupernaturals!
+sn_setup_hall_greeting: Okay, 接下來, 我們要設定女巫獵人的大廳.
+sn_setup_hall_sign: 在任意鐵門(Iron Door)的旁邊, 擺放一個告示排並在第2行輸入 <MSG> .
+sn_vampire_desc: 它們並不會冒出火花!
+sn_vampire_name: 吸血鬼
+sn_werewolf_desc: 在夜晚獲得強大的力量.
+sn_werewolf_name: 狼人
+sn_witchhunter_desc: 弓箭和潛行的專家.
+sn_witchhunter_name: 女巫獵人
+supernatural_class: '&fSupernatural 種族/職業&c'
+supernatural_help: '&fSupernatural 說明文件&c'
+supernatural_type: 超自然生物
+tagest_current: '&f目前的女巫獵人目標&c'
+target_not_active_notice_other: 你並不在獵殺清單中.
+target_not_active_notice_self: '&f<PLAYER>&c 並不在目標中.'
+target_remove_notice_other: 你已從獵殺清單中移除!
+target_remove_notice_self: '&f<PLAYER>&c 已從獵殺清單移除!'
+task_timer_restart: 技能計時器已重新啟動.
+too_many_parameters: 太多參數.
 truce_break: 你暫時打破了和怪物間的休戰契約!
 truce_restore: 你和怪物間的休戰契約又恢復了!
-health_regen: 生命回復!
-vampire_hate_water: 水!
-vampire_water_damage_notice: 沒有足夠的能量避免水的傷害!
-vampire_hate_wood: 吸血鬼的弱點是木頭!
-vampire_death: 你感到心臟停止跳動! 你被吸血鬼感染了.
-vampire_limit_weapon: 吸血鬼無法使用這個武器!
-vampire_limit_eat: 吸血鬼無法吃食物. 你必須喝血液來代替.
-vampire_teleport_notice_self: 傳送!
-vampire_teleport_set: 傳送點已儲存!
-vampire_teleport_not_set: 你尚未設定傳送點!
-vampire_altar_infect_not_enough: 你察覺到不對勁... <MATERIAL> 吸取了 <MATERIAL_SURROUND> 的能量... 但是沒有足夠的 <MATERIAL_SURROUND> 在附近.
-vampire_altar_infect_info: 這個祭壇看起來真的非常邪惡.
-vampire_altar_not_allow: 你無法使用吸血鬼祭壇.
-vampire_altar_infect_vampire: 因為你已經是個吸血鬼所以不需要使用這個.
-vampire_altar_infect_supernatural: 因為你已經是超自然生物所以不需要使用這個.
+try_help: 請輸入 /sn help
+type_already: '&f<PLAYER>&c 已經是 &f<TYPE>&c!'
+type_turn_back: '&f<PLAYER>&c 被轉換回 &f<TYPE>&c!'
+type_turn: '&f<PLAYER>&c 被轉換為 &f<TYPE>&c!'
+unknow_command: '&c未知的指令. 請輸入 /sn help'
 vampire_altar_confirm: '你在祭壇使用這些物品:'
-vampire_altar_infect_success: <MATERIAL> 吸取了 <MATERIAL_SURROUND> 的能量... 能量劇烈穿透你的身體而你開始感到寒冷...
-vampire_altar_need: '如欲使用它你必須收集這些物品:'
-vampire_altar_cure_not_enough: 你察覺到不對勁... <MATERIAL> 吸取了 <MATERIAL_SURROUND> 的能量... 但是沒有足夠的 <MATERIAL_SURROUND> 在附近.
-vampire_altar_cure_info: 這個祭壇看起來非常純潔且乾淨.
 vampire_altar_cure_fail: 雖然它能治癒詛咒, 但你感到好點了.
+vampire_altar_cure_info: 這個祭壇看起來非常純潔且乾淨.
+vampire_altar_cure_not_enough: 你察覺到不對勁... <MATERIAL> 吸取了 <MATERIAL_SURROUND> 的能量... 但是沒有足夠的 <MATERIAL_SURROUND> 在附近.
 vampire_altar_cure_success: <MATERIAL> 吸取了 <MATERIAL_SURROUND> 的能量... 能量劇烈穿透你的身體而你感到純潔且乾淨.
+vampire_altar_infect_info: 這個祭壇看起來真的非常邪惡.
+vampire_altar_infect_not_enough: 你察覺到不對勁... <MATERIAL> 吸取了 <MATERIAL_SURROUND> 的能量... 但是沒有足夠的 <MATERIAL_SURROUND> 在附近.
+vampire_altar_infect_success: <MATERIAL> 吸取了 <MATERIAL_SURROUND> 的能量... 能量劇烈穿透你的身體而你開始感到寒冷...
+vampire_altar_infect_supernatural: 因為你已經是超自然生物所以不需要使用這個.
+vampire_altar_infect_vampire: 因為你已經是個吸血鬼所以不需要使用這個.
+vampire_altar_need: '如欲使用它你必須收集這些物品:'
+vampire_altar_not_allow: 你無法使用吸血鬼祭壇.
+vampire_death: 你感到心臟停止跳動! 你被吸血鬼感染了.
 vampire_hate_sunlight: 吸血鬼會被陽光所燃燒! 快找個掩護!
+vampire_hate_water: 水!
+vampire_hate_wood: 吸血鬼的弱點是木頭!
+vampire_limit_eat: 吸血鬼無法吃食物. 你必須喝血液來代替.
+vampire_limit_weapon: 吸血鬼無法使用這個武器!
 vampire_only: 吸血鬼專用!
-werewolf_weapon_limit: 狼人無法在晚上使用武器!
-werewolf_death: 你的天性已被改變... 你感受到內心的野獸覺醒了.
+vampire_teleport_notice_self: 傳送!
+vampire_teleport_not_set: 你尚未設定傳送點!
+vampire_teleport_set: 傳送點已儲存!
+vampire_water_damage_notice: 沒有足夠的能量避免水的傷害!
 werewolf_ability_limit: 無法在白天使用這個能力.
 werewolf_cure_limit: 無法在晚上解除狼人的狀態.
+werewolf_death: 你的天性已被改變... 你感受到內心的野獸覺醒了.
 werewolf_eat_limit: 狼人無法從麵包獲得能量.
 werewolf_eat: 吃吧!
-werewolf_potion_notice_self: 你創造了了狼人治癒藥水!
 werewolf_potion_need: '如果你沒有這些材料就不能製造狼人治癒藥水(Wolfbane potion): '
+werewolf_potion_notice_self: 你創造了了狼人治癒藥水!
 werewolf_summon_not_allow: 你無法在這招喚.
-werewolf_summon_wolf: 招喚野狼!
 werewolf_summon_too_much_wolf: 你已擁有所有你可控制的狼群了.
-witchhunter_sign_not_allow: 你沒有權限製造女巫獵人的告示牌
-ghoul_bond_trigger: 邪惡纏繞!
-priest_guardangel_trigger: 守護天使已使用!
-kill_monster: 擊殺怪物
-kill_self: 你把自己殺死了!
+werewolf_summon_wolf: 招喚野狼!
+werewolf_weapon_limit: 狼人無法在晚上使用武器!
+werwwolf_dash_trigger: 衝刺!
+witchhunter_arrow_change: '改變箭矢的類型為: &f<TYPE>'
+witchhunter_arrow_switch_normal: 切換為一般箭矢.
+witchhunter_bounty_add: '&f<PLAYER>&c 已被加入女巫獵人的獵殺名單!'
+witchhunter_bounty_get: 獲得獎賞!
+witchhunter_firearrow_notice_self: 火焰箭矢!
+witchhunter_grapplearrow_notice_self: 鉤子箭矢!
+witchhunter_invit_greeting: 你已被邀請加入女巫獵人協會!
+witchhunter_invit_prompt: 如果你願意加入的話, 請到女巫獵人大廳走一趟
+witchhunter_invit_success: 歡迎加入女巫獵人協會!
 witchhunter_kill_self: 這個動作, 不論你是否故意, 都讓你失去了女巫獵人的身份.
-class_reset: 你的職業已被重置, 因為你企圖閃避 mmSupernaturals 白名單!
-class_join_server: ' <PLAYER> &6加入伺服器.'
+witchhunter_limit_weapon: 女巫獵人無法使用這個武器
+witchhunter_only: 女巫獵人專用!
+witchhunter_powerarrow_cooldown: 你仍然在能量箭矢的冷卻時間中.
+witchhunter_powerarrow_notice_self: 能量箭矢!
+witchhunter_powerarrow_ready: 你可以再次射擊!
+witchhunter_sign_not_allow: 你沒有權限製造女巫獵人的告示牌
+witchhunter_triplearrow_notice_self: 三重箭矢!
+you_die: 你死了!

@@ -105,7 +105,7 @@ public class SNCommand {
 
         if (parameters.size() > requiredParameters.size()
                 + optionalParameters.size()) {
-            sendMessage(Language.TOO_MAY_PARAMETERS.toString());
+            sendMessage(Language.TOO_MANY_PARAMETERS.toString());
             return false;
         }
 
