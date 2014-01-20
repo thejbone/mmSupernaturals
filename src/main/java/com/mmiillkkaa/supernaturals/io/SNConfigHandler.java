@@ -40,6 +40,7 @@ public class SNConfigHandler {
 
     // Config variables
     public static Configuration config;
+    public static String language;
     public static boolean convertNode;
     public static boolean vampireKillSpreadCurse;
     public static boolean ghoulKillSpreadCurse;
@@ -305,6 +306,7 @@ public class SNConfigHandler {
             saveConfig();
         }
 
+        language = config.getString("Language");
         convertNode = config.getBoolean("UseConvertPermissionNode");
         multiworld = config.getBoolean("MultiWorld", false);
         enableColors = config.getBoolean("EnableChatColors", true);
