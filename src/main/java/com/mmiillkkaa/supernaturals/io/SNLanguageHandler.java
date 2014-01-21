@@ -19,13 +19,16 @@ public class SNLanguageHandler {
     public static String configName;
     public static String configDir;
     public static File configFile;
+    public static String language;
+    public static String defaultLanguage;
     public static ArrayList<String> languageFiles;
 
     public SNLanguageHandler(SupernaturalsPlugin instance) {
         SNLanguageHandler.plugin = instance;
         SNLanguageHandler.configDir = "language";
+        SNLanguageHandler.defaultLanguage = "en";
         SNLanguageHandler.languageFiles = new ArrayList<String>(Arrays.asList(
-                "en", "zh_TW"));
+                defaultLanguage, "zh_TW"));
     }
 
     public static void getConfiguration() {
@@ -38,10 +41,11 @@ public class SNLanguageHandler {
             SupernaturalsPlugin.log(Level.WARNING, String.format(
                     "Can't create the directory for language files!!", e));
         }
+
+        // init & check language files
         for (String lang : languageFiles) {
-            File file = new File(String.format("%s/%s/%s.yml", plugin
-                    .getDataFolder().getAbsolutePath(), configDir, lang));
-            if (lang != "en") {
+            File file = getLanguageFile(lang);
+            if (lang != defaultLanguage) {
                 try {
                     if (!file.exists()) {
                         plugin.saveResource(
@@ -50,29 +54,57 @@ public class SNLanguageHandler {
                     }
                 } catch (Exception e) {
                     SupernaturalsPlugin.log(Level.WARNING, String.format(
-                            "Can not create the language file: %s.yml!!", e,
-                            lang));
+                            "Can not create the language file: %s.yml - %s!!",
+                            lang, e));
                 }
             }
-            loadValues(file);
+            config = loadValues(file);
+            saveConfig(config, file);
         }
 
-        // load specify language
-        // TODO: Don't backup the language again.
-        File file = new File(String.format("%s/%s/%s.yml", plugin
-                .getDataFolder().getAbsolutePath(), configDir,
-                SNConfigHandler.language));
-        loadValues(file);
-        SupernaturalsPlugin.log(Level.WARNING, String.format(
-                "Use language file: %s.yml", SNConfigHandler.language));
+        // load config language
+        language = SNConfigHandler.language;
+        SupernaturalsPlugin.log(Level.INFO,
+                String.format("Use language file: %s.yml", language));
+        File file = getLanguageFile(SNConfigHandler.language);
+        if (file.exists()) {
+            config = loadValues(file);
+        } else {
+            // load from util.Language
+            SupernaturalsPlugin.log(Level.INFO, String.format(
+                    "Fail to loading Language file: %s.yml, use default!",
+                    language));
+            config = loadValues();
+        }
     }
 
-    public static void loadValues(File file) {
+    public static File getLanguageFile(String lang) {
+        File file = new File(String.format("%s/%s/%s.yml", plugin
+                .getDataFolder().getAbsolutePath(), configDir, lang));
+        return file;
+    }
+
+    public static YamlConfiguration loadValues(File file) {
         config = YamlConfiguration.loadConfiguration(file);
         for (Language l : Language.values()) {
             config.set(l.getPath(), config.getString(l.getPath(), l.getDef()));
         }
-        saveConfig(config, file);
+        return config;
+    }
+
+    public static YamlConfiguration loadValues(YamlConfiguration config) {
+        for (Language l : Language.values()) {
+            config.set(l.getPath(), config.getString(l.getPath(), l.getDef()));
+        }
+        return config;
+    }
+
+    public static YamlConfiguration loadValues() {
+        config = new YamlConfiguration();
+        for (Language l : Language.values()) {
+            config.set(l.getPath(), config.getString(l.getPath(), l.getDef()));
+        }
+        return config;
     }
 
     public static void saveConfig(YamlConfiguration config, File file) {
@@ -90,10 +122,10 @@ public class SNLanguageHandler {
         }
     }
 
-    // TODO: Rewrite this method.
-    // public static void reloadConfig() {
-    // loadValues(config);
-    // }
+    public static void reloadConfig() {
+        File file = getLanguageFile(language);
+        config = loadValues(file);
+    }
 
     public static YamlConfiguration getConfig() {
         return config;
