@@ -35,6 +35,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import com.mmiillkkaa.supernaturals.SuperNPlayer;
 import com.mmiillkkaa.supernaturals.SupernaturalsPlugin;
 import com.mmiillkkaa.supernaturals.io.SNConfigHandler;
+import org.bukkit.projectiles.ProjectileSource;
 
 public class HumanManager extends ClassManager {
 
@@ -70,7 +71,7 @@ public class HumanManager extends ClassManager {
 		}
 
 		SuperNPlayer snplayer = SuperNManager.get(player);
-		LivingEntity lDamager = null;
+		ProjectileSource lDamager = null;
 		EntityDamageEvent e = player.getLastDamageCause();
 
 		if(snplayer == null) {

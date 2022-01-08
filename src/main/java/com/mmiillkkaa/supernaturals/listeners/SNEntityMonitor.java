@@ -47,6 +47,7 @@ import com.mmiillkkaa.supernaturals.io.SNConfigHandler;
 import com.mmiillkkaa.supernaturals.manager.SuperNManager;
 import com.mmiillkkaa.supernaturals.manager.WereManager;
 import com.mmiillkkaa.supernaturals.util.EntityUtil;
+import org.bukkit.projectiles.ProjectileSource;
 
 public class SNEntityMonitor implements Listener {
 
@@ -134,7 +135,7 @@ public class SNEntityMonitor implements Listener {
 		Entity entity = event.getEntity();
 
 		Player pDamager = null;
-		LivingEntity lDamager = null;
+		ProjectileSource lDamager = null;
 		Event e = entity.getLastDamageCause();
 		if (e instanceof EntityDamageByEntityEvent) {
 			if (((EntityDamageByEntityEvent) e).getDamager() instanceof LivingEntity) {

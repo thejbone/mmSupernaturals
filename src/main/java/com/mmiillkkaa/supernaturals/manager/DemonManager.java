@@ -141,14 +141,12 @@ public class DemonManager extends ClassManager {
 			return;
 		}
 		if (e.getCause().equals(DamageCause.DROWNING)) {
-			int pLocX = player.getLocation().getBlockX();
-			int pLocY = player.getLocation().getBlockZ();
-			Biome pBiome = player.getWorld().getBiome(pLocX, pLocY);
+			Biome pBiome = player.getLocation().getBlock().getBiome();
 			if (snplayer.isDemon()) {
 				if (pBiome == Biome.TAIGA || pBiome == Biome.FROZEN_OCEAN
 						|| pBiome == Biome.FROZEN_RIVER
 						|| pBiome == Biome.ICE_MOUNTAINS
-						|| pBiome == Biome.ICE_PLAINS) {
+						|| pBiome == Biome.ICE_FLATS) {
 					if (player.getInventory().contains(Material.SNOW_BALL,
 							SNConfigHandler.demonSnowballAmount)) {
 						SuperNManager
@@ -239,7 +237,7 @@ public class DemonManager extends ClassManager {
 
 			if (helmet != null) {
 				if (!SNConfigHandler.demonArmor.contains(helmet.getType())
-						&& !helmet.getType().equals(Material.WOOL)) {
+						&& !helmet.getType().toString().endsWith("WOOL")) {
 					inv.setHelmet(null);
 					dropItem(player, helmet);
 				}
@@ -447,7 +445,7 @@ public class DemonManager extends ClassManager {
 				for (int z = loc.getBlockZ() - 1; z < loc.getBlockZ() + 2; z++) {
 					Location newLoc = new Location(block.getWorld(), x, y, z);
 					Block newBlock = newLoc.getBlock();
-					if (newBlock.getTypeId() == 0) {
+					if (newBlock.getType().isTransparent()) {
 						newBlock.setType(Material.WEB);
 						webMap.put(newBlock, loc);
 					}
@@ -520,16 +518,14 @@ public class DemonManager extends ClassManager {
 				newLoc = new Location(loc.getWorld(), loc.getBlockX(),
 						loc.getBlockY() - 1, loc.getBlockZ());
 				newBlock = newLoc.getBlock();
-				block.setTypeIdAndData(71, (byte) (block.getData() + 4), false);
-				newBlock.setTypeIdAndData(71, (byte) (newBlock.getData() + 4),
-						false);
+				block.setType(Material.IRON_DOOR, false);
+				newBlock.setType(Material.IRON_DOOR,false);
 			} else {
 				newLoc = new Location(loc.getWorld(), loc.getBlockX(),
 						loc.getBlockY() + 1, loc.getBlockZ());
 				newBlock = newLoc.getBlock();
-				block.setTypeIdAndData(71, (byte) (block.getData() + 4), false);
-				newBlock.setTypeIdAndData(71, (byte) (newBlock.getData() + 4),
-						false);
+				block.setType(Material.IRON_DOOR, false);
+				newBlock.setType(Material.IRON_DOOR,false);
 			}
 
 			addDoorLocation(loc);
@@ -565,16 +561,14 @@ public class DemonManager extends ClassManager {
 			newLoc = new Location(loc.getWorld(), loc.getBlockX(),
 					loc.getBlockY() - 1, loc.getBlockZ());
 			newBlock = newLoc.getBlock();
-			block.setTypeIdAndData(71, (byte) (block.getData() - 4), false);
-			newBlock.setTypeIdAndData(71, (byte) (newBlock.getData() - 4),
-					false);
+			block.setType(block.getType(), false);
+			newBlock.setType(block.getType(),false);
 		} else {
 			newLoc = new Location(loc.getWorld(), loc.getBlockX(),
 					loc.getBlockY() + 1, loc.getBlockZ());
 			newBlock = newLoc.getBlock();
-			block.setTypeIdAndData(71, (byte) (block.getData() - 4), false);
-			newBlock.setTypeIdAndData(71, (byte) (newBlock.getData() - 4),
-					false);
+			block.setType(block.getType(), false);
+			newBlock.setType(block.getType(),false);
 		}
 
 		removeDoorLocation(loc);

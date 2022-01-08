@@ -20,11 +20,7 @@
 package com.mmiillkkaa.supernaturals.io;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 import org.bukkit.Location;
@@ -245,7 +241,7 @@ public class SNConfigHandler {
 	private static List<String> angelArmorString = new ArrayList<String>();
 
 	public static Map<Material, Double> materialOpacity = new HashMap<Material, Double>();
-	public static HashSet<Byte> transparent = new HashSet<Byte>();
+	public static Set<Material> transparent = new HashSet<Material>();
 
 	public static Recipes vampireAltarInfectRecipe = new Recipes();
 	public static Recipes vampireAltarCureRecipe = new Recipes();
@@ -253,35 +249,8 @@ public class SNConfigHandler {
 	public static Recipes wereWolfbaneRecipe = new Recipes();
 
 	static {
-		materialOpacity.put(Material.AIR, 0D);
-		materialOpacity.put(Material.SAPLING, 0.3D);
-		materialOpacity.put(Material.LEAVES, 0.3D);
-		materialOpacity.put(Material.GLASS, 0.5D);
-		materialOpacity.put(Material.YELLOW_FLOWER, 0.1D);
-		materialOpacity.put(Material.RED_ROSE, 0.1D);
-		materialOpacity.put(Material.BROWN_MUSHROOM, 0.1D);
-		materialOpacity.put(Material.RED_MUSHROOM, 0.1D);
-		materialOpacity.put(Material.TORCH, 0.1D);
-		materialOpacity.put(Material.FIRE, 0D);
-		materialOpacity.put(Material.MOB_SPAWNER, 0.3D);
-		materialOpacity.put(Material.REDSTONE_WIRE, 0D);
-		materialOpacity.put(Material.CROPS, 0.2D);
-		materialOpacity.put(Material.SIGN, 0.1D);
-		materialOpacity.put(Material.SIGN_POST, 0.2D);
-		materialOpacity.put(Material.LEVER, 0.1D);
-		materialOpacity.put(Material.STONE_PLATE, 0D);
-		materialOpacity.put(Material.WOOD_PLATE, 0D);
-		materialOpacity.put(Material.REDSTONE_TORCH_OFF, 0.1D);
-		materialOpacity.put(Material.REDSTONE_TORCH_ON, 0.1D);
-		materialOpacity.put(Material.STONE_BUTTON, 0D);
-		materialOpacity.put(Material.SUGAR_CANE_BLOCK, 0.3D);
-		materialOpacity.put(Material.FENCE, 0.2D);
-		materialOpacity.put(Material.DIODE_BLOCK_OFF, 0D);
-		materialOpacity.put(Material.DIODE_BLOCK_ON, 0D);
-
-		transparent.add((byte) Material.WATER.getId());
-		transparent.add((byte) Material.STATIONARY_WATER.getId());
-		transparent.add((byte) Material.AIR.getId());
+		transparent.add(Material.WATER);
+		transparent.add(Material.AIR);
 	}
 
 	public SNConfigHandler(SupernaturalsPlugin instance) {

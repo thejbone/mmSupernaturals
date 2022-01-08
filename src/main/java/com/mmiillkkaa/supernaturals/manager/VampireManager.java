@@ -198,7 +198,7 @@ public class VampireManager extends ClassManager {
 
 		if (!(action.equals(Action.RIGHT_CLICK_AIR) || action
 				.equals(Action.RIGHT_CLICK_BLOCK))) {
-			if (itemMaterial.equals(Material.CAKE_BLOCK)) {
+			if (itemMaterial.equals(Material.CAKE)) {
 				event.setCancelled(true);
 				SuperNManager
 						.sendMessage(snplayer,
@@ -239,7 +239,7 @@ public class VampireManager extends ClassManager {
 
 			if (helmet != null) {
 				if (!SNConfigHandler.vampireArmor.contains(helmet.getType())
-						&& !helmet.getType().equals(Material.WOOL)) {
+						&& !helmet.getType().toString().endsWith("WOOL")) {
 					inv.setHelmet(null);
 					dropItem(player, helmet);
 				}
@@ -503,7 +503,6 @@ public class VampireManager extends ClassManager {
         return !(player.getWorld().getEnvironment().equals(Environment.NETHER)
                 || SuperNManager.worldTimeIsNight(player)
                 || isUnderRoof(player)
-                || material.equals(Material.STATIONARY_WATER)
                 || material.equals(Material.WATER) || playerWorld.hasStorm()
                 || hasHelmet(player));
     }
@@ -532,23 +531,11 @@ public class VampireManager extends ClassManager {
 		} else {
 			// blockCurrent = blockCurrent.getFace(BlockFace.UP, 1); //What was
 			// the point?
-
-			double opacityAccumulator = 0;
-			Double opacity;
-
 			while (blockCurrent.getY() + 1 <= 255) {
 				blockCurrent = blockCurrent.getRelative(BlockFace.UP);
 
-				opacity = SNConfigHandler.materialOpacity.get(blockCurrent
-						.getType());
-				if (opacity == null) {
+				if (blockCurrent.getType().isSolid()) {
 					retVal = true; // Blocks not in that map have opacity 1;
-					break;
-				}
-
-				opacityAccumulator += opacity;
-				if (opacityAccumulator >= 1.0D) {
-					retVal = true;
 					break;
 				}
 			}
@@ -586,16 +573,14 @@ public class VampireManager extends ClassManager {
 				newLoc = new Location(loc.getWorld(), loc.getBlockX(),
 						loc.getBlockY() - 1, loc.getBlockZ());
 				newBlock = newLoc.getBlock();
-				block.setTypeIdAndData(71, (byte) (block.getData() + 4), false);
-				newBlock.setTypeIdAndData(71, (byte) (newBlock.getData() + 4),
-						false);
+				block.setType(Material.IRON_DOOR, false);
+				newBlock.setType(Material.IRON_DOOR,false);
 			} else {
 				newLoc = new Location(loc.getWorld(), loc.getBlockX(),
 						loc.getBlockY() + 1, loc.getBlockZ());
 				newBlock = newLoc.getBlock();
-				block.setTypeIdAndData(71, (byte) (block.getData() + 4), false);
-				newBlock.setTypeIdAndData(71, (byte) (newBlock.getData() + 4),
-						false);
+				block.setType(Material.IRON_DOOR, false);
+				newBlock.setType(Material.IRON_DOOR,false);
 			}
 
 			addDoorLocation(loc);
@@ -631,16 +616,14 @@ public class VampireManager extends ClassManager {
 			newLoc = new Location(loc.getWorld(), loc.getBlockX(),
 					loc.getBlockY() - 1, loc.getBlockZ());
 			newBlock = newLoc.getBlock();
-			block.setTypeIdAndData(71, (byte) (block.getData() - 4), false);
-			newBlock.setTypeIdAndData(71, (byte) (newBlock.getData() - 4),
-					false);
+			block.setType(Material.IRON_DOOR, false);
+			newBlock.setType(Material.IRON_DOOR,false);
 		} else {
 			newLoc = new Location(loc.getWorld(), loc.getBlockX(),
 					loc.getBlockY() + 1, loc.getBlockZ());
 			newBlock = newLoc.getBlock();
-			block.setTypeIdAndData(71, (byte) (block.getData() - 4), false);
-			newBlock.setTypeIdAndData(71, (byte) (newBlock.getData() - 4),
-					false);
+			block.setType(Material.IRON_DOOR, false);
+			newBlock.setType(Material.IRON_DOOR,false);
 		}
 
 		removeDoorLocation(loc);
