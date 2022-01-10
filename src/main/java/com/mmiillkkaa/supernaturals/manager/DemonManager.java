@@ -108,7 +108,7 @@ public class DemonManager extends ClassManager {
 		Player pDamager = (Player) damager;
 		Entity victim = event.getEntity();
 		SuperNPlayer snDamager = SuperNManager.get(pDamager);
-		ItemStack item = pDamager.getItemInHand();
+		ItemStack item = pDamager.getInventory().getItemInMainHand();
 
 		if (item != null)
 			if (SNConfigHandler.demonWeapons.contains(item.getType())) {
@@ -189,11 +189,11 @@ public class DemonManager extends ClassManager {
 		Action action = event.getAction();
 		Player player = event.getPlayer();
 
-		Material itemMaterial = player.getItemInHand().getType();
+		Material itemMaterial = player.getInventory().getItemInMainHand().getType();
 
 		boolean cancelled = false;
 
-		if (player.getItemInHand() == null) {
+		if (player.getInventory().getItemInMainHand() == null) {
 			return false;
 		}
 
@@ -353,11 +353,11 @@ public class DemonManager extends ClassManager {
 	@Override
 	public void spellEvent(EntityDamageByEntityEvent event, Player target) {
 		Player player = (Player) event.getDamager();
-		Material itemMaterial = player.getItemInHand().getType();
+		Material itemMaterial = player.getInventory().getItemInMainHand().getType();
 
 		boolean cancelled = false;
 
-		if (player.getItemInHand() == null) {
+		if (player.getInventory().getItemInMainHand() == null) {
 			return;
 		}
 
@@ -392,11 +392,11 @@ public class DemonManager extends ClassManager {
 		fireball.setYield(0);
 		SuperNManager.alterPower(SuperNManager.get(player),
 				-SNConfigHandler.demonPowerFireball, "Fireball!");
-		ItemStack item = player.getItemInHand();
+		ItemStack item = player.getInventory().getItemInMainHand();
 		if (item.getAmount() == 1) {
 			player.setItemInHand(null);
 		} else {
-			item.setAmount(player.getItemInHand().getAmount() - 1);
+			item.setAmount(player.getInventory().getItemInMainHand().getAmount() - 1);
 		}
 		return true;
 	}
@@ -408,7 +408,7 @@ public class DemonManager extends ClassManager {
 			SuperNManager.sendMessage(snplayer, "Not enough power to convert!");
 			return false;
 		}
-		if (target.getItemInHand().getType().equals(Material.NETHERRACK)) {
+		if (target.getInventory().getItemInMainHand().getType().equals(Material.NETHERRACK)) {
 			SuperNManager.alterPower(snplayer,
 					-SNConfigHandler.demonConvertPower,
 					"Converted " + target.getName());
@@ -473,11 +473,11 @@ public class DemonManager extends ClassManager {
 							}
 						}, SNConfigHandler.demonSnareDuration / 50);
 
-		ItemStack item = player.getItemInHand();
+		ItemStack item = player.getInventory().getItemInMainHand();
 		if (item.getAmount() == 1) {
 			player.setItemInHand(null);
 		} else {
-			item.setAmount(player.getItemInHand().getAmount() - 1);
+			item.setAmount(player.getInventory().getItemInMainHand().getAmount() - 1);
 		}
 
 		SuperNManager.alterPower(SuperNManager.get(player),

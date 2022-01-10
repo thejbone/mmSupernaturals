@@ -51,14 +51,14 @@ public class AngelManager extends ClassManager {
 		Player player = (Player) event.getDamager();
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		if (event.getEntity() instanceof Animals) {
-			if (player.getItemInHand().getType().equals(Material.DIAMOND_SWORD)) {
+			if (player.getInventory().getItemInMainHand().getType().equals(Material.DIAMOND_SWORD)) {
 				SuperNManager.sendMessage(snplayer,
 						"Angels cannot use diamond swords on animals!");
 				event.setCancelled(true);
 				return 0;
 			}
 		}
-		if (SNConfigHandler.angelWeapons.contains(player.getItemInHand())) {
+		if (SNConfigHandler.angelWeapons.contains(player.getInventory().getItemInMainHand())) {
 			SuperNManager.sendMessage(snplayer,
 					"Angels cannot use this weapon!");
 			event.setCancelled(true);
@@ -72,7 +72,7 @@ public class AngelManager extends ClassManager {
 		Player player = (Player) event.getDamager();
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		SuperNPlayer sntarget = SuperNManager.get(target);
-		if (player.getItemInHand().getType().toString()
+		if (player.getInventory().getItemInMainHand().getType().toString()
 				.equals(SNConfigHandler.angelHealMaterial)) {
 			if (snplayer.getPower() > SNConfigHandler.angelHealPowerCost) {
 				if (!(target.getHealth() + SNConfigHandler.angelHealHealthGain > target
@@ -92,7 +92,7 @@ public class AngelManager extends ClassManager {
 						.sendMessage(snplayer, "Not enough power to heal!");
 			}
 		}
-		if (player.getItemInHand().getType().toString()
+		if (player.getInventory().getItemInMainHand().getType().toString()
 				.equals(SNConfigHandler.angelCureMaterial)) {
 			if (snplayer.getPower() > SNConfigHandler.angelCurePowerCost) {
 				if (sntarget.isSuper()) {
@@ -116,7 +116,7 @@ public class AngelManager extends ClassManager {
 	public boolean playerInteract(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
 		Action action = event.getAction();
-		Material itemInHandMaterial = player.getItemInHand().getType();
+		Material itemInHandMaterial = player.getInventory().getItemInMainHand().getType();
 		SuperNPlayer snplayer = SuperNManager.get(player);
 		if (action.equals(Action.LEFT_CLICK_AIR)
 				|| action.equals(Action.LEFT_CLICK_BLOCK)) {

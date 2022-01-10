@@ -67,7 +67,7 @@ public class WereManager extends ClassManager {
 		Entity damager = event.getDamager();
 		Player pDamager = (Player) damager;
 		SuperNPlayer snDamager = SuperNManager.get(pDamager);
-		ItemStack item = pDamager.getItemInHand();
+		ItemStack item = pDamager.getInventory().getItemInMainHand();
 
 		if (SuperNManager.worldTimeIsNight(pDamager)) {
 			if (item != null) {
@@ -141,7 +141,7 @@ public class WereManager extends ClassManager {
 
 		if (action.equals(Action.LEFT_CLICK_AIR)
 				|| action.equals(Action.LEFT_CLICK_BLOCK)) {
-			if (player.getItemInHand() == null) {
+			if (player.getInventory().getItemInMainHand() == null) {
 				return false;
 			}
 
@@ -309,7 +309,7 @@ public class WereManager extends ClassManager {
 
 	public boolean summon(Player player) {
 		SuperNPlayer snplayer = SuperNManager.get(player);
-		ItemStack item = player.getItemInHand();
+		ItemStack item = player.getInventory().getItemInMainHand();
 		if (!SupernaturalsPlugin.instance.getSpawn(player)) {
 			SuperNManager.sendMessage(snplayer, "You cannot summon here.");
 			return false;
@@ -335,7 +335,7 @@ public class WereManager extends ClassManager {
 					if (item.getAmount() == 1) {
 						player.setItemInHand(null);
 					} else {
-						item.setAmount(player.getItemInHand().getAmount() - 1);
+						item.setAmount(player.getInventory().getItemInMainHand().getAmount() - 1);
 					}
 					return true;
 				} else {

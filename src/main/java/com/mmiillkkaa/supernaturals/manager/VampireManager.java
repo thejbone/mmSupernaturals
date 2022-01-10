@@ -83,7 +83,7 @@ public class VampireManager extends ClassManager {
 				return damage;
 			} else if (damager instanceof Player) {
 				Player pDamager = (Player) damager;
-				ItemStack item = pDamager.getItemInHand();
+				ItemStack item = pDamager.getInventory().getItemInMainHand();
 
 				if (item != null) {
 					if (SNConfigHandler.woodMaterials.contains(item.getType())) {
@@ -150,7 +150,7 @@ public class VampireManager extends ClassManager {
 		Player pDamager = (Player) damager;
 		SuperNPlayer snDamager = SuperNManager.get(pDamager);
 
-		ItemStack item = pDamager.getItemInHand();
+		ItemStack item = pDamager.getInventory().getItemInMainHand();
 
 		if (item != null) {
 			if (SNConfigHandler.vampireWeapons.contains(item.getType())) {
@@ -178,7 +178,7 @@ public class VampireManager extends ClassManager {
 
 		if (action.equals(Action.LEFT_CLICK_AIR)
 				|| action.equals(Action.LEFT_CLICK_BLOCK)) {
-			if (player.getItemInHand() == null) {
+			if (player.getInventory().getItemInMainHand() == null) {
 				return false;
 			}
 
@@ -289,7 +289,7 @@ public class VampireManager extends ClassManager {
 
 	public boolean teleport(Player player) {
 		SuperNPlayer snplayer = SuperNManager.get(player);
-		ItemStack item = player.getItemInHand();
+		ItemStack item = player.getInventory().getItemInMainHand();
 		if (SupernaturalsPlugin.instance.getDataHandler().checkPlayer(snplayer)) {
 			if (snplayer.getPower() > SNConfigHandler.vampireTeleportCost) {
 				SuperNManager.alterPower(snplayer,
@@ -299,7 +299,7 @@ public class VampireManager extends ClassManager {
 				if (item.getAmount() == 1) {
 					player.setItemInHand(null);
 				} else {
-					item.setAmount(player.getItemInHand().getAmount() - 1);
+					item.setAmount(player.getInventory().getItemInMainHand().getAmount() - 1);
 				}
 				return true;
 			} else {

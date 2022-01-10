@@ -172,7 +172,7 @@ public class SNPlayerListener implements Listener {
 				|| event.getReason().contains("Flying")) {
 			SuperNPlayer snplayer = SuperNManager.get(event.getPlayer());
 			if (snplayer.isVampire()
-					&& event.getPlayer().getItemInHand().getType().toString().equalsIgnoreCase(SNConfigHandler.vampireJumpMaterial)) {
+					&& event.getPlayer().getInventory().getItemInMainHand().getType().toString().equalsIgnoreCase(SNConfigHandler.vampireJumpMaterial)) {
 				event.setCancelled(true);
 			}
 		}

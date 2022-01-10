@@ -110,7 +110,7 @@ public class HunterManager extends HumanManager {
 		} else {
 			Player pDamager = (Player) event.getDamager();
 			SuperNPlayer snDamager = SuperNManager.get(pDamager);
-			ItemStack item = pDamager.getItemInHand();
+			ItemStack item = pDamager.getInventory().getItemInMainHand();
 
 			// Check Weapons and Modify Damage
 			if (item != null) {
@@ -177,11 +177,11 @@ public class HunterManager extends HumanManager {
 
 		if (action.equals(Action.LEFT_CLICK_AIR)
 				|| action.equals(Action.LEFT_CLICK_BLOCK)) {
-			if (player.getItemInHand() == null) {
+			if (player.getInventory().getItemInMainHand() == null) {
 				return false;
 			}
 
-			if (player.getItemInHand().getType().equals(Material.BOW)) {
+			if (player.getInventory().getItemInMainHand().getType().equals(Material.BOW)) {
 				changeArrowType(snplayer);
 				return true;
 			}

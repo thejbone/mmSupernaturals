@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.logging.Level;
 
 
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.Yaml;
@@ -63,6 +64,7 @@ public class SNPlayerHandler {
 	}
 
 	public static void save(List<SuperNPlayer> supernaturals, File file) {
+		ConfigurationSerializable safeData =
 		Representer representer = new Representer();
 		representer.addClassTag(SuperNPlayer.class, new Tag("player"));
 

@@ -64,7 +64,7 @@ public class PriestManager extends HumanManager {
 		Entity victim = event.getEntity();
 
 		SuperNPlayer snDamager = SuperNManager.get(pDamager);
-		ItemStack item = pDamager.getItemInHand();
+		ItemStack item = pDamager.getInventory().getItemInMainHand();
 
 		if (item != null) {
 			if (SNConfigHandler.priestWeapons.contains(item.getType())) {
@@ -198,7 +198,7 @@ public class PriestManager extends HumanManager {
 				if (Math.abs(locY - SNConfigHandler.priestChurchLocationY) <= 10) {
 					if (Math.abs(locZ - SNConfigHandler.priestChurchLocationZ) <= 10) {
 						if (snplayer.isPriest()) {
-							if (player.getItemInHand().getType()
+							if (player.getInventory().getItemInMainHand().getType()
 									.equals(Material.COAL)) {
 								SuperNManager.sendMessage(snplayer,
 										"The Church excommunicates you!");
@@ -330,11 +330,11 @@ public class PriestManager extends HumanManager {
 	public void spellEvent(EntityDamageByEntityEvent event, Player target) {
 		Player player = (Player) event.getDamager();
 		SuperNPlayer snplayer = SuperNManager.get(player);
-		Material itemMaterial = player.getItemInHand().getType();
+		Material itemMaterial = player.getInventory().getItemInMainHand().getType();
 
 		boolean cancelled = false;
 
-		if (player.getItemInHand() == null) {
+		if (player.getInventory().getItemInMainHand() == null) {
 			return;
 		}
 
@@ -391,11 +391,11 @@ public class PriestManager extends HumanManager {
 						+ ChatColor.WHITE + snplayer.getName() + ChatColor.RED
 						+ "!");
 				victim.teleport(SNConfigHandler.priestBanishLocation);
-				ItemStack item = player.getItemInHand();
+				ItemStack item = player.getInventory().getItemInMainHand();
 				if (item.getAmount() == 1) {
 					player.setItemInHand(null);
 				} else {
-					item.setAmount(player.getItemInHand().getAmount() - 1);
+					item.setAmount(player.getInventory().getItemInMainHand().getAmount() - 1);
 				}
 				return true;
 			}
@@ -427,11 +427,11 @@ public class PriestManager extends HumanManager {
 					health = victim.getMaxHealth();
 				}
 				victim.setHealth(health);
-				ItemStack item = player.getItemInHand();
+				ItemStack item = player.getInventory().getItemInMainHand();
 				if (item.getAmount() == 1) {
 					player.setItemInHand(null);
 				} else {
-					item.setAmount(player.getItemInHand().getAmount() - 1);
+					item.setAmount(player.getInventory().getItemInMainHand().getAmount() - 1);
 				}
 				return true;
 			} else {
@@ -461,11 +461,11 @@ public class PriestManager extends HumanManager {
 						+ ChatColor.WHITE + snplayer.getName() + ChatColor.RED
 						+ "!");
 				SuperNManager.cure(snvictim);
-				ItemStack item = player.getItemInHand();
+				ItemStack item = player.getInventory().getItemInMainHand();
 				if (item.getAmount() == 1) {
 					player.setItemInHand(null);
 				} else {
-					item.setAmount(player.getItemInHand().getAmount() - 1);
+					item.setAmount(player.getInventory().getItemInMainHand().getAmount() - 1);
 				}
 				return true;
 			} else {
@@ -485,7 +485,7 @@ public class PriestManager extends HumanManager {
 		SuperNPlayer snvictim = SuperNManager.get(victim);
 		if (snplayer.getPower() > SNConfigHandler.priestPowerCure) {
 			if (snvictim.isSuper()) {
-				if (victim.getItemInHand().getType().equals(material)) {
+				if (victim.getInventory().getItemInMainHand().getType().equals(material)) {
 					SuperNManager.alterPower(snplayer,
 							-SNConfigHandler.priestPowerCure,
 							"Cured " + victim.getName());
@@ -493,17 +493,17 @@ public class PriestManager extends HumanManager {
 							+ snplayer.getName() + ChatColor.RED
 							+ " has restored your humanity");
 					SuperNManager.cure(snvictim);
-					ItemStack item = player.getItemInHand();
-					ItemStack item2 = victim.getItemInHand();
+					ItemStack item = player.getInventory().getItemInMainHand();
+					ItemStack item2 = victim.getInventory().getItemInMainHand();
 					if (item.getAmount() == 1) {
 						player.setItemInHand(null);
 					} else {
-						item.setAmount(player.getItemInHand().getAmount() - 1);
+						item.setAmount(player.getInventory().getItemInMainHand().getAmount() - 1);
 					}
 					if (item2.getAmount() == 1) {
 						victim.setItemInHand(null);
 					} else {
-						item2.setAmount(victim.getItemInHand().getAmount() - 1);
+						item2.setAmount(victim.getInventory().getItemInMainHand().getAmount() - 1);
 					}
 					return true;
 				} else {
@@ -542,11 +542,11 @@ public class PriestManager extends HumanManager {
 								+ snvictim.getName() + "'s power!");
 				SuperNManager.alterPower(snvictim, -power, "Drained by "
 						+ snplayer.getName());
-				ItemStack item = player.getItemInHand();
+				ItemStack item = player.getInventory().getItemInMainHand();
 				if (item.getAmount() == 1) {
 					player.setItemInHand(null);
 				} else {
-					item.setAmount(player.getItemInHand().getAmount() - 1);
+					item.setAmount(player.getInventory().getItemInMainHand().getAmount() - 1);
 				}
 				return true;
 			} else {
@@ -592,11 +592,11 @@ public class PriestManager extends HumanManager {
 				SupernaturalsPlugin.instance.getDataHandler().addAngel(priest,
 						snvictim);
 
-				ItemStack item = player.getItemInHand();
+				ItemStack item = player.getInventory().getItemInMainHand();
 				if (item.getAmount() == 1) {
 					player.setItemInHand(null);
 				} else {
-					item.setAmount(player.getItemInHand().getAmount() - 1);
+					item.setAmount(player.getInventory().getItemInMainHand().getAmount() - 1);
 				}
 				return true;
 			}

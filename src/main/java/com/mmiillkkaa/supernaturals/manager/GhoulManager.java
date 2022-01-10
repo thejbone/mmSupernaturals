@@ -67,7 +67,7 @@ public class GhoulManager extends ClassManager {
 				SuperNPlayer snDamager = SuperNManager.get(pDamager);
 				Player victim = (Player) event.getEntity();
 				SuperNPlayer snVictim = SuperNManager.get(victim);
-				ItemStack item = pDamager.getItemInHand();
+				ItemStack item = pDamager.getInventory().getItemInMainHand();
 
 				if (item != null) {
 					if (SNConfigHandler.ghoulWeaponImmunity.contains(item
@@ -91,7 +91,7 @@ public class GhoulManager extends ClassManager {
 		Entity damager = event.getDamager();
 		Player pDamager = (Player) damager;
 		SuperNPlayer snDamager = SuperNManager.get(pDamager);
-		ItemStack item = pDamager.getItemInHand();
+		ItemStack item = pDamager.getInventory().getItemInMainHand();
 
 		if (item != null) {
 			if (SNConfigHandler.ghoulWeapons.contains(item.getType())) {
@@ -252,9 +252,9 @@ public class GhoulManager extends ClassManager {
 		Player player = (Player) event.getDamager();
 		SuperNPlayer snplayer = SuperNManager.get(player);
 
-		Material itemMaterial = player.getItemInHand().getType();
+		Material itemMaterial = player.getInventory().getItemInMainHand().getType();
 
-		if (player.getItemInHand() == null) {
+		if (player.getInventory().getItemInMainHand() == null) {
 			return;
 		}
 
@@ -325,11 +325,11 @@ public class GhoulManager extends ClassManager {
 							+ ghoul.getName() + "!");
 			bonds.put(ghoul, snvictim);
 
-			ItemStack item = player.getItemInHand();
+			ItemStack item = player.getInventory().getItemInMainHand();
 			if (item.getAmount() == 1) {
-				player.setItemInHand(null);
+				player.getInventory().setItemInMainHand(null);
 			} else {
-				item.setAmount(player.getItemInHand().getAmount() - 1);
+				item.setAmount(player.getInventory().getItemInMainHand().getAmount() - 1);
 			}
 			return true;
 		}
@@ -388,7 +388,7 @@ public class GhoulManager extends ClassManager {
 
 	public boolean summon(Player player) {
 		SuperNPlayer snplayer = SuperNManager.get(player);
-		ItemStack item = player.getItemInHand();
+		ItemStack item = player.getInventory().getItemInMainHand();
 		if (!SupernaturalsPlugin.instance.getSpawn(player)) {
 			SuperNManager.sendMessage(snplayer, "You cannot summon here.");
 			return false;
@@ -402,7 +402,7 @@ public class GhoulManager extends ClassManager {
 			if (item.getAmount() == 1) {
 				player.setItemInHand(null);
 			} else {
-				item.setAmount(player.getItemInHand().getAmount() - 1);
+				item.setAmount(player.getInventory().getItemInMainHand().getAmount() - 1);
 			}
 			return true;
 		} else {
